@@ -12,4 +12,5 @@ Survey App Project for Grupa.io. The repository contains both client and server 
 - Start the application with `npm run dev`
 - Run Test with `npm test` command
 - [view the api documentation](https://documenter.getpostman.com/view/171959/T1LQfkNf?version=latest)
+- Hosted url [https://ek-surveyservice.herokuapp.com](https://ek-surveyservice.herokuapp.com/)
 - Postman collection link : https://www.getpostman.com/collections/55e554d3d6b453069261

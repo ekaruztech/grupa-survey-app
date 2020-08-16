@@ -1,0 +1,7 @@
+# Remove .idea from Webstorm
+.idea
+.git
+survey-webservice/node_modules
+survey-webservice/.git
+survey-webservice/.idea
+survey-webservice/.env
