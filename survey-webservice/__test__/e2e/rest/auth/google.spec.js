@@ -1,4 +1,3 @@
-import Auth from '../../../../src/v1/api/auth/auth.model';
 // Require the dev-dependencies
 import chai from 'chai';
 import request from 'request-promise';
@@ -6,7 +5,6 @@ import supertest from 'supertest';
 import app from '../../../app';
 import { after, before, describe } from 'mocha';
 import { SOCIAL_AUTH_URL, TEST_API_KEY } from '../../routes';
-import { getUserObject } from '../../../_seeds/user.seed';
 import { BAD_REQUEST, FORBIDDEN, OK } from '../../../../src/utils/constants';
 import { EmptyAuthCollections } from '../../../util';
 
@@ -20,7 +18,6 @@ describe('Setup For Google Sign in Code Test', () => {
 	before(async () => {
 		server = supertest(await app);
 		await EmptyAuthCollections();
-		const auth = await (new Auth(getUserObject()).save());
 	});
 	after(async () => {
 		await EmptyAuthCollections();
@@ -28,7 +25,7 @@ describe('Setup For Google Sign in Code Test', () => {
 	/*
 	 * Test main login /auth/login route
 	 */
-	describe('Google social authentication /POST main/socialAuth/google', () => {
+	describe('Google social authentication /POST socialAuth/google', () => {
 		it('Should test social login with incorrect payload', async () => {
 			const response = await server.post(loginSocialGoogleUrl)
 				.send({})

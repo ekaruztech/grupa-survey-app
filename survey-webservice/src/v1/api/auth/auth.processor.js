@@ -188,7 +188,7 @@ const AuthProcessor = {
 	 */
 	async resetUserPassword(auth, object) {
 		auth.password = object.password;
-		const updateObj = { reset_code_expiration: '', password_reset_code: '', password: object.password };
+		const updateObj = { resetCodeExpiration: '', passwordResetCode: '', password: object.password };
 		_.extend(auth, updateObj);
 		return auth.save();
 	}

@@ -40,7 +40,7 @@ describe('Setup For Update Password Test', () => {
 			response.body.meta.should.have.property('error');
 			response.body.meta.error.should.be.instanceOf(Object);
 		});
-		it('Should try update password of a main with invalid update hash gotten from update password link', async () => {
+		it('Should try update password of a user with invalid update hash gotten from update password link', async () => {
 			const response = await server.post(RESET_PASSWORD_URL)
 				.send({
 					email: getUserObject().email,
@@ -56,7 +56,7 @@ describe('Setup For Update Password Test', () => {
 			response.body.meta.should.have.property('error');
 			response.body.meta.error.should.be.instanceOf(Object);
 		});
-		it('Should update main with valid update password request payload', async () => {
+		it('Should update user with valid update password request payload', async () => {
 			const response = await server.post(RESET_PASSWORD_URL)
 				.send({
 					email: getUserObject().email,

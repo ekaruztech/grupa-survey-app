@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5b8aaa4c-5012-4152-b4a0-b3b6bac0670c" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/survey-webservice/__test__/e2e/rest/auth/facebook.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/survey-webservice/__test__/e2e/rest/auth/facebook.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/survey-webservice/__test__/e2e/rest/auth/google.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/survey-webservice/__test__/e2e/rest/auth/google.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/survey-webservice/__test__/e2e/rest/auth/reset-password.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/survey-webservice/__test__/e2e/rest/auth/reset-password.spec.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/survey-webservice/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/survey-webservice/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/survey-webservice/src/v1/api/user/user.processor.js" beforeDir="false" afterPath="$PROJECT_DIR$/survey-webservice/src/v1/api/user/user.processor.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -16,11 +20,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+      <file leaf-file-name="facebook.spec.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/survey-webservice/__test__/e2e/rest/auth/facebook.spec.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="7" selection-start-line="7" selection-end-line="7" />
+            <state relative-caret-position="-1069">
+              <caret line="7" column="53" selection-start-line="7" selection-start-column="53" selection-end-line="7" selection-end-column="53" />
+              <folding>
+                <element signature="e#32#56#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/survey-webservice/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="271">
+              <caret line="17" column="81" selection-start-line="17" selection-start-column="81" selection-end-line="17" selection-end-column="81" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="reset-password.spec.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/survey-webservice/__test__/e2e/rest/auth/reset-password.spec.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1277">
+              <caret line="60" column="23" lean-forward="true" selection-start-line="60" selection-start-column="23" selection-end-line="60" selection-end-column="23" />
+              <folding>
+                <element signature="e#91#115#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -57,26 +85,27 @@
         <option value="$PROJECT_DIR$/survey-webservice/src/v1/lang/en.js" />
         <option value="$PROJECT_DIR$/survey-webservice/src/v1/api/user/user.validation.js" />
         <option value="$PROJECT_DIR$/survey-webservice/src/v1/index.js" />
-        <option value="$PROJECT_DIR$/survey-webservice/__test__/e2e/rest/auth/google.spec.js" />
         <option value="$PROJECT_DIR$/survey-webservice/__test__/e2e/rest/auth/change-password.spec.js" />
         <option value="$PROJECT_DIR$/survey-webservice/src/v1/api/auth/auth.validation.js" />
         <option value="$PROJECT_DIR$/survey-webservice/config/default.js" />
         <option value="$PROJECT_DIR$/survey-webservice/__test__/index.js" />
         <option value="$PROJECT_DIR$/survey-webservice/__test__/util.js" />
-        <option value="$PROJECT_DIR$/survey-webservice/__test__/e2e/rest/auth/reset-password.spec.js" />
         <option value="$PROJECT_DIR$/survey-webservice/src/v1/api/auth/auth.model.js" />
         <option value="$PROJECT_DIR$/survey-webservice/__test__/e2e/routes.js" />
         <option value="$PROJECT_DIR$/survey-webservice/__test__/e2e/database.js" />
-        <option value="$PROJECT_DIR$/survey-webservice/__test__/e2e/rest/auth/facebook.spec.js" />
         <option value="$PROJECT_DIR$/survey-webservice/src/v1/api/user/user.model.js" />
-        <option value="$PROJECT_DIR$/survey-webservice/src/v1/api/auth/auth.controller.js" />
-        <option value="$PROJECT_DIR$/survey-webservice/src/v1/api/auth/auth.processor.js" />
-        <option value="$PROJECT_DIR$/survey-webservice/src/v1/api/user/user.processor.js" />
-        <option value="$PROJECT_DIR$/survey-webservice/.env" />
         <option value="$PROJECT_DIR$/survey-webservice/.gitignore" />
         <option value="$PROJECT_DIR$/survey-webservice/README.md" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/survey-webservice/.env.local" />
+        <option value="$PROJECT_DIR$/survey-webservice/.env" />
+        <option value="$PROJECT_DIR$/survey-webservice/__test__/e2e/rest/auth/facebook.spec.js" />
+        <option value="$PROJECT_DIR$/survey-webservice/__test__/e2e/rest/auth/google.spec.js" />
+        <option value="$PROJECT_DIR$/survey-webservice/src/v1/api/auth/auth.processor.js" />
+        <option value="$PROJECT_DIR$/survey-webservice/src/v1/api/user/user.processor.js" />
+        <option value="$PROJECT_DIR$/survey-webservice/src/v1/api/auth/auth.controller.js" />
         <option value="$PROJECT_DIR$/survey-webservice/package.json" />
+        <option value="$PROJECT_DIR$/survey-webservice/__test__/e2e/rest/auth/reset-password.spec.js" />
       </list>
     </option>
   </component>
@@ -111,6 +140,33 @@
               <item name="SurveyApp" type="462c0819:PsiDirectoryNode" />
               <item name="survey-webservice" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="SurveyApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SurveyApp" type="462c0819:PsiDirectoryNode" />
+              <item name="survey-webservice" type="462c0819:PsiDirectoryNode" />
+              <item name="__test__" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SurveyApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SurveyApp" type="462c0819:PsiDirectoryNode" />
+              <item name="survey-webservice" type="462c0819:PsiDirectoryNode" />
+              <item name="__test__" type="462c0819:PsiDirectoryNode" />
+              <item name="e2e" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SurveyApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SurveyApp" type="462c0819:PsiDirectoryNode" />
+              <item name="survey-webservice" type="462c0819:PsiDirectoryNode" />
+              <item name="__test__" type="462c0819:PsiDirectoryNode" />
+              <item name="e2e" type="462c0819:PsiDirectoryNode" />
+              <item name="rest" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SurveyApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SurveyApp" type="462c0819:PsiDirectoryNode" />
+              <item name="survey-webservice" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -124,19 +180,20 @@
     <property name="node.js.detected.package.prettier" value="true" />
     <property name="node.js.path.for.package.prettier" value="project" />
     <property name="node.js.selected.package.prettier" value="" />
+    <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/survey-webservice/node_modules/mocha" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/survey-webservice" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/survey-webservice/src/v1/api/auth" />
       <recent name="$PROJECT_DIR$/survey-webservice/src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/survey-webservice" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -163,7 +220,7 @@
       <updated>1597606170710</updated>
       <workItem from="1597606173019" duration="4685000" />
       <workItem from="1597611405139" duration="1738000" />
-      <workItem from="1597613238316" duration="286000" />
+      <workItem from="1597613238316" duration="1814000" />
     </task>
     <task id="LOCAL-00001" summary="removed graph file from setup">
       <created>1597612583174</created>
@@ -172,24 +229,30 @@
       <option name="project" value="LOCAL" />
       <updated>1597612583174</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added .env.local file">
+      <created>1597613867036</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1597613867036</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6709000" />
+    <option name="totallyTimeSpent" value="8237000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32939914" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50855744" side_tool="true" weight="0.2811159" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.26687765" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.6221001" weight="0.27896994" />
       <window_info anchor="right" id="Mongo Explorer" order="3" weight="0.32967034" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49144253" visible="true" weight="0.31866953" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49144253" visible="true" weight="0.31866953" />
       <window_info anchor="bottom" id="RNConsole" order="9" />
-      <window_info content_ui="combo" id="Project" order="4" sideWeight="0.49703264" visible="true" weight="0.17542787" />
+      <window_info active="true" content_ui="combo" id="Project" order="4" sideWeight="0.49703264" visible="true" weight="0.17542787" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info id="Storybook" order="2" side_tool="true" />
       <window_info id="Structure" order="0" sideWeight="0.50296736" side_tool="true" weight="0.21026894" />
@@ -214,7 +277,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="removed graph file from setup" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed graph file from setup" />
+    <MESSAGE value="added .env.local file" />
+    <option name="LAST_COMMIT_MESSAGE" value="added .env.local file" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/.gitignore">
@@ -270,13 +334,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="322">
           <caret line="14" column="50" lean-forward="true" selection-start-line="14" selection-start-column="50" selection-end-line="14" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/survey-webservice/__test__/e2e/rest/auth/google.spec.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2091">
-          <caret column="45" selection-start-column="45" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#33#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -284,6 +344,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="184">
           <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#33#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -298,6 +361,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
           <caret line="45" column="29" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -315,17 +381,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/survey-webservice/__test__/e2e/rest/auth/reset-password.spec.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="7" column="62" lean-forward="true" selection-start-line="7" selection-start-column="62" selection-end-line="7" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/survey-webservice/__test__/e2e/rest/auth/change-password.spec.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="46">
           <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding>
+            <element signature="e#91#115#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -336,17 +398,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/survey-webservice/__test__/e2e/routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="41" selection-start-column="29" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/survey-webservice/__test__/e2e/database.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="15" column="37" selection-start-line="15" selection-start-column="37" selection-end-line="15" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -368,13 +426,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2783">
           <caret line="121" lean-forward="true" selection-start-line="121" selection-end-line="121" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/survey-webservice/src/v1/api/auth/auth.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="41" column="50" selection-start-line="41" selection-start-column="50" selection-end-line="41" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -382,34 +436,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/survey-webservice/__test__/e2e/rest/auth/facebook.spec.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="77" column="22" lean-forward="true" selection-start-line="77" selection-start-column="22" selection-end-line="77" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/survey-webservice/src/v1/api/auth/auth.processor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="53" column="25" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/survey-webservice/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="62" column="4" lean-forward="true" selection-start-line="62" selection-start-column="4" selection-end-line="62" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/survey-webservice/src/v1/api/user/user.processor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="35" column="49" selection-start-line="35" selection-start-column="49" selection-end-line="35" selection-end-column="49" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#23#67#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -423,17 +453,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/survey-webservice/.env">
+    <entry file="file://$PROJECT_DIR$/survey-webservice/.env.local">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="805">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
+        <state relative-caret-position="161">
+          <caret line="7" column="20" lean-forward="true" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/survey-webservice/package.json">
+    <entry file="file://$PROJECT_DIR$/survey-webservice/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="18" lean-forward="true" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+        <state relative-caret-position="270">
+          <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
         </state>
       </provider>
     </entry>
@@ -441,6 +471,84 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
           <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey-webservice/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="23" column="124" lean-forward="true" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="124" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey-webservice/__test__/e2e/rest/auth/google.spec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="8" column="53" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
+          <folding>
+            <element signature="e#32#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey-webservice/__test__/e2e/routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey-webservice/src/v1/api/auth/auth.processor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="41" column="9" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey-webservice/src/v1/api/user/user.processor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey-webservice/src/v1/api/auth/auth.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="42" column="77" selection-start-line="42" selection-start-column="77" selection-end-line="42" selection-end-column="77" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey-webservice/__test__/e2e/rest/auth/facebook.spec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1069">
+          <caret line="7" column="53" selection-start-line="7" selection-start-column="53" selection-end-line="7" selection-end-column="53" />
+          <folding>
+            <element signature="e#32#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey-webservice/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="17" column="81" selection-start-line="17" selection-start-column="81" selection-end-line="17" selection-end-column="81" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey-webservice/__test__/e2e/rest/auth/reset-password.spec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1277">
+          <caret line="60" column="23" lean-forward="true" selection-start-line="60" selection-start-column="23" selection-end-line="60" selection-end-column="23" />
+          <folding>
+            <element signature="e#91#115#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

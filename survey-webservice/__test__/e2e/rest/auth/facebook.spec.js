@@ -1,11 +1,9 @@
-import Auth from '../../../../src/v1/api/auth/auth.model';
 // Require the dev-dependencies
 import chai from 'chai';
 import supertest from 'supertest';
 import app from '../../../app';
 import { after, before, describe } from 'mocha';
 import { SOCIAL_AUTH_URL, TEST_API_KEY } from '../../routes';
-import { getUserObject } from '../../../_seeds/user.seed';
 import { BAD_REQUEST, FORBIDDEN, OK } from '../../../../src/utils/constants';
 import { EmptyAuthCollections } from '../../../util';
 

@@ -37,16 +37,9 @@ class UserProcessor extends AppProcessor {
 	 * @return {Object}
 	 */
 	static async getUser(authId, obj, session = null) {
-		let user = await User.findOne({ _id: authId }).session(session);
+		let user = await User.findOne({ _id: authId });
 		if (!user) {
 			user = await (new User({ _id: authId, email: obj.email })).save(session);
-			// user = await User.findOneAndUpdate({ _id: authId },
-			// 	{ _id: authId, email: obj.email }, {
-			// 		upsert: true,
-			// 		new: true,
-			// 		setDefaultsOnInsert: true,
-			// 		session
-			// 	});
 		}
 		return user;
 	}

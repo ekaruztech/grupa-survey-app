@@ -15,7 +15,7 @@
 		"lint": "eslint -c .eslintrc src",
 		"test": "npm run test:auth",
 		"test:auth": "mocha --opts ./mocha.opts __test__/e2e/**/*.spec.js",
-		"test:current": "mocha --opts ./mocha.opts __test__/e2e/rest/auth/google.spec.js"
+		"test:current": "mocha --opts ./mocha.opts __test__/e2e/rest/auth/reset-password.spec.js"
 	},
 	"keywords": [
 		"Advance",

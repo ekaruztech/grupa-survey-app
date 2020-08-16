@@ -73,11 +73,9 @@ const AuthModel = new Schema({
 	timestamps: true
 });
 
-AuthModel.statics.hiddenFields = ['password', 'deleted'];
-
 if (config.app.environment === 'production') {
 	AuthModel.statics.hiddenFields = AuthModel.statics.hiddenFields
-		.concat(['password_reset_code', 'verification_code']);
+		.concat(['password_reset_code', 'verification_code', 'password', 'deleted']);
 }
 /**
  * @return {Object} The validator object with the specified rules.
@@ -102,22 +100,6 @@ AuthModel.pre('save', function (next) {
  */
 AuthModel.methods.comparePassword = function (password) {
 	return bcrypt.compareSync(password, this.password);
-};
-
-/**
- * @param {String} token The password to compare against
- * @return {Boolean} The result of the comparison
- */
-AuthModel.methods.compareVerificationToken = function (token) {
-	return bcrypt.compareSync(this.verificationCode, token);
-};
-
-/**
- * @param {String} token The password to compare against
- * @return {Boolean} The result of the comparison
- */
-AuthModel.methods.compareResetPasswordToken = function (token) {
-	return bcrypt.compareSync(this.passwordResetCode, token);
 };
 
 /**
