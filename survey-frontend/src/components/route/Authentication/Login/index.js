@@ -67,6 +67,7 @@ const Login = props => {
                 >
                   <Form.Item
                     name="username"
+                    hasFeedback
                     rules={[
                       {
                         required: true,
@@ -83,6 +84,7 @@ const Login = props => {
 
                   <Form.Item
                     name="password"
+                    hasFeedback
                     rules={[
                       {
                         required: true,
