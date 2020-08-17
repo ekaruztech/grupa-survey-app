@@ -28,9 +28,9 @@ export const CustomRoute = customProps => {
           return <Redirect to="/verify-code" />;
         }
         return (
-          <ErrorBoundary>
-            <Component {...props} />
-          </ErrorBoundary>
+          // <ErrorBoundary>
+          <Component {...props} />
+          // </ErrorBoundary>
         );
       }}
     />

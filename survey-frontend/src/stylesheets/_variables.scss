@@ -1,23 +1,20 @@
-$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
-
-
 #voomsway {
   --color-primary: #1c96d6;
 }
 
-$color-dark: #2E2E2E;
-$color-dark-grey: #6C6C6C;
-$color-light-grey: #B4B4B4;
-$color-lighter-grey: #FAFAFA;
+$color-dark: #2e2e2e;
+$color-dark-grey: #6c6c6c;
+$color-light-grey: #b4b4b4;
+$color-lighter-grey: #fafafa;
 
 $color-danger: red;
-$color-info: #6EB2FB;
-$color-warning: #F1AD3D;
-$color-success: #00D3CA;
-$color-yellow: #EFFD90;
+$color-info: #6eb2fb;
+$color-warning: #f1ad3d;
+$color-success: #00d3ca;
+$color-yellow: #effd90;
 // $color-primary: #1c96d6;
 // $color-primary: #47b804;
-$color-primary: var(--color-primary) ;
+$color-primary: var(--color-primary);
 
 $ssm-max: 360px;
 $sm-max: 575px;
