@@ -1,10 +1,11 @@
 import React, { Suspense } from 'react';
-import { Redirect, Switch, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
-import Routes, { CustomRoute } from '../router.js';
+import Routes from '../router.js';
 
 import '../stylesheets/app.scss';
 import Progress from './_common/Progress';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 import '../stylesheets/antd-themed.css';
 
 const App = ({ location }) => {
