@@ -1,0 +1,100 @@
+@import 'variables';
+@import '~bootstrap/scss/bootstrap';
+
+@import 'utils';
+#voomsway {
+  * {
+    /*font-family: 600 14px/1.2 'Open Sans', sans-serif !important;*/
+    font-family: 'Open Sans', sans-serif !important;
+  }
+}
+
+.Toastify__toast {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  object-fit: contain;
+  border-radius: 2px;
+  box-shadow: 0 0 2px #dddddd !important;
+  border: 0.5px solid #dddddd !important;
+  &.Toastify__toast--default {
+    color: $color-dark-grey !important;
+    background-color: #f7f7f7 !important;
+    white-space: pre-line;
+  }
+  &.Toastify__toast--error {
+    background-color: #f33 !important;
+    color: #ffffff !important;
+    white-space: pre-line;
+    border: 0.5px solid #f33;
+  }
+}
+.Toastify__toast-body {
+  white-space: pre-line;
+}
+.Toastify__close-button {
+  color: #000000;
+  font-weight: bold;
+  font-size: 15px;
+  background: transparent;
+  outline: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: 0.3s ease;
+  align-self: flex-start;
+  &--default {
+    color: #000000 !important;
+    opacity: 0.5;
+  }
+  &--error {
+    color: #fff !important;
+  }
+
+  &:hover,
+  &:focus {
+    opacity: 1;
+  }
+}
+.main-app {
+  background-color: #ffffff;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  &.greyed {
+    background-color: #f7f7f7;
+    min-height: 100vh;
+  }
+  .app-content {
+    flex: 1;
+  }
+  a {
+    text-decoration: none;
+  }
+  button:focus {
+    outline: 0;
+  }
+  ul {
+    list-style: none;
+  }
+  .intl-tel-input {
+    width: 100%;
+  }
+  .btn {
+    &:active,
+    &:focus {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+  }
+}
+/*
+  ##Device = Most of the Smart phones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media (min-width: 320px) and (max-width: 480px) {
+}

@@ -1,0 +1,11 @@
+.error-template {
+  width: 100%;
+  height: 100%;
+  .error-template-inner {
+    margin-top: 100px;
+    text-align: center;
+    .error-actions {
+      margin-top: 10px;
+    }
+  }
+}

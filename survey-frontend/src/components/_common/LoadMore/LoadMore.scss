@@ -1,0 +1,17 @@
+button.load-more {
+  width: 98px;
+  height: 36px;
+  border-radius: 18px;
+  border: solid 2px #eff2f6;
+  background-color: #ffffff;
+  outline: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #8898aa;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $color-primary;
+    color: $color-primary;
+  }
+}

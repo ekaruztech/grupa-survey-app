@@ -1,0 +1,109 @@
+.manifest-tabContainer {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  .col-md-4,
+  .col-md-2,
+  .col-md-6,
+  .col-md-3,
+  .col-md-1 {
+    padding: 0 2px;
+  }
+  .seat {
+    border-radius: 5px;
+    padding: 10px 10px;
+    margin: 10px 0;
+    box-shadow: 0 2px 7.5px 0 rgba(0, 0, 0, 0.15);
+    background-color: #ffffff;
+    border: solid 0.5px #d2d2d2;
+    .seat-number {
+      text-align: center;
+      font-size: 15px;
+      font-weight: 600;
+      margin: 0 auto;
+    }
+  }
+}
+
+@media (max-width: 1199px) {
+  .manifest-tabContainer .seat input {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 990px) {
+  .manifest-tabContainer .seat input {
+    font-size: 12px;
+  }
+  .manifest-tabContainer .seat {
+    height: 130px;
+  }
+
+  .manifest-tabContainer .seat .col-lg-5,
+  .manifest-tabContainer .seat .col-lg-7 {
+    padding-left: 35px;
+  }
+
+  .manifest-tabContainer .seat .col-lg-7 {
+    margin-bottom: 10px;
+  }
+
+  .manifest-tabContainer .seat .seat-number {
+    margin-left: -20px;
+    height: 128px;
+    margin-bottom: -70px;
+    line-height: 120px;
+  }
+  .kin {
+    margin-top: 10px;
+    padding: 0 35px;
+  }
+
+  .manifest-tabContainer .seat .seat-number {
+    text-align: right;
+  }
+}
+
+@media (max-width: 766px) {
+  .manifest-tabContainer .seat {
+    height: auto;
+    margin-bottom: 15px;
+  }
+  .manifest-tabContainer .seat input {
+    margin-top: 10px;
+  }
+
+  .manifest-tabContainer .seat .col-lg-5,
+  .manifest-tabContainer .seat .col-lg-7 {
+    padding-left: 15px;
+  }
+
+  .manifest-tabContainer .seat .col-lg-7 {
+    margin-bottom: 15px;
+  }
+
+  .manifest-tabContainer .seat .seat-number {
+    height: auto;
+    line-height: normal;
+    border: 0;
+    margin: 0;
+  }
+
+  .manifest-tabContainer .col-md-4,
+  .manifest-tabContainer .col-md-2,
+  .manifest-tabContainer .col-md-6,
+  .manifest-tabContainer .col-md-3,
+  .manifest-tabContainer .col-md-1 {
+    padding: 0 15px;
+  }
+
+  .manifest-tabContainer .seat .seat-number {
+    text-align: center;
+  }
+  .manifest-tabContainer button {
+    margin-top: 10px;
+  }
+
+  .manifest-tabContainer .share {
+    float: right;
+  }
+}

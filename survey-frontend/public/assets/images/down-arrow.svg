@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        stroke: #1699e0;
+      }
+
+      .cls-2 {
+        fill: #1699e0;
+      }
+
+      .cls-3 {
+        stroke: none;
+      }
+
+      .cls-4 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g id="down-arrow" transform="translate(-282 -243)">
+    <g id="Ellipse_47" data-name="Ellipse 47" class="cls-1" transform="translate(282 243)">
+      <circle class="cls-3" cx="15" cy="15" r="15"/>
+      <circle class="cls-4" cx="15" cy="15" r="14.5"/>
+    </g>
+    <path id="Icon_ionic-ios-arrow-round-forward" data-name="Icon ionic-ios-arrow-round-forward" class="cls-2" d="M16.8,11.443a.715.715,0,0,0,0,.958l2.957,3.172H8.5a.679.679,0,0,0,0,1.354H19.75L16.793,20.1a.721.721,0,0,0,0,.958.6.6,0,0,0,.89-.005L21.7,16.729h0a.767.767,0,0,0,.131-.214.686.686,0,0,0,.049-.26.7.7,0,0,0-.18-.474l-4.007-4.323A.591.591,0,0,0,16.8,11.443Z" transform="translate(313.252 243.125) rotate(90)"/>
+  </g>
+</svg>

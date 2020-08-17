@@ -1,0 +1,15 @@
+.offline-view {
+  margin-top: 150px;
+  background-color: #f3f4f8;
+  color: #8898aa;
+  padding: 30px;
+}
+/*
+  ##Device = Most of the Smart phones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media (min-width: 320px) and (max-width: 480px) {
+  .offline-view {
+    margin-top: 50px;
+  }
+}
