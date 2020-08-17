@@ -1,0 +1,111 @@
+:root {
+  --background-color: #f5f6fa;
+  --primary-color: #3e82ff;
+  --border-default-color: #e3e8f4;
+  --text-color: #1c2844;
+}
+.content {
+  height: 100vh;
+  background: var(--background-color);
+}
+.ant-form-item {
+  //margin: 0 !important;
+}
+.row-container {
+  height: 100vh;
+  width: 100%;
+  display: flex !important;
+  flex-flow: column !important;
+}
+.col-container {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 365px;
+  // height: 65%;
+  background: white;
+  padding: 20px;
+  border: 1px solid var(--border-default-color);
+}
+.login-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+}
+.login-header-text {
+  color: var(--text-color);
+  text-align: center;
+  font-size: 16px;
+}
+.more-btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 274px;
+}
+.btn-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-btn {
+  border-radius: 4px !important;
+  height: 45px !important;
+}
+.btn-shadow {
+  box-shadow: 0px 15px 20px #3e82ff40;
+}
+.login-input {
+  height: 45px !important;
+}
+.ant-form-item-has-error .ant-form-item-explain,
+.ant-form-item-has-error .ant-form-item-split {
+  font-size: 12px !important;
+}
+//.ant-input-focused, .ant-input:focus {
+//  border-color: fade-out(#3E82FF, 0.8) !important;
+//  -webkit-box-shadow: 0 0 0 2px fade-out(#3E82FF, 0.8) !important;
+//  box-shadow: 0 0 0 2px fade-out(#3E82FF, 0.8) !important;
+//}
+//.ant-input:hover {
+//
+//}
+
+@media (min-width: 320px) and (max-width: 480px) {
+}
+
+/*
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+@media (min-width: 481px) and (max-width: 767px) {
+}
+
+/*
+##Device = Tablets, Ipads (landscape)
+##Screen = B/w 768px to 1024px
+*/
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+}
+
+/*
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+@media (min-width: 768px) and (max-width: 1024px) {
+}
+
+/*
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+@media (min-width: 1025px) and (max-width: 1280px) {
+}
+
+/*
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+@media (min-width: 1281px) {
+}

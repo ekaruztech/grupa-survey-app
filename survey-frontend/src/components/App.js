@@ -7,6 +7,7 @@ import Header from './_common/Layout/Header';
 import Footer from './_common/Layout/Footer';
 import '../stylesheets/app.scss';
 import Progress from './_common/Progress';
+import '../stylesheets/antd-themed.css';
 import Page404 from './route/ErrorPages/Page404';
 
 const App = ({ location }) => {
@@ -17,12 +18,10 @@ const App = ({ location }) => {
       })}
     >
       <div className="app-content">
-        <Header />
         <Suspense fallback={<Progress style={{ top: '60%', left: '50%' }} />}>
           <Routes />
         </Suspense>
       </div>
-      <Footer />
     </div>
   );
 };

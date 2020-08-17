@@ -1,17 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import './Home.scss';
 
 const Home = props => {
-  const {
-    auth,
-  } = props;
+  const { auth } = props;
 
   useEffect(() => {
     return () => {};
   }, []);
 
-  return (<div>Hello Home</div>);
+  return <div>Hello home</div>;
 };
 const mapStateToProps = state => {
   return {
@@ -19,8 +17,6 @@ const mapStateToProps = state => {
   };
 };
 
-const dispatchToProps = {
-
-};
+const dispatchToProps = {};
 
 export default connect(mapStateToProps, dispatchToProps)(Home);
