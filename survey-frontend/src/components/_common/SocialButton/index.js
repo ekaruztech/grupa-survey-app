@@ -10,7 +10,12 @@ class SocialButton extends Component {
   render() {
     const { provider, triggerLogin, ...rest } = this.props;
     return (
-      <div key={provider} onClick={() => triggerLogin()} {...rest}>
+      <div
+        key={provider}
+        className="social-button"
+        onClick={() => triggerLogin()}
+        {...rest}
+      >
         {this.props.children}
       </div>
     );
