@@ -1,6 +1,4 @@
 @import 'variables';
-
-@import 'utils';
 #voomsway {
   * {
     /*font-family: 600 14px/1.2 'Open Sans', sans-serif !important;*/
@@ -20,7 +18,7 @@
   box-shadow: 0 0 2px #dddddd !important;
   border: 0.5px solid #dddddd !important;
   &.Toastify__toast--default {
-    color: $color-dark-grey !important;
+    color: #3e82ff !important;
     background-color: #f7f7f7 !important;
     white-space: pre-line;
   }
@@ -90,10 +88,4 @@
       box-shadow: none !important;
     }
   }
-}
-/*
-  ##Device = Most of the Smart phones Mobiles (Portrait)
-  ##Screen = B/w 320px to 479px
-*/
-@media (min-width: 320px) and (max-width: 480px) {
 }

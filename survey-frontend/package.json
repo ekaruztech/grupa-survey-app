@@ -1,5 +1,5 @@
 {
-  "name": "voomsway-plugin",
+  "name": "survey-app",
   "version": "1.0.0",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server  --config webpack.dev.config.js",
@@ -27,6 +27,7 @@
     "card-validator": "^6.2.0",
     "classnames": "^2.2.6",
     "connected-react-router": "^6.7.0",
+    "core-js": "^2.6.11",
     "cross-env": "^7.0.2",
     "crypto": "^1.0.1",
     "crypto-js": "^4.0.0",
@@ -42,7 +43,7 @@
     "mixpanel-browser": "^2.34.0",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.28",
-    "npm": "^6.14.6",
+    "npm": "^6.14.7",
     "popper.js": "^1.16.1",
     "pusher-js": "^5.1.1",
     "query-string": "^6.11.0",
