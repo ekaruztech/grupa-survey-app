@@ -12,6 +12,7 @@
     "deploy-live": "git push efex && git push atl",
     "heroku-redeploy": "git commit --allow-empty -m \"Trigger empty commit\" && git push heroku master"
   },
+  "homepage": "./",
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
     "@sentry/browser": "^5.12.4",
@@ -36,8 +37,6 @@
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.28",
     "npm": "^6.14.7",
-    "popper.js": "^1.16.1",
-    "pusher-js": "^5.1.1",
     "query-string": "^6.13.1",
     "react": "^16.12.0",
     "react-detect-offline": "^2.4.0",
@@ -49,7 +48,6 @@
     "react-social-login": "^3.4.6",
     "react-to-print": "^2.5.1",
     "react-toastify": "^5.5.0",
-    "reactstrap": "^8.4.1",
     "redux": "^4.0.5",
     "redux-form": "^8.3.0",
     "redux-persist": "^5.10.0",
