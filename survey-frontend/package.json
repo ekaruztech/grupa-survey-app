@@ -12,7 +12,7 @@
     "deploy-live": "git push efex && git push atl",
     "heroku-redeploy": "git commit --allow-empty -m \"Trigger empty commit\" && git push heroku master"
   },
-  "homepage": "./",
+  "homepage": "https://ekz-survey.herokuapp.com/",
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
     "@sentry/browser": "^5.12.4",

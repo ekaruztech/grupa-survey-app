@@ -16,7 +16,7 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 module.exports = function() {
   const plugins = [
     new MiniCssExtractPlugin({
-      filename: 'survey.css',
+      filename: 'main.css',
     }),
     new CleanWebpackPlugin({
       verbose: true,
@@ -60,7 +60,7 @@ module.exports = function() {
     entry: ['babel-polyfill', './src/index.js'],
     output: {
       path: path.join(__dirname, 'public', 'dist'),
-      filename: 'survey.js',
+      filename: 'main.js',
       publicPath: '/dist/',
     },
     devtool: 'cheap-module-source-map',
