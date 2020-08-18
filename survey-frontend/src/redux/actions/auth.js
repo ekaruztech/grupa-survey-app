@@ -41,21 +41,18 @@ export const SET_SOCIAL_AUTH_MODE = createActionType(
   'Authentication'
 );
 
-export const login = (payload, modal = false) => ({
+export const login = payload => ({
   type: LOGIN.START,
   payload,
-  modal,
 });
 export const logout = () => ({ type: LOGOUT.START });
-export const register = (payload, modal = false) => ({
+export const register = payload => ({
   type: REGISTER.START,
   payload,
-  modal,
 });
-export const verifyRegistrationCode = (payload, modal = false) => ({
+export const verifyRegistrationCode = payload => ({
   type: VERIFY_REGISTRATION_CODE.START,
   payload,
-  modal,
 });
 export const verifyUserByEmail = payload => ({
   type: VERIFY_USER_BY_EMAIL.START,
@@ -66,25 +63,21 @@ export const resendRegVerificationCode = payload => ({
   payload,
 });
 
-export const sendPasswordResetEmail = (payload, modal = false) => ({
+export const sendPasswordResetEmail = payload => ({
   type: SEND_PASSWORD_RESET_EMAIL.START,
   payload,
-  modal,
 });
-export const updatePassword = (payload, modal = false) => ({
+export const resetPassword = payload => ({
   type: UPDATE_PASSWORD.START,
   payload,
-  modal,
 });
-export const doFacebookAuth = (payload, modal = false) => ({
+export const doFacebookAuth = payload => ({
   type: FACEBOOK_AUTH.START,
   payload,
-  modal,
 });
-export const doGoogleAuth = (payload, modal = false) => ({
+export const doGoogleAuth = payload => ({
   type: GOOGLE_AUTH.START,
   payload,
-  modal,
 });
 export const setSocialAuthMode = (mode = false) => ({
   type: SET_SOCIAL_AUTH_MODE.START,

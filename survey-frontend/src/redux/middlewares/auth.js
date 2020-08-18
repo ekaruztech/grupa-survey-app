@@ -32,7 +32,6 @@ const KEY_MAPS = {
   sendPasswordResetEmail: 'sendPasswordResetEmail',
   verifyRegistrationEmail: 'verifyRegistrationEmail',
   googleAuth: 'googleAuth',
-  updatePassword: 'updatePassword',
   resetPassword: 'resetPassword',
   facebookAuth: 'facebookAuth',
 };
@@ -44,7 +43,7 @@ const login = ({ dispatch, getState }) => next => action => {
     dispatch(
       apiRequest({
         method: 'POST',
-        url: '/login',
+        url: '/signIn',
         key,
         payload: { ...payload, profile_type: 'Customer' },
         ...rest,
@@ -55,8 +54,6 @@ const login = ({ dispatch, getState }) => next => action => {
             dispatch,
             key,
             getState,
-            modal,
-            modalReducerKey: key,
           });
         },
         onError: e => {
@@ -84,7 +81,7 @@ const register = ({ dispatch, getState }) => next => action => {
     dispatch(
       apiRequest({
         method: 'POST',
-        url: '/register',
+        url: '/signUp',
         key,
         ...rest,
         onSuccess: (data, response) => {
@@ -94,8 +91,6 @@ const register = ({ dispatch, getState }) => next => action => {
             dispatch,
             key,
             getState,
-            modal,
-            modalReducerKey: key,
           });
         },
       })
@@ -115,14 +110,11 @@ const verifyRegistrationCode = ({ dispatch, getState }) => next => action => {
         key,
         ...rest,
         onSuccess: data => {
-          mixPanelService.sendEvent('New user verification ', data);
           onAuthSuccess({
             data,
             dispatch,
             key,
             getState,
-            modalReducerKey: key,
-            modal,
           });
         },
       })
@@ -144,7 +136,7 @@ const verifyRegistrationEmail = ({ dispatch, getState }) => next => action => {
         ...rest,
         onSuccess: data => {
           const payload = {
-            user: pick(data, ['_id', 'email', 'account_verified']),
+            user: pick(data, ['_id', 'email', 'accountVerified']),
           };
           dispatch(updateAuthSettings(payload));
         },
@@ -164,8 +156,7 @@ const resendRegVerificationCode = ({ dispatch }) => next => action => {
         url: '/sendVerification',
         key,
         ...rest,
-        onSuccess: data =>
-          onAuthSuccess({ data, dispatch, key, modalReducerKey: key }),
+        onSuccess: data => onAuthSuccess({ data, dispatch, key }),
       })
     );
   }
@@ -179,14 +170,19 @@ const sendPasswordResetEmail = ({ dispatch }) => next => action => {
     dispatch(
       apiRequest({
         method: 'POST',
-        url: '/resetPassword',
+        url: '/sendResetPasswordCodeLink',
         key,
         payload,
         ...rest,
         onSuccess: data => {
-          if (payload && payload.email) {
-            dispatch(change('updatePasswordForm', 'email', payload.email));
-            onAuthSuccess({ data, dispatch, key, modalReducerKey: key });
+          if (data && data.email) {
+            const payload = {
+              user: {
+                email: data.email,
+              },
+            };
+            dispatch(updateAuthSettings(payload));
+            onAuthSuccess({ data, dispatch, key });
           }
         },
       })
@@ -195,26 +191,18 @@ const sendPasswordResetEmail = ({ dispatch }) => next => action => {
   next(action);
 };
 
-const updatePassword = ({ dispatch }) => next => action => {
+const resetPassword = ({ dispatch }) => next => action => {
   if (action.type === UPDATE_PASSWORD.START) {
     const { modal, ...rest } = action;
-    const key = 'updatePassword';
+    const key = 'resetPassword';
     dispatch(
       apiRequest({
         method: 'POST',
-        url: '/updatePassword',
+        url: '/resetPassword',
         key,
         successMessage: 'You have changed your password!',
         ...rest,
-        onSuccess: data => {
-          if (modal) {
-            dispatch(closeModal(KEY_MAPS.resetPassword));
-            dispatch(closeModal(KEY_MAPS.updatePassword));
-            dispatch(openModal(KEY_MAPS.login));
-          } else {
-            dispatch(push('/login'));
-          }
-        },
+        onSuccess: () => dispatch(push('/login')),
       })
     );
   }
@@ -243,9 +231,7 @@ const doFacebookAuth = ({ dispatch, getState }) => next => action => {
             data,
             dispatch,
             key,
-            modalReducerKey,
             getState,
-            modal: rest.modal,
           });
         },
       })
@@ -276,9 +262,7 @@ const doGoogleAuth = ({ dispatch, getState }) => next => action => {
             data,
             dispatch,
             key,
-            modalReducerKey,
             getState,
-            modal: rest.modal,
           });
         },
       })
@@ -292,10 +276,9 @@ const logout = ({ dispatch }) => next => action => {
   if (type === LOGOUT.START) {
     const { pathname } = (!!history && history.location) || {};
     dispatch(resetAuthentication());
-    mixPanelService.sendEvent('User logout');
     dispatch(setNextUrl(null));
-    if (pathname && pathname !== '/') {
-      dispatch(push('/'));
+    if (pathname && pathname !== '/login') {
+      dispatch(push('/login'));
     }
   }
   next(action);
@@ -310,18 +293,11 @@ export default [
   doFacebookAuth,
   doGoogleAuth,
   sendPasswordResetEmail,
-  updatePassword,
+  resetPassword,
   logout,
 ];
 
-const onAuthSuccess = ({
-  data,
-  dispatch,
-  key,
-  getState,
-  modal,
-  modalReducerKey,
-}) => {
+const onAuthSuccess = ({ data, dispatch, key, getState }) => {
   if (
     [
       KEY_MAPS.googleAuth,
@@ -331,43 +307,30 @@ const onAuthSuccess = ({
       KEY_MAPS.verifyRegistrationEmail,
     ].includes(key)
   ) {
-    if (!data.account_verified) {
-      if (modal) {
-        dispatch(closeModal(KEY_MAPS[key]));
-        dispatch(openModal(KEY_MAPS.verifyRegistrationCode));
-      } else {
-        dispatch(push('/verify-code'));
-      }
+    if (!data.accountVerified) {
+      dispatch(push('/verify-code'));
     } else {
       attemptUserLogIn({
         data,
         dispatch,
         getState,
         key,
-        modal,
-        modalReducerKey,
       });
     }
   }
   if (key === KEY_MAPS.register) {
-    if (modal) {
-      dispatch(closeModal(KEY_MAPS.register));
-      dispatch(openModal(KEY_MAPS.verifyRegistrationCode));
-    } else {
-      const { email, account_verified } = data;
-      const payload = {
-        user: {
-          email,
-          account_verified,
-        },
-      };
-      dispatch(updateAuthSettings(payload));
-      dispatch(push('/verify-code'));
-    }
-    mixPanelService.sendEvent('New user registration started ', data);
+    const { email, accountVerified } = data;
+    const payload = {
+      user: {
+        email,
+        accountVerified,
+      },
+    };
+    dispatch(updateAuthSettings(payload));
+    dispatch(push('/verify-code'));
   }
+  /*
   if (key === KEY_MAPS.resendRegVerificationCode) {
-    mixPanelService.sendEvent('Resend user verification code', data);
     if (getState) {
       const {
         ui: {
@@ -378,19 +341,12 @@ const onAuthSuccess = ({
         dispatch(openModal(KEY_MAPS.verifyRegistrationCode));
       }
     }
-  }
+  }*/
   if (key === KEY_MAPS.sendPasswordResetEmail) {
-    mixPanelService.sendEvent('Password reset email sent', data);
-    dispatch(closeModal(key));
-    dispatch(openModal(KEY_MAPS.updatePassword));
+    dispatch(push('/password/update'));
   }
-  if (key === KEY_MAPS.updatePassword) {
-    dispatch(closeModal(key));
-    if (modal) {
-      dispatch(openModal(KEY_MAPS.login));
-    } else {
-      dispatch(push('/login'));
-    }
+  if (key === KEY_MAPS.resetPassword) {
+    dispatch(push('/login'));
   }
 };
 
@@ -403,50 +359,20 @@ const saveCustomerSession = (response, dispatch) => {
   }
 };
 
-const attemptUserLogIn = ({
-  data = {},
-  dispatch,
-  getState,
-  key,
-  modalReducerKey,
-  modal,
-}) => {
-  const getLoginSource = key => {
-    switch (key.toUpperCase()) {
-      case 'FACEBOOKAUTH':
-        return 'facebook';
-      case 'GOOGLEAUTH':
-        return 'google';
-      default:
-        return 'regular';
-    }
-  };
-  const { email, account_verified, first_name, last_name, _id } = data;
+const attemptUserLogIn = ({ data = {}, dispatch, getState }) => {
+  const { email, accountVerified, firstName, lastName, _id } = data;
   const payload = {
     user: {
       _id,
       email,
-      account_verified,
+      accountVerified,
+      firstName,
+      lastName,
     },
   };
   const state = getState();
   dispatch(updateAuthSettings(payload));
   const nextUrl = get(state, 'ui.location.nextUrl');
-  if (modal) {
-    dispatch(closeModal(modalReducerKey));
-    if (nextUrl) {
-      dispatch(push(nextUrl));
-      dispatch(setNextUrl(null));
-    }
-  } else {
-    dispatch(push(nextUrl || '/dashboard'));
-    dispatch(setNextUrl(null));
-  }
-  mixPanelService.saveProfile(email, {
-    name: `${first_name || ''} ${last_name || ''}`.trim() || 'Not Available',
-    email,
-    _id,
-    source: getLoginSource(key),
-  });
-  mixPanelService.sendEvent('User logged in');
+  dispatch(push(nextUrl || '/'));
+  dispatch(setNextUrl(null));
 };
