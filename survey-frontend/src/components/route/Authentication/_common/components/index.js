@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const Padding = props => {
-  const { left, right, top, bottom, children, style } = props;
+  const { left, right, top, bottom, children, style = {} } = props;
   return (
     <div
       style={{
@@ -9,7 +9,7 @@ export const Padding = props => {
         paddingRight: right || 0,
         paddingTop: top || 0,
         paddingBottom: bottom || 0,
-        ...(style || {}),
+        ...style,
       }}
     >
       {children}

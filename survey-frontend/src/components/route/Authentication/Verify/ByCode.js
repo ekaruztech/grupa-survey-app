@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import '../styles.scss';
 import {
   Layout,
@@ -12,27 +11,36 @@ import {
   Typography,
   Button,
 } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { Logo, Padding, FacebookIcon, GoogleIcon } from '../_common/components';
+import { UserOutlined } from '@ant-design/icons';
+import { Logo, Padding } from '../_common/components';
+import {
+  resendRegVerificationCode,
+  verifyRegistrationCode,
+} from '../../../../redux/actions';
 
 const { Content } = Layout;
 const { Text } = Typography;
 
-const Verify = props => {
-  const { auth } = props;
+const VerifyByCode = props => {
+  const {
+    user,
+    isVerifying,
+    isResendingCode,
+    verifyRegistrationCode,
+    resendRegVerificationCode,
+  } = props;
 
   useEffect(() => {
     return () => {};
   }, []);
 
-  const onFinish = values => {
-    console.log('values ', values);
-    console.log('Success:', values);
-  };
+  const handleSubmit = values => verifyRegistrationCode(values);
 
-  const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo);
-  };
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+  const verifyRedirectUrl = `${baseUrl}${process.env.REACT_APP_VERIFY_REDIRECT_PATH}`;
+
+  const handleResendButtonClick = () =>
+    resendRegVerificationCode({ verifyRedirectUrl });
 
   return (
     <Layout>
@@ -44,7 +52,7 @@ const Verify = props => {
           className={'row-container'}
         >
           <Col className={'col-container'}>
-            <div className={'login-header'}>
+            <div className={'login-header'} style={{ textAlign: 'center' }}>
               <Padding top={20}>
                 <span className={'logo'}>
                   <Logo />
@@ -52,7 +60,7 @@ const Verify = props => {
               </Padding>
               <Padding top={10}>
                 <span className={'login-header-text'}>
-                  Verify your Account's email
+                  Verification details sent to <b>{user.email}</b>
                 </span>
               </Padding>
             </div>
@@ -64,11 +72,10 @@ const Verify = props => {
                   name="login"
                   layout={'vertical'}
                   initialValues={{ remember: true }}
-                  onFinish={onFinish}
-                  onFinishFailed={onFinishFailed}
+                  onFinish={handleSubmit}
                 >
                   <Form.Item
-                    name="verification_code"
+                    name="verificationCode"
                     rules={[
                       {
                         required: true,
@@ -85,6 +92,7 @@ const Verify = props => {
 
                   <Form.Item>
                     <Button
+                      loading={isVerifying}
                       type="primary"
                       htmlType="submit"
                       block
@@ -94,6 +102,18 @@ const Verify = props => {
                     </Button>
                   </Form.Item>
                 </Form>
+                <div style={{ textAlign: 'center', width: '100%' }}>
+                  Click{' '}
+                  <Button
+                    loading={isResendingCode}
+                    onClick={handleResendButtonClick}
+                    style={{ padding: 0 }}
+                    type="link"
+                  >
+                    here
+                  </Button>{' '}
+                  to resend
+                </div>
               </Row>
             </Padding>
           </Col>
@@ -104,10 +124,15 @@ const Verify = props => {
 };
 const mapStateToProps = state => {
   return {
-    auth: state.auth,
+    user: state.auth.user,
+    isVerifying: state.ui.loading.verifyRegistrationCode,
+    isResendingCode: state.ui.loading.resendRegVerificationCode,
   };
 };
 
-const dispatchToProps = {};
+const dispatchToProps = {
+  verifyRegistrationCode,
+  resendRegVerificationCode,
+};
 
-export default connect(mapStateToProps, dispatchToProps)(Verify);
+export default connect(mapStateToProps, dispatchToProps)(VerifyByCode);

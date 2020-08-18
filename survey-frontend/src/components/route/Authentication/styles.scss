@@ -52,6 +52,9 @@
 .login-btn {
   border-radius: 4px !important;
   height: 45px !important;
+  &.social-btn {
+    width: 100%;
+  }
 }
 .btn-shadow {
   box-shadow: 0px 15px 20px #3e82ff40;
@@ -62,6 +65,9 @@
 .ant-form-item-has-error .ant-form-item-explain,
 .ant-form-item-has-error .ant-form-item-split {
   font-size: 12px !important;
+}
+.verifying-text {
+  font-size: 16px;
 }
 //.ant-input-focused, .ant-input:focus {
 //  border-color: fade-out(#3E82FF, 0.8) !important;
