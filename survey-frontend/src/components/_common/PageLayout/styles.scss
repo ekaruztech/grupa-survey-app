@@ -78,8 +78,8 @@ body {
       background: var(--background-primary) !important;
       height: 70px !important;
       pointer-events: none !important;
-      width: 67px;
-      border-right: 1px solid var(--border-default-color) !important;
+      //width: 67px;
+      //border-right: 1px solid var(--border-default-color) !important;
     }
     .sv-sidebar-menu-bottom {
       position: absolute !important;
@@ -92,7 +92,7 @@ body {
 .sv-content-layout-wrapper {
   position: relative;
   top: 70px;
-  padding: 50px 50px 50px 50px;
+  padding: 30px;
 }
 .sv-content-layout {
   //margin: 50px 50px 0 50px;

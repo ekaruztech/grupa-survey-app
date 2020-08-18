@@ -1,5 +1,6 @@
 import { Layout, Menu } from 'antd';
 import React from 'react';
+import { useLocation } from 'react-router';
 import {
   FolderOutlined,
   HomeOutlined,
@@ -18,6 +19,8 @@ const { Sider } = Layout;
  */
 const PageNavigation = props => {
   const { menuCollapsed, onNavigate } = props;
+  const { pathname } = useLocation();
+
   return (
     <Sider
       width={240}
@@ -30,21 +33,21 @@ const PageNavigation = props => {
       <Menu
         theme="light"
         mode="inline"
-        defaultSelectedKeys={['1']}
+        defaultSelectedKeys={[pathname]}
         className={'sv-sidebar-menu'}
         onSelect={onNavigate}
       >
         <div className={'sv-sidebar-menu-empty-item'} />
-        <Menu.Item key="1" icon={<HomeOutlined />}>
+        <Menu.Item key="/dashboard" icon={<HomeOutlined />}>
           Home
         </Menu.Item>
-        <Menu.Item key="2" icon={<UserOutlined />}>
+        <Menu.Item key="/users" icon={<UserOutlined />}>
           Users
         </Menu.Item>
-        <Menu.Item key="3" icon={<FolderOutlined />}>
+        <Menu.Item key="/surveys" icon={<FolderOutlined />}>
           Surveys
         </Menu.Item>
-        <Menu.Item key="4" icon={<SettingOutlined />}>
+        <Menu.Item key="/settings" icon={<SettingOutlined />}>
           Settings
         </Menu.Item>
         <Menu.ItemGroup className={'sv-sidebar-menu-bottom'}>
