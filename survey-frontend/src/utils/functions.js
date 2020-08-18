@@ -16,39 +16,11 @@ export const createActionType = (type, entity = 'App') => ({
   END: `@@[${entity}] ${type}_END`,
 });
 
-export const arrayToObjectByProp = (array, prop) =>
-  array.reduce((obj, item) => {
-    obj[item[prop]] = item;
-    return obj;
-  }, {});
-
-export const searchDateArray = (count = 7, startDate) => {
-  const array = [];
-  let current = moment().tz('Africa/Lagos');
-  if (startDate) {
-    current = moment(startDate)
-      .tz('Africa/Lagos')
-      .add(1, 'days');
-  }
-  for (let i = 0; i < count; i++) {
-    const dateData = {
-      value: current.format('YYYY-MM-DD'),
-      label: current.format('dddd, DD MMM YYYY'),
-    };
-    current.date(current.date() + 1);
-    array.push(dateData);
-  }
-  return array;
-};
-
 export const formatMessagesFromError = error => {
   let message = '';
   if (error) {
     if (error.message) {
       message = <span>{error.message}</span>;
-    }
-    if (error.messages) {
-      message = error.message && <h6 className="mb-0"> {error.message}</h6>;
     }
   }
   return (

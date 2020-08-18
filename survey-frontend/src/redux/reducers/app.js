@@ -1,12 +1,9 @@
 import { APP_LOADED, RESET_APP_STATE, GET_APP_METADATA } from '../actions';
 
 const initialState = {
-  name: 'VoomTravel',
+  name: 'Surveylie',
   firstTime: false,
-  terminals: [],
-  settings: {
-    ui: {},
-  },
+  meta: null,
 };
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -16,11 +13,9 @@ export default (state = initialState, action) => {
         firstTime: true,
       };
     case GET_APP_METADATA.SUCCESS:
-      const { locations: terminals, ...rest } = action.payload;
       return {
         ...state,
-        terminals,
-        ...rest,
+        meta: action.payload,
       };
     case RESET_APP_STATE.START:
       return initialState;

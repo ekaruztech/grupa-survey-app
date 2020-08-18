@@ -6,7 +6,8 @@ import {
   SearchOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Logo } from '../../../../route/Authentication/Login/_commons/components';
+import { connect } from 'react-redux';
+import { Logo } from '../../../../route/Authentication/_common/components';
 
 const { Header } = Layout;
 
@@ -17,7 +18,7 @@ const { Header } = Layout;
  * @constructor
  */
 const PageHeader = props => {
-  const { toggleSideBar, menuCollapsed, onSearch } = props;
+  const { toggleSideBar, menuCollapsed, onSearch, user } = props;
   return (
     <Header className="sv-layout-header">
       <div className={'sv-layout-header-right'}>
@@ -49,7 +50,7 @@ const PageHeader = props => {
             onChange={onSearch}
             // style={{borderRadius: 5, borderColor: 'var(--accent)'}}
           />
-          <Button type={'link'}>johndow@example.com</Button>
+          <Button type={'link'}>{user.email}</Button>
 
           <Avatar
             style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
@@ -61,4 +62,12 @@ const PageHeader = props => {
   );
 };
 
-export default PageHeader;
+const mapStateToProps = state => {
+  return {
+    user: state.auth.user,
+  };
+};
+
+const dispatchToProps = {};
+
+export default connect(mapStateToProps, dispatchToProps)(PageHeader);

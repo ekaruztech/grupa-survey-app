@@ -14,17 +14,7 @@ export default () => {
     >
       <p className="mt-4">
         <Button tag={Link} size="md" color="primary" className="mb-4" to="/">
-          Book Trip
-        </Button>
-        &nbsp; &nbsp;
-        <Button
-          tag={Link}
-          size="md"
-          color="lightgrey"
-          className="mb-4"
-          to="/charters/new"
-        >
-          Charter a Vehicle
+          Go Home
         </Button>
       </p>
     </ErrorTemplate>

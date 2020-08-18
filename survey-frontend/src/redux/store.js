@@ -11,7 +11,7 @@ import createRootReducer from './reducers';
 const history = createBrowserHistory();
 
 const persistConfig = {
-  key: 'voomsway',
+  key: 'surveylie',
   storage,
   stateReconciler: autoMergeLevel2,
   whitelist: ['app', 'auth'],

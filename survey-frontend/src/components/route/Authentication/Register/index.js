@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { pick } from 'lodash';
 import '../styles.scss';
 import {
   Layout,
@@ -13,14 +14,13 @@ import {
   Button,
 } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { pick } from 'lodash';
 import { Logo, Padding, FacebookIcon, GoogleIcon } from '../_common/components';
 import SocialButton from '../../../_common/SocialButton';
 import {
   doFacebookAuth,
   doGoogleAuth,
-  login,
   setSocialAuthMode,
+  register,
 } from '../../../../redux/actions';
 
 const { Content } = Layout;
@@ -28,10 +28,10 @@ const { Text } = Typography;
 
 const emailRegExp = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)])/;
 
-const Login = props => {
+const Register = props => {
   const {
-    login,
-    isLoggingIn,
+    register,
+    isRegistering,
     doFacebookAuth,
     doGoogleAuth,
     isDoingGoogleAuth,
@@ -45,8 +45,8 @@ const Login = props => {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const verifyRedirectUrl = `${baseUrl}${process.env.REACT_APP_VERIFY_REDIRECT_PATH}`;
 
-  const handleLoginSubmit = values => {
-    login(
+  const handleRegisterSubmit = values => {
+    register(
       Object.assign({}, values, {
         verifyRedirectUrl,
       })
@@ -89,9 +89,7 @@ const Login = props => {
                 </span>
               </Padding>
               <Padding top={10}>
-                <span className={'login-header-text'}>
-                  Sign into your Account
-                </span>
+                <span className={'login-header-text'}>Create an account</span>
               </Padding>
             </div>
             <Padding top={30}>
@@ -101,11 +99,11 @@ const Login = props => {
                   style={{ width: '100%' }}
                   name="login"
                   layout={'vertical'}
-                  initialValues={{ remember: true }}
-                  onFinish={handleLoginSubmit}
+                  onFinish={handleRegisterSubmit}
                 >
                   <Form.Item
                     name="email"
+                    type="email"
                     rules={[
                       {
                         required: true,
@@ -122,7 +120,6 @@ const Login = props => {
                     ]}
                   >
                     <Input
-                      type="email"
                       prefix={<UserOutlined className="site-form-item-icon" />}
                       placeholder={'Email'}
                       className={'login-input'}
@@ -131,7 +128,6 @@ const Login = props => {
 
                   <Form.Item
                     name="password"
-                    hasFeedback
                     rules={[
                       {
                         required: true,
@@ -146,9 +142,41 @@ const Login = props => {
                     />
                   </Form.Item>
 
+                  <Form.Item
+                    name="firstName"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please input your first name!',
+                      },
+                    ]}
+                  >
+                    <Input
+                      prefix={<UserOutlined className="site-form-item-icon" />}
+                      placeholder={'First name'}
+                      className={'login-input'}
+                    />
+                  </Form.Item>
+
+                  <Form.Item
+                    name="lastName"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please input your last name!',
+                      },
+                    ]}
+                  >
+                    <Input
+                      prefix={<UserOutlined className="site-form-item-icon" />}
+                      placeholder={'Last name'}
+                      className={'login-input'}
+                    />
+                  </Form.Item>
+
                   <Form.Item>
                     <Button
-                      loading={isLoggingIn}
+                      loading={isRegistering}
                       type="primary"
                       htmlType="submit"
                       block
@@ -216,9 +244,9 @@ const Login = props => {
 
           <Padding top={20}>
             <div className={'more-btn-container'}>
-              <Link to="/password/request-email">Forgot password?</Link>
-              <Link to="/register">
-                <Text strong>Create an Account</Text>
+              <Link to="#">Have an account?</Link>
+              <Link to="/login">
+                <Text strong>Sign in</Text>
               </Link>
             </div>
           </Padding>
@@ -227,18 +255,17 @@ const Login = props => {
     </Layout>
   );
 };
+
 const mapStateToProps = state => ({
-  isLoggingIn: state.ui.loading.login,
+  isRegistering: state.ui.loading.register,
   isDoingGoogleAuth: state.ui.loading.googleAuth,
   isDoingFacebookAuth: state.ui.loading.facebookAuth,
   socialAuthMode: state.auth.socialAuthMode,
-  settings: state.app.settings,
 });
 const mapDispatchToProps = {
-  login,
+  register,
   doFacebookAuth,
   doGoogleAuth,
   setSocialAuthMode,
 };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

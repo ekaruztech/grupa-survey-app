@@ -1,0 +1,176 @@
+diff a/survey-frontend/src/components/route/Authentication/Verify/ByCode.js b/survey-frontend/src/components/route/Authentication/Verify/ByCode.js	(rejected hunks)
+@@ -6,8 +6,8 @@ import {
+-    Layout,
+-    Row,
+-    Col,
+-    Divider,
+-    Form,
+-    Input,
+-    Typography,
+-    Button,
++  Layout,
++  Row,
++  Col,
++  Divider,
++  Form,
++  Input,
++  Typography,
++  Button,
+@@ -22 +22 @@ const Verify = props => {
+-    const { auth } = props;
++  const { auth } = props;
+@@ -24,3 +24,3 @@ const Verify = props => {
+-    useEffect(() => {
+-        return () => {};
+-    }, []);
++  useEffect(() => {
++    return () => {};
++  }, []);
+@@ -28,4 +28,4 @@ const Verify = props => {
+-    const onFinish = values => {
+-        console.log("values ", values);
+-        console.log('Success:', values);
+-    };
++  const onFinish = values => {
++    console.log('values ', values);
++    console.log('Success:', values);
++  };
+@@ -33,3 +33,3 @@ const Verify = props => {
+-    const onFinishFailed = errorInfo => {
+-        console.log('Failed:', errorInfo);
+-    };
++  const onFinishFailed = errorInfo => {
++    console.log('Failed:', errorInfo);
++  };
+@@ -37,12 +37,12 @@ const Verify = props => {
+-    return (
+-        <Layout>
+-            <Content className={'content'}>
+-                <Row
+-                    gutter={[16, 16]}
+-                    align={'middle'}
+-                    justify={'center'}
+-                    className={'row-container'}
+-                >
+-                    <Col className={'col-container'}>
+-                        <div className={'login-header'}>
+-                            <Padding top={20}>
++  return (
++    <Layout>
++      <Content className={'content'}>
++        <Row
++          gutter={[16, 16]}
++          align={'middle'}
++          justify={'center'}
++          className={'row-container'}
++        >
++          <Col className={'col-container'}>
++            <div className={'login-header'}>
++              <Padding top={20}>
+@@ -52,2 +52,2 @@ const Verify = props => {
+-                            </Padding>
+-                            <Padding top={10}>
++              </Padding>
++              <Padding top={10}>
+@@ -57,43 +57,28 @@ const Verify = props => {
+-                            </Padding>
+-                        </div>
+-                        <Padding top={30}>
+-                            <Row style={{ width: 274 }}>
+-                                <Form
+-                                    labelCol={{ span: 4 }}
+-                                    style={{ width: '100%' }}
+-                                    name="login"
+-                                    layout={'vertical'}
+-                                    initialValues={{ remember: true }}
+-                                    onFinish={onFinish}
+-                                    onFinishFailed={onFinishFailed}
+-                                >
+-                                    <Form.Item
+-                                        name="verification_code"
+-                                        rules={[
+-                                            {
+-                                                required: true,
+-                                                message: 'Please input your verification code!',
+-                                            },
+-                                        ]}
+-                                    >
+-                                        <Input
+-                                            prefix={<UserOutlined className="site-form-item-icon" />}
+-                                            placeholder={'Verification code'}
+-                                            className={'login-input'}
+-                                        />
+-                                    </Form.Item>
+-
+-                                    <Form.Item>
+-                                        <Button
+-                                            type="primary"
+-                                            htmlType="submit"
+-                                            block
+-                                            className={'login-btn btn-shadow'}
+-                                        >
+-                                            Submit
+-                                        </Button>
+-                                    </Form.Item>
+-                                </Form>
+-                            </Row>
+-                        </Padding>
+-                    </Col>
++              </Padding>
++            </div>
++            <Padding top={30}>
++              <Row style={{ width: 274 }}>
++                <Form
++                  labelCol={{ span: 4 }}
++                  style={{ width: '100%' }}
++                  name="login"
++                  layout={'vertical'}
++                  initialValues={{ remember: true }}
++                  onFinish={onFinish}
++                  onFinishFailed={onFinishFailed}
++                >
++                  <Form.Item
++                    name="verification_code"
++                    rules={[
++                      {
++                        required: true,
++                        message: 'Please input your verification code!',
++                      },
++                    ]}
++                  >
++                    <Input
++                      prefix={<UserOutlined className="site-form-item-icon" />}
++                      placeholder={'Verification code'}
++                      className={'login-input'}
++                    />
++                  </Form.Item>
+@@ -101,4 +86,18 @@ const Verify = props => {
+-                </Row>
+-            </Content>
+-        </Layout>
+-    );
++                  <Form.Item>
++                    <Button
++                      type="primary"
++                      htmlType="submit"
++                      block
++                      className={'login-btn btn-shadow'}
++                    >
++                      Submit
++                    </Button>
++                  </Form.Item>
++                </Form>
++              </Row>
++            </Padding>
++          </Col>
++        </Row>
++      </Content>
++    </Layout>
++  );
+@@ -107,3 +106,3 @@ const mapStateToProps = state => {
+-    return {
+-        auth: state.auth,
+-    };
++  return {
++    auth: state.auth,
++  };

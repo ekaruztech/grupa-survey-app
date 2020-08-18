@@ -1,7 +1,54 @@
 import React from 'react';
 
+/**
+ * JSX wrapper for CSS's alignment style
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export const Align = props => {
+  const {
+    children,
+    type,
+    alignCenter,
+    alignStart,
+    alignEnd,
+    justifyCenter,
+    justifyBetween,
+    justifyEvenly,
+    justifyStart,
+    justifyEnd,
+    justifyAround,
+  } = props;
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexFlow: type || 'row',
+        ...(alignCenter ? { alignItems: 'center' } : {}),
+        ...(alignEnd ? { alignItems: 'flex-end' } : {}),
+        ...(alignStart ? { alignItems: 'flex-start' } : {}),
+        ...(justifyCenter ? { justifyContent: 'center' } : {}),
+        ...(justifyAround ? { justifyContent: 'space-around' } : {}),
+        ...(justifyBetween ? { justifyContent: 'space-between' } : {}),
+        ...(justifyEnd ? { justifyContent: 'flex-end' } : {}),
+        ...(justifyStart ? { justifyContent: 'flex-start' } : {}),
+        ...(justifyEvenly ? { justifyContent: 'space-evenly' } : {}),
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
+/**
+ * JSX wrapper for CSS's Padding styles
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export const Padding = props => {
-  const { left, right, top, bottom, children, style } = props;
+  const { left, right, top, bottom, children, style = {} } = props;
   return (
     <div
       style={{
@@ -9,7 +56,7 @@ export const Padding = props => {
         paddingRight: right || 0,
         paddingTop: top || 0,
         paddingBottom: bottom || 0,
-        ...(style || {}),
+        ...style,
       }}
     >
       {children}

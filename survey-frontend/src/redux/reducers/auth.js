@@ -12,7 +12,7 @@ const initialState = {
   user: {
     _id: null,
     email: null,
-    account_verified: false,
+    accountVerified: false,
   },
 };
 

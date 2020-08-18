@@ -10,7 +10,7 @@ const Home = props => {
   }, []);
 
   return (
-    <>
+    <div className={'home'}>
       <Row gutter={[16, 24]}>
         <Col span={6}>
           <div>Column</div>
@@ -39,7 +39,7 @@ const Home = props => {
           <div>Column</div>
         </Col>
       </Row>
-    </>
+    </div>
   );
 };
 const mapStateToProps = state => {
