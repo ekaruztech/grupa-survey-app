@@ -1,17 +1,17 @@
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { toast } from 'react-toastify';
 import { get } from 'lodash';
-import routes from './routes';
+import { generalRoutes, layoutRoutes } from './routes';
 import store from './redux/store';
 import { setNextUrl } from './redux/actions';
-import ErrorBoundary from './components/_common/ErrorBoundary';
 import Page404 from './components/route/ErrorPages/Page404';
+import PageLayout from './components/_common/PageLayout';
+import ErrorBoundary from './components/_common/ErrorBoundary';
 
 export const CustomRoute = customProps => {
   const { component: Component, isPrivate, location, ...rest } = customProps;
   const { auth } = store.getState();
-  console.log('auth ', auth);
   const isVerified = !!auth.user && auth.user.accountVerified;
   const isLoggedIn =
     auth.sessionTimeExpiration &&
@@ -47,9 +47,14 @@ const CustomRouteComponent = withRouter(CustomRoute);
 export default () => {
   return (
     <Switch>
-      {routes.map((props, index) => (
+      {generalRoutes.map((props, index) => (
         <CustomRouteComponent key={index} {...props} />
       ))}
+      <PageLayout>
+        {layoutRoutes.map((props, index) => (
+          <CustomRouteComponent key={index} {...props} />
+        ))}
+      </PageLayout>
       <CustomRouteComponent component={Page404} />
     </Switch>
   );

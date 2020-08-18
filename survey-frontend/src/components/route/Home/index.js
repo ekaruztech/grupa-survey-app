@@ -1,22 +1,44 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import './Home.scss';
-import { Button } from 'antd';
-import { logout } from '../../../redux/actions';
+import { Col, Row } from 'antd';
 
 const Home = props => {
-  const { auth, logout } = props;
-
+  const { auth } = props;
   useEffect(() => {
     return () => {};
   }, []);
 
   return (
-    <div style={{ width: '400px', textAlign: 'center', margin: '50px auto' }}>
-      <h2>Welcome home</h2>
-      <Button onClick={logout} type="link">
-        Logout
-      </Button>
+    <div className={'home'}>
+      <Row gutter={[16, 24]}>
+        <Col span={6}>
+          <div>Column</div>
+        </Col>
+        <Col span={6}>
+          <div>Column</div>
+        </Col>
+        <Col span={6}>
+          <div>Column</div>
+        </Col>
+        <Col span={6}>
+          <div>Column</div>
+        </Col>
+      </Row>
+      <Row gutter={[16, 24]}>
+        <Col span={6}>
+          <div>Column</div>
+        </Col>
+        <Col span={6}>
+          <div>Column</div>
+        </Col>
+        <Col span={6}>
+          <div>Column</div>
+        </Col>
+        <Col span={6}>
+          <div>Column</div>
+        </Col>
+      </Row>
     </div>
   );
 };
@@ -26,6 +48,6 @@ const mapStateToProps = state => {
   };
 };
 
-const dispatchToProps = { logout };
+const dispatchToProps = {};
 
 export default connect(mapStateToProps, dispatchToProps)(Home);

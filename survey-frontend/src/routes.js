@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import Home from './components/route/Home';
 import Login from './components/route/Authentication/Login';
 import Register from './components/route/Authentication/Register';
@@ -7,8 +8,7 @@ import VerifyCode from './components/route/Authentication/Verify/ByCode';
 import PasswordRequestEmail from './components/route/Authentication/Password/RequestEmail';
 import resetPassword from './components/route/Authentication/Password/Update';
 
-export default [
-  { exact: true, path: '/', component: Home, isPrivate: true },
+export const generalRoutes = [
   { exact: true, path: '/login', component: Login },
   { exact: true, path: '/register', component: Register },
   { exact: true, path: '/verify-code', component: VerifyCode, isPrivate: true },
@@ -19,4 +19,8 @@ export default [
     component: PasswordRequestEmail,
   },
   { exact: true, path: '/password/update', component: resetPassword },
+];
+export const layoutRoutes = [
+  { exact: true, path: '/', component: () => <Redirect to="/login" /> },
+  { exact: true, path: '/dashboard', component: Home, isPrivate: true },
 ];

@@ -373,6 +373,6 @@ const attemptUserLogIn = ({ data = {}, dispatch, getState }) => {
   const state = getState();
   dispatch(updateAuthSettings(payload));
   const nextUrl = get(state, 'ui.location.nextUrl');
-  dispatch(push(nextUrl || '/'));
+  dispatch(push(nextUrl || '/dashboard'));
   dispatch(setNextUrl(null));
 };
