@@ -1,15 +1,46 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import './Home.scss';
+import { Col, Row } from 'antd';
 
 const Home = props => {
   const { auth } = props;
-
   useEffect(() => {
     return () => {};
   }, []);
 
-  return <div>Hello home</div>;
+  return (
+    <>
+      <Row gutter={[16, 24]}>
+        <Col span={6}>
+          <div>Column</div>
+        </Col>
+        <Col span={6}>
+          <div>Column</div>
+        </Col>
+        <Col span={6}>
+          <div>Column</div>
+        </Col>
+        <Col span={6}>
+          <div>Column</div>
+        </Col>
+      </Row>
+      <Row gutter={[16, 24]}>
+        <Col span={6}>
+          <div>Column</div>
+        </Col>
+        <Col span={6}>
+          <div>Column</div>
+        </Col>
+        <Col span={6}>
+          <div>Column</div>
+        </Col>
+        <Col span={6}>
+          <div>Column</div>
+        </Col>
+      </Row>
+    </>
+  );
 };
 const mapStateToProps = state => {
   return {

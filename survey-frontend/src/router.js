@@ -4,8 +4,8 @@ import { toast } from 'react-toastify';
 import routes from './routes';
 import store from './redux/store';
 import { setNextUrl } from './redux/actions';
-import ErrorBoundary from './components/_common/ErrorBoundary';
 import Page404 from './components/route/ErrorPages/Page404';
+import PageLayout from './components/_common/PageLayout';
 
 export const CustomRoute = customProps => {
   const { component: Component, isPrivate, location, ...rest } = customProps;
@@ -29,7 +29,9 @@ export const CustomRoute = customProps => {
         }
         return (
           // <ErrorBoundary>
-          <Component {...props} />
+          <PageLayout>
+            <Component {...props} />
+          </PageLayout>
           // </ErrorBoundary>
         );
       }}
