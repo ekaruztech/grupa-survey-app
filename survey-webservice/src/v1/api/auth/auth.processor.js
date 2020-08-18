@@ -149,6 +149,8 @@ const AuthProcessor = {
 				return new AppError(lang.get('auth').verify_unauthorized, FORBIDDEN);
 			}
 		} else {
+			console.log('auth ::::: ', auth);
+			console.log('auth.verificationCode ::::: ', auth.verificationCode);
 			if (!auth.accountVerified && auth.verificationCode !== object.verificationCode) {
 				return new AppError(lang.get('auth').incorrect_verify_code, FORBIDDEN);
 			}

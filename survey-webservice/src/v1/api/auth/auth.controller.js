@@ -115,7 +115,7 @@ const AuthController = {
 			auth = (await Auth.create([{ ...authObject }], { session }))[0];
 			const user = await UserProcessor.getUser(auth._id, obj, session);
 			const token = await AuthProcessor.signToken({ auth, user });
-			const email = AuthEmail.verifyCode(auth, obj.verify_redirect_url);
+			const email = AuthEmail.verifyCode(auth, obj.verifyRedirectUrl);
 			const response = await AuthProcessor.getResponse({
 				token,
 				email,
