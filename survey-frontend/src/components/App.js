@@ -3,12 +3,9 @@ import { Redirect, Switch, withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import Routes, { CustomRoute } from '../router.js';
 
-import Header from './_common/Layout/Header';
-import Footer from './_common/Layout/Footer';
 import '../stylesheets/app.scss';
 import Progress from './_common/Progress';
 import '../stylesheets/antd-themed.css';
-import Page404 from './route/ErrorPages/Page404';
 
 const App = ({ location }) => {
   return (
