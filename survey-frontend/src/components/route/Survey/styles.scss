@@ -5,6 +5,9 @@
   line-height: 45px !important;
 }
 .sv-survey-layout {
+  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
+    display: none !important;
+  }
   .ant-input-affix-wrapper {
     padding: 4px 0 !important;
   }

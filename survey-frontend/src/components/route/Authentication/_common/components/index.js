@@ -19,10 +19,12 @@ export const Align = props => {
     justifyStart,
     justifyEnd,
     justifyAround,
+    style,
   } = props;
   return (
     <div
       style={{
+        ...style,
         display: 'flex',
         flexFlow: type || 'row',
         ...(alignCenter ? { alignItems: 'center' } : {}),
