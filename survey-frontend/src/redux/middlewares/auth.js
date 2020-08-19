@@ -1,28 +1,24 @@
 import jwtDecode from 'jwt-decode';
-import { change } from 'redux-form';
 import { push } from 'connected-react-router';
 import { get, pick } from 'lodash';
 import { toast } from 'react-toastify';
 import {
   apiRequest,
-  closeModal,
   FACEBOOK_AUTH,
   GOOGLE_AUTH,
   LOGIN,
   LOGOUT,
-  openModal,
   REGISTER,
   RESEND_REG_VERIFICATION_CODE,
+  resetAuthentication,
   SEND_PASSWORD_RESET_EMAIL,
   setNextUrl,
   UPDATE_PASSWORD,
   updateAuthSettings,
   VERIFY_REGISTRATION_CODE,
   VERIFY_USER_BY_EMAIL,
-  resetAuthentication,
 } from '../actions';
 import { history } from '../store';
-import mixPanelService from '../../utils/services/mixPanelService';
 
 const KEY_MAPS = {
   login: 'login',
@@ -165,7 +161,7 @@ const resendRegVerificationCode = ({ dispatch }) => next => action => {
 
 const sendPasswordResetEmail = ({ dispatch }) => next => action => {
   if (action.type === SEND_PASSWORD_RESET_EMAIL.START) {
-    const { payload, modal, ...rest } = action;
+    const { payload, ...rest } = action;
     const key = KEY_MAPS.sendPasswordResetEmail;
     dispatch(
       apiRequest({
@@ -193,7 +189,7 @@ const sendPasswordResetEmail = ({ dispatch }) => next => action => {
 
 const resetPassword = ({ dispatch }) => next => action => {
   if (action.type === UPDATE_PASSWORD.START) {
-    const { modal, ...rest } = action;
+    const { ...rest } = action;
     const key = 'resetPassword';
     dispatch(
       apiRequest({

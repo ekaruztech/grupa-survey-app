@@ -1,5 +1,6 @@
 import { Redirect } from 'react-router-dom';
 import React from 'react';
+import Landing from './components/route/Landing';
 import Home from './components/route/Home';
 import Users from './components/route/Users';
 import Login from './components/route/Authentication/Login';
@@ -23,7 +24,7 @@ export const generalRoutes = [
   { exact: true, path: '/password/update', component: resetPassword },
 ];
 export const layoutRoutes = [
-  { exact: true, path: '/', component: () => <Redirect to="/login" /> },
+  { exact: true, path: '/', component: Landing },
   { exact: true, path: '/dashboard', component: Home, isPrivate: true },
   { exact: true, path: '/surveys', component: Survey, isPrivate: true },
   { exact: true, path: `/surveys/:id`, component: Survey, isPrivate: true },

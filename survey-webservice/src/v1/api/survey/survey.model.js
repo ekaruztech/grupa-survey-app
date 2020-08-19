@@ -20,6 +20,24 @@ const SurveyModel = new AppSchema(
 			type: Number,
 			default: 0
 		},
+		results: [
+			{
+				question: {
+					type: Schema.Types.ObjectId
+				},
+				options: [
+					{
+						optionId: {
+							type: Schema.Types.ObjectId
+						},
+						responseCount: {
+							type: Number,
+							default: 0
+						}
+					}
+				]
+			}
+		],
 		questions: [
 			{
 				questionType: {

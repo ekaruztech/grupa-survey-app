@@ -25,6 +25,7 @@ class SurveyController extends AppController {
 		this.removeQuestion = this.removeQuestion.bind(this);
 		this.addOrUpdateQuestion = this.addOrUpdateQuestion.bind(this);
 		this.response = this.response.bind(this);
+		this.results = this.results.bind(this);
 	}
 
 	/**
@@ -42,24 +43,24 @@ class SurveyController extends AppController {
 					new AppError(lang.get("error").inputs, BAD_REQUEST, validate.errors)
 				);
 			}
-			let tripObject = {
-				..._.pick(obj, ["_id", "label", "options"])
+			let questionObject = {
+				..._.pick(obj, ["_id", "label", "options", "description"])
 			};
 			let survey = req.object;
 			let existingQuestionIndex = survey.questions.findIndex(
-				e => String(e._id) === String(tripObject["_id"])
+				e => String(e._id) === String(questionObject["_id"])
 			);
 			if (existingQuestionIndex > -1) {
-				survey.questions[existingQuestionIndex] = tripObject;
+				survey.questions[existingQuestionIndex] = questionObject;
 			} else {
-				survey.questions.push(tripObject);
+				survey.questions.push(questionObject);
 			}
 			survey = await survey.save();
 			req.response = {
 				model: this.model,
 				code: OK,
 				message: this.lang.updated,
-				value: await survey
+				value: survey
 			};
 			return next();
 		} catch (err) {
@@ -94,7 +95,7 @@ class SurveyController extends AppController {
 				model: this.model,
 				code: OK,
 				message: this.lang.updated,
-				value: await survey
+				value: survey
 			};
 			return next();
 		} catch (err) {
@@ -146,6 +147,7 @@ class SurveyController extends AppController {
 					new AppError(lang.get("surveys").response_value_invalid, FORBIDDEN)
 				);
 			}
+			console.log("obj.results ::::: ", obj.results);
 			const value = await Response.findOneAndUpdate(
 				{ user: req.authId, survey: survey._id },
 				{
@@ -171,6 +173,41 @@ class SurveyController extends AppController {
 			return next();
 		} catch (err) {
 			await session.abortTransaction();
+			return next(err);
+		}
+	}
+
+	/**
+	 * @param {Object} req The request object
+	 * @param {Object} res The response object
+	 * @param {Function} next The callback to the next program handler
+	 * @return {Object} res The response object
+	 */
+	async results(req, res, next) {
+		try {
+			let survey = req.object;
+			let responses = await Response.find({ survey: survey._id }).lean();
+			responses = _.flatten(responses.map(r => r.results));
+			let group = _.groupBy(responses, r => r.question);
+			let results = {};
+			for (let key in group) {
+				if (group.hasOwnProperty(key)) {
+					results[key] = _.groupBy(group[key], r => r.value);
+					for (let k in results[key]) {
+						if (results[key].hasOwnProperty(k)) {
+							results[key][k] = results[key][k].length;
+						}
+					}
+				}
+			}
+			req.response = {
+				model: this.model,
+				code: OK,
+				message: this.lang.updated,
+				value: results
+			};
+			return next();
+		} catch (err) {
 			return next(err);
 		}
 	}

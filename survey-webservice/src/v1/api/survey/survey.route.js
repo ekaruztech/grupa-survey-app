@@ -25,9 +25,11 @@ router.delete(
 );
 router.put("/surveys/:id/response", auth, surveyCtrl.response, response);
 
+router.get("/surveys/:id/results", auth, surveyCtrl.results, response);
+
 router
 	.route("/surveys")
-	.get(auth, surveyCtrl.find, response)
+	.get(surveyCtrl.find, response)
 	.post(auth, isCoordinator, surveyCtrl.create, response);
 
 router.param("id", surveyCtrl.id, response);

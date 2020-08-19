@@ -21,6 +21,7 @@ export const CustomRoute = customProps => {
       {...rest}
       render={props => {
         const pathname = get(location, 'pathname');
+        console.log('pathname :::: ', pathname);
         if (isPrivate && !isLoggedIn) {
           if (pathname) {
             store.dispatch(setNextUrl(location.pathname));

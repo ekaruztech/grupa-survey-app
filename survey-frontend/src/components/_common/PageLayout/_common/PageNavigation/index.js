@@ -18,7 +18,7 @@ const { Sider } = Layout;
  * @constructor
  */
 const PageNavigation = props => {
-  const { menuCollapsed, onNavigate } = props;
+  const { menuCollapsed, onNavigate, logout } = props;
   const { pathname } = useLocation();
 
   return (
@@ -51,7 +51,7 @@ const PageNavigation = props => {
           Settings
         </Menu.Item>
         <Menu.ItemGroup className={'sv-sidebar-menu-bottom'}>
-          <Menu.Item key="4" icon={<LogoutOutlined />}>
+          <Menu.Item onClick={() => logout()} key="4" icon={<LogoutOutlined />}>
             Logout
           </Menu.Item>
         </Menu.ItemGroup>
