@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useEffect } from 'react';
 import { filter, has, isEmpty, last, map } from 'lodash';
 import {
   Button,
@@ -6,12 +6,18 @@ import {
   Divider,
   Input,
   Row,
+  Spin,
   Switch,
   Tooltip,
   Typography,
 } from 'antd';
 import { motion } from 'framer-motion';
-import { CopyOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import {
+  CopyOutlined,
+  DeleteOutlined,
+  PlusOutlined,
+  LoadingOutlined,
+} from '@ant-design/icons';
 import { Align, Padding } from '../../../../Authentication/_common/components';
 import QuestionOption from '../QuestionOption';
 
@@ -29,49 +35,62 @@ const optionsReducer = (state, action) => {
     case 'add':
       return state.length < 5 ? [...state, payload] : state;
     case 'reset':
-      return [{ key: 0, value: 'Option 1' }];
+      return action?.payload ? action.payload : [{ key: 0, value: 'Option 1' }];
     default:
       return state;
   }
 };
 const AddQuestionForm = props => {
   const {
-    setAllQuestions,
+    addQuestionToSurvey,
     setHideQuestionCreator,
     initialValues,
     resetInitialFormState,
     allQuestions,
+    isAddingQuestion,
   } = props;
   const [showDescription, setShowDescription] = useState(false);
-  const [optionsState, dispatch] = useReducer(
-    optionsReducer,
-    isEmpty(initialValues?.options)
-      ? [{ key: 1, value: 'Option 1' }]
-      : initialValues?.options
-  );
+  const [optionsState, dispatch] = useReducer(optionsReducer, [
+    { key: 1, value: 'Option 1' },
+  ]);
+  const [question, setQuestion] = useState('');
+  const [description, setDescription] = useState('');
 
-  const [question, setQuestion] = useState(
-    !isEmpty(initialValues?.question)
-      ? initialValues?.question
-      : 'Untitled question'
-  );
-  const [description, setDescription] = useState(
-    !isEmpty(initialValues?.description) ? initialValues.description : ''
-  );
+  useEffect(() => {
+    setQuestion(
+      has(initialValues, '_id') && initialValues?.question
+        ? initialValues?.question
+        : 'Untitled question'
+    );
+    setDescription(
+      has(initialValues, 'description') && initialValues?.description
+        ? initialValues.description
+        : ''
+    );
+    dispatch({
+      type: 'reset',
+      payload:
+        has(initialValues, '_id') && !isEmpty(initialValues?.options)
+          ? initialValues?.options
+          : [{ key: 1, value: 'Option 1' }],
+    });
+  }, [initialValues]);
+
   const saveQuestion = () => {
     const questionData = {
-      id: Math.random(),
-      question,
-      answers: optionsState.map(({ value }) => value),
+      ...(has(initialValues, '_id') ? { _id: initialValues?._id } : {}),
+      label: question,
+      options: optionsState.map(({ value }) => ({ label: value, value })),
       ...(!isEmpty(description) ? { description } : {}),
     };
-    if (has(initialValues, 'id')) {
+    if (has(initialValues, '_id')) {
       resetInitialFormState();
     }
-    setAllQuestions(prev => [...prev, questionData]);
-
-    dispatch({ type: 'reset' });
-    setHideQuestionCreator(true);
+    addQuestionToSurvey(questionData, () => {
+      dispatch({ type: 'reset' });
+      setDescription('');
+      setQuestion('Untitled question');
+    });
   };
 
   const addOption = () => {
@@ -85,8 +104,8 @@ const AddQuestionForm = props => {
     });
   };
   return (
-    <Col span={16}>
-      <motion.div layout className={'sv-form-builder-question-form-wrapper'}>
+    <Col span={16} offset={4}>
+      <motion.div className={'sv-form-builder-question-form-wrapper'}>
         <Padding
           top={30}
           bottom={10}
@@ -112,7 +131,7 @@ const AddQuestionForm = props => {
             {showDescription && (
               <Col span={24}>
                 <Padding top={20} bottom={20}>
-                  <motion.div layout>
+                  <motion.div>
                     <Input.TextArea
                       value={description}
                       onChange={e => setDescription(e.target.value)}
@@ -207,7 +226,22 @@ const AddQuestionForm = props => {
                     </Align>
                     <Divider type={'vertical'} height={30} />
                     <Align alignCenter>
-                      <Button type="primary" onClick={saveQuestion}>
+                      <Button
+                        type="primary"
+                        onClick={saveQuestion}
+                        disabled={isAddingQuestion}
+                        icon={
+                          isAddingQuestion ? (
+                            <Spin
+                              indicator={
+                                <Padding right={5}>
+                                  <LoadingOutlined spin />
+                                </Padding>
+                              }
+                            />
+                          ) : null
+                        }
+                      >
                         Save
                       </Button>
                     </Align>

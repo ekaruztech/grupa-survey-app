@@ -11,7 +11,7 @@ const QuestionOption = props => {
   };
   return (
     <Col span={24}>
-      <motion.div layout>
+      <motion.div>
         <Padding top={20} bottom={15}>
           <Row>
             <Col span={24}>
