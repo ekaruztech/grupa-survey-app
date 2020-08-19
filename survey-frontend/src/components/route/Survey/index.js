@@ -6,7 +6,6 @@ import {
   Space,
   Divider,
   Radio,
-  Typography,
   Button,
   Tooltip,
   Popconfirm,
@@ -15,18 +14,19 @@ import {
 } from 'antd';
 import { motion } from 'framer-motion';
 import { LoadingOutlined } from '@ant-design/icons';
-import { useLocation, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { Padding, Align } from '../Authentication/_common/components';
 import { getSurvey } from '../../../redux/actions';
 import FormBuilder from './FormBuilder';
 import Response from './Response';
+import FormPreview from './Preview';
 
 const { Content } = Layout;
 
 const Survey = props => {
   const { getSurvey, survey, isGettingSurvey } = props;
   const params = useParams();
-  console.log(params);
+
   useEffect(() => {
     getSurvey(params?.id || '');
     return () => {};
@@ -36,6 +36,7 @@ const Survey = props => {
 
   const onNavigate = route => {
     setCurrentRoute(route);
+    console.log(route);
   };
   return (
     <Layout className={'sv-survey-layout'} style={{ overflow: 'scroll' }}>
@@ -75,6 +76,7 @@ const Survey = props => {
                 onConfirm={() => null}
                 okText="Yes"
                 cancelText="No"
+                key={'page-header-close'}
               >
                 <Tooltip title={'Close survey'}>
                   <Button type={'danger'} ghost>
@@ -108,7 +110,7 @@ const Survey = props => {
               </Radio.Button>
               <Radio.Button
                 style={{ borderRadius: 4, marginRight: 10 }}
-                value="preview"
+                value="form-preview"
               >
                 Preview
               </Radio.Button>
@@ -125,7 +127,9 @@ const Survey = props => {
               {currentRoute === 'responses' && (
                 <Response surveyId={params.id} />
               )}
-              {/*{currentRoute === 'form-builder' && <FormBuilder />}*/}
+              {currentRoute === 'form-preview' && (
+                <FormPreview survey={survey} navigateTo={onNavigate} />
+              )}
             </Content>
           </Padding>
         </motion.div>

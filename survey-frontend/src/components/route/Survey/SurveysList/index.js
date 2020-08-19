@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Pagination, Row, Spin } from 'antd';
+import { Button, Empty, Pagination, Row, Spin } from 'antd';
 import { connect } from 'react-redux';
 import { LoadingOutlined } from '@ant-design/icons';
 import { fetchSurveys } from '../../../../redux/actions';
@@ -53,11 +53,23 @@ const SurveyList = props => {
       className={'home'}
     >
       <Row gutter={[16, 24]}>
-        {surveys &&
+        {surveys?.length < 1 && (
+          <Align
+            alignCenter
+            justifyCenter
+            style={{ width: '100%', minHeight: 500, height: '100%' }}
+          >
+            <Empty
+              description={
+                <span>You currently have no surveys, create one!</span>
+              }
+            />
+          </Align>
+        )}
+        {(surveys?.length || 0) > 0 &&
           surveys.map((survey, index) => {
             return (
               <SurveyDisplayCard
-                key={`${survey?.name}_${index}`}
                 name={survey.name}
                 responseCount={survey.responseCount}
                 key={survey._id}
@@ -70,9 +82,24 @@ const SurveyList = props => {
         {pagination && (
           <Pagination
             defaultCurrent={1}
+            current={pagination.current || 1}
             onChange={handlePagination}
             defaultPageSize={pagination.per_page}
             total={pagination.total_count}
+            showTotal={(total, range) => (
+              <Padding
+                right={50}
+              >{`${range[0]}-${range[1]} of ${total} items`}</Padding>
+            )}
+            itemRender={function(current, type, originalElement) {
+              if (type === 'prev') {
+                return <a>Previous</a>;
+              }
+              if (type === 'next') {
+                return <a>Next</a>;
+              }
+              return originalElement;
+            }}
           />
         )}
       </Padding>
