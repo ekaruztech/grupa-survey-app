@@ -38,7 +38,7 @@ const PageNavigation = props => {
         onSelect={onNavigate}
       >
         <div className={'sv-sidebar-menu-empty-item'} />
-        <Menu.Item key="/dashboard" icon={<HomeOutlined />}>
+        <Menu.Item key="/" icon={<HomeOutlined />}>
           Home
         </Menu.Item>
         <Menu.Item key="/users" icon={<UserOutlined />}>
@@ -46,9 +46,6 @@ const PageNavigation = props => {
         </Menu.Item>
         <Menu.Item key="/surveys" icon={<FolderOutlined />}>
           Surveys
-        </Menu.Item>
-        <Menu.Item key="/settings" icon={<SettingOutlined />}>
-          Settings
         </Menu.Item>
         <Menu.ItemGroup className={'sv-sidebar-menu-bottom'}>
           <Menu.Item onClick={() => logout()} key="4" icon={<LogoutOutlined />}>

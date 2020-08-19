@@ -121,7 +121,7 @@ const verifyRegistrationCode = ({ dispatch, getState }) => next => action => {
 
 const verifyRegistrationEmail = ({ dispatch, getState }) => next => action => {
   if (action.type === VERIFY_USER_BY_EMAIL.START) {
-    const { modal, ...rest } = action;
+    const { ...rest } = action;
     const key = KEY_MAPS.verifyRegistrationEmail;
     dispatch(
       apiRequest({
@@ -369,6 +369,6 @@ const attemptUserLogIn = ({ data = {}, dispatch, getState }) => {
   const state = getState();
   dispatch(updateAuthSettings(payload));
   const nextUrl = get(state, 'ui.location.nextUrl');
-  dispatch(push(nextUrl || '/dashboard'));
+  dispatch(push(nextUrl || '/'));
   dispatch(setNextUrl(null));
 };
