@@ -1,4 +1,4 @@
-import AppError from '../../../lib/api/app-error';
+import AppError from "../../../lib/app-error";
 
 /**
  * The App Validation class
@@ -11,7 +11,7 @@ class AppValidation {
 	async create(obj) {
 		return AppError.formatInputError({ value: obj });
 	}
-	
+
 	/**
 	 * @param {Object} obj The object to validate
 	 * @return {Object} Validator

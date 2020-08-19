@@ -1,10 +1,10 @@
-import AppResponse from '../../../lib/api/app-response';
-import _ from 'lodash';
-import { sendEmail } from '../../../utils/helpers';
+import AppResponse from "../../../lib/app-response";
+import _ from "lodash";
+import { sendEmail } from "../../../utils/helpers";
 
-export const CREATE = 'create';
-export const UPDATE = 'update';
-export const DELETE = 'delete';
+export const CREATE = "create";
+export const UPDATE = "update";
+export const DELETE = "delete";
 
 /**
  * The main processor class
@@ -18,7 +18,7 @@ export default class AppProcessor {
 	constructor(model) {
 		this.model = model;
 	}
-	
+
 	/**
 	 * @param {Object} obj required for response
 	 * @return {Object}
@@ -26,7 +26,7 @@ export default class AppProcessor {
 	async postDeleteResponse(obj) {
 		return true;
 	}
-	
+
 	/**
 	 * @param {Object} current required for response
 	 * @param {Object} obj required for response
@@ -35,7 +35,7 @@ export default class AppProcessor {
 	async validateUpdate(current, obj) {
 		return null;
 	}
-	
+
 	/**
 	 * @param {Object} obj required for response
 	 * @return {Object}
@@ -43,7 +43,7 @@ export default class AppProcessor {
 	async validateDelete(obj) {
 		return null;
 	}
-	
+
 	/**
 	 * @param {Object} obj required for response
 	 * @return {Object}
@@ -51,7 +51,7 @@ export default class AppProcessor {
 	async validateCreate(obj) {
 		return null;
 	}
-	
+
 	/**
 	 * @param {Object} obj required for response
 	 * @return {Object}
@@ -59,7 +59,7 @@ export default class AppProcessor {
 	async postCreateResponse(obj) {
 		return false;
 	}
-	
+
 	/**
 	 * @param {Object} obj required for response
 	 * @param {Object} response required for response
@@ -68,12 +68,23 @@ export default class AppProcessor {
 	async postUpdateResponse(obj, response) {
 		return false;
 	}
-	
+
 	/**
 	 * @param {Object} options required for response
 	 * @return {Promise<Object>}
 	 */
-	async getApiClientResponse({ model, chatUser, value, code, message, queryParser, pagination, count, token, email }) {
+	async getApiClientResponse({
+		model,
+		chatUser,
+		value,
+		code,
+		message,
+		queryParser,
+		pagination,
+		count,
+		token,
+		email
+	}) {
 		const meta = AppResponse.getSuccessMeta();
 		if (token) {
 			meta.token = token;
@@ -93,11 +104,16 @@ export default class AppProcessor {
 			meta.pagination = pagination.done();
 		}
 		if (model.hiddenFields && model.hiddenFields.length > 0) {
-			const isFunction = typeof value.toJSON === 'function';
+			const isFunction = typeof value.toJSON === "function";
 			if (_.isArray(value)) {
-				value = value.map(v => _.omit((isFunction) ? v.toJSON() : v, ...model.hiddenFields));
+				value = value.map(v =>
+					_.omit(isFunction ? v.toJSON() : v, ...model.hiddenFields)
+				);
 			} else {
-				value = _.omit((isFunction) ? value.toJSON() : value, ...model.hiddenFields);
+				value = _.omit(
+					isFunction ? value.toJSON() : value,
+					...model.hiddenFields
+				);
 			}
 		}
 		if (email) {
@@ -105,7 +121,7 @@ export default class AppProcessor {
 		}
 		return AppResponse.format(meta, value);
 	}
-	
+
 	/**
 	 * @param {Object} pagination The pagination object
 	 * @param {Object} queryParser The query parser
@@ -113,7 +129,10 @@ export default class AppProcessor {
 	 */
 	async buildModelQueryObject(pagination, queryParser = null) {
 		let query = this.model.find(queryParser.query);
-		if (queryParser.search && this.model.searchQuery(queryParser.search).length > 0) {
+		if (
+			queryParser.search &&
+			this.model.searchQuery(queryParser.search).length > 0
+		) {
 			const searchQuery = this.model.searchQuery(queryParser.search);
 			queryParser.query = {
 				$or: [...searchQuery],
@@ -122,29 +141,30 @@ export default class AppProcessor {
 			query = this.model.find({ ...queryParser.query });
 		}
 		if (!queryParser.getAll) {
-			query = query.skip(pagination.skip)
-				.limit(pagination.perPage);
+			query = query.skip(pagination.skip).limit(pagination.perPage);
 		}
-		
+
 		query = query.sort(
-			(pagination && pagination.sort) ?
-				Object.assign(pagination.sort, { createdAt: -1 }) : '-createdAt');
+			pagination && pagination.sort
+				? Object.assign(pagination.sort, { createdAt: -1 })
+				: "-createdAt"
+		);
 		return {
 			value: await query.select(queryParser.selection).exec(),
 			count: await this.model.countDocuments(queryParser.query).exec()
 		};
 	}
-	
+
 	/**
 	 * @param {Object} query The query object
 	 * @return {Promise<Object>}
 	 */
 	async countQueryDocuments(query) {
-		let count = await this.model.aggregate(query.concat([{ $count: 'total' }]));
+		let count = await this.model.aggregate(query.concat([{ $count: "total" }]));
 		count = count[0] ? count[0].total : 0;
 		return count;
 	}
-	
+
 	/**
 	 * @param {Object} pagination The pagination object
 	 * @param {Object} query The query
@@ -154,23 +174,28 @@ export default class AppProcessor {
 	async buildModelAggregateQueryObject(pagination, query, queryParser = null) {
 		const count = await this.countQueryDocuments(query);
 		query.push({
-			$sort: (queryParser.sort)
+			$sort: queryParser.sort
 				? Object.assign({}, { ...queryParser.sort, createdAt: -1 })
 				: { createdAt: -1 }
 		});
 		if (!queryParser.getAll) {
-			query.push({
-				$skip: pagination.skip
-			}, {
-				$limit: pagination.perPage
-			});
+			query.push(
+				{
+					$skip: pagination.skip
+				},
+				{
+					$limit: pagination.perPage
+				}
+			);
 		}
 		return {
-			value: await this.model.aggregate(query).collation({ locale: 'en', strength: 1 }),
+			value: await this.model
+				.aggregate(query)
+				.collation({ locale: "en", strength: 1 }),
 			count
 		};
 	}
-	
+
 	/**
 	 * @param {Object} obj The payload object
 	 * @param {Object} session The payload object
@@ -183,7 +208,7 @@ export default class AppProcessor {
 		}
 		return new this.model(obj).save();
 	}
-	
+
 	/**
 	 * @param {Object} current The payload object
 	 * @param {Object} obj The payload object
@@ -197,7 +222,7 @@ export default class AppProcessor {
 		_.extend(current, obj);
 		return current.save();
 	}
-	
+
 	/**
 	 * @param {Object} req The request object
 	 * @return {Promise<Object>}
@@ -210,7 +235,7 @@ export default class AppProcessor {
 		}
 		return obj;
 	}
-	
+
 	/**
 	 * @param {Object} model The model object
 	 * @param {Object} obj The request object
@@ -223,7 +248,11 @@ export default class AppProcessor {
 			for (const key of uniqueKeys) {
 				query[key] = obj[key];
 			}
-			const found = await model.findOne({ ...query, deleted: false, active: true });
+			const found = await model.findOne({
+				...query,
+				deleted: false,
+				active: true
+			});
 			if (found) {
 				return found;
 			}
