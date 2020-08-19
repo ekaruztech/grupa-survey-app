@@ -25,6 +25,8 @@ const surveyReducer = (state = initialState, action) => {
         current: action.payload,
         byList: [action.payload, ...state.byList],
       };
+    default:
+      return state;
   }
 };
 
