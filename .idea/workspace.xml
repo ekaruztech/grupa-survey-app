@@ -2,47 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5b8aaa4c-5012-4152-b4a0-b3b6bac0670c" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/survey-frontend/src/components/_common/PageLayout/_common/PageContent/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/survey-frontend/src/components/_common/PageLayout/_common/PageHeader/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/survey-frontend/src/components/_common/PageLayout/_common/PageNavigation/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/survey-frontend/src/components/_common/PageLayout/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/survey-frontend/src/components/_common/PageLayout/styles.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/survey-frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/survey-frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/survey-frontend/src/components/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/src/components/_common/Checkbox/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/src/components/_common/Checkbox/style.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/src/components/_common/CollapseItem/CollapseItem.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/src/components/_common/CollapseItem/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/src/components/_common/Layout/Footer/Footer.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/src/components/_common/Layout/Footer/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/src/components/_common/Layout/Header/Header.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/src/components/_common/Layout/Header/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/src/components/_common/LoadMore/LoadMore.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/src/components/_common/LoadMore/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/src/components/_common/Modal/Modal.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/src/components/_common/Modal/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/src/components/_common/ReactBoostrapTable/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/src/components/_common/ReduxFormControls/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/src/components/route/Authentication/Login/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/survey-frontend/src/components/route/Authentication/Login/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/src/components/route/Home/Home.scss" beforeDir="false" afterPath="$PROJECT_DIR$/survey-frontend/src/components/route/Home/Home.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/src/components/route/Home/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/survey-frontend/src/components/route/Home/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/survey-frontend/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/src/redux/middlewares/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/survey-frontend/src/redux/middlewares/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/src/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/survey-frontend/src/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/src/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/survey-frontend/src/routes.js" afterDir="false" />
     </list>
+<<<<<<< HEAD
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
+=======
+>>>>>>> ef6674a257718264ee360dd776e5ad79ae7c5c60
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< HEAD
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
@@ -71,6 +46,8 @@
       </file>
     </leaf>
   </component>
+=======
+>>>>>>> ef6674a257718264ee360dd776e5ad79ae7c5c60
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -84,6 +61,7 @@
   <component name="GitToolBoxStore">
     <option name="projectConfigVersion" value="2" />
   </component>
+<<<<<<< HEAD
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -101,6 +79,8 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
+=======
+>>>>>>> ef6674a257718264ee360dd776e5ad79ae7c5c60
   <component name="NamedScopeManager">
     <scope name="Git Scope" pattern="" />
   </component>
@@ -114,6 +94,7 @@
   </component>
   <component name="ProjectId" id="1gDz6e7wfaI55RXwTKSazsq0g43" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+<<<<<<< HEAD
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -151,6 +132,8 @@
       <pane id="Scope" />
     </panes>
   </component>
+=======
+>>>>>>> ef6674a257718264ee360dd776e5ad79ae7c5c60
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -170,6 +153,7 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="settings.nodejs" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -182,18 +166,6 @@
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/survey-webservice" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -229,6 +201,7 @@
     <option name="localTasksCounter" value="3" />
     <servers />
   </component>
+<<<<<<< HEAD
   <component name="TimeTrackingManager">
     <option name="totallyTimeSpent" value="4010000" />
   </component>
@@ -259,6 +232,8 @@
       <window_info anchor="bottom" id="Find" order="1" weight="0.32618025" />
     </layout>
   </component>
+=======
+>>>>>>> ef6674a257718264ee360dd776e5ad79ae7c5c60
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
     <option name="exactExcludedFiles">
@@ -302,19 +277,20 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="371" y="186" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1597751985168" />
-    <state x="598" y="452" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1597686451164">
+    <state x="598" y="452" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1597774777060">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="598" y="452" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1680.1050@0.0.1680.1050" timestamp="1597686451164" />
-    <state x="522" y="244" width="635" height="584" key="find.popup" timestamp="1597756040367">
+    <state x="598" y="452" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1680.1050@0.0.1680.1050" timestamp="1597774777060" />
+    <state x="522" y="244" width="635" height="584" key="find.popup" timestamp="1597787695789">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="522" y="244" width="635" height="584" key="find.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1597756040367" />
+    <state x="522" y="244" width="635" height="584" key="find.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1597787695789" />
     <state x="505" y="250" width="670" height="676" key="search.everywhere.popup" timestamp="1597697331589">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="505" y="250" width="670" height="676" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1597697331589" />
   </component>
+<<<<<<< HEAD
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/survey-webservice/src/v1/api/auth/auth.model.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -696,4 +672,6 @@
       </provider>
     </entry>
   </component>
+=======
+>>>>>>> ef6674a257718264ee360dd776e5ad79ae7c5c60
 </project>

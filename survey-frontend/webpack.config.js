@@ -16,7 +16,7 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 module.exports = function() {
   const plugins = [
     new MiniCssExtractPlugin({
-      filename: 'voomsway.css',
+      filename: 'main.css',
     }),
     new CleanWebpackPlugin({
       verbose: true,
@@ -24,30 +24,24 @@ module.exports = function() {
     }),
     new MomentLocalesPlugin(),
     new HtmlWebpackPlugin({
-      title: 'VoOmsway Booking',
+      title: 'Ekaruz Survey App',
       // hash: true,
       // uniqHash: UNIQ_HASH,
       template: __dirname + '/public/template.html',
       filename: __dirname + '/public/index.html',
       inject: false,
     }),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery',
-      Popper: ['popper.js', 'default'],
-    }),
   ];
 
   const envFilePath = './.env';
-  const hasEnvFile = isDevelopment || (isProduction && fs.existsSync(envFilePath));
+  const hasEnvFile =
+    isDevelopment || (isProduction && fs.existsSync(envFilePath));
 
   if (hasEnvFile) {
-
     const result = dotenv.config();
 
     if (result.error) {
-      throw result.error
+      throw result.error;
     }
 
     plugins.unshift(new Dotenv());
@@ -66,7 +60,7 @@ module.exports = function() {
     entry: ['babel-polyfill', './src/index.js'],
     output: {
       path: path.join(__dirname, 'public', 'dist'),
-      filename: 'voomsway.js',
+      filename: 'main.js',
       publicPath: '/dist/',
     },
     devtool: 'cheap-module-source-map',
