@@ -1,17 +1,12 @@
 import { Button, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
-import { Padding, Align } from '../../Authentication/_common/components';
-import './styles.scss';
-import {
-  getSurvey,
-  addOrUpdateSurveyQuestion,
-  deleteSurveyQuestion,
-} from '../../../../redux/actions';
+import { connect } from 'react-redux';
+import { Align, Padding } from '../../Authentication/_common/components';
+import { addOrUpdateSurveyQuestion, deleteSurveyQuestion, getSurvey } from '../../../../redux/actions';
 import QuestionDisplay from './_common/QuestionDisplay';
 import AddQuestionForm from './_common/AddQuestionForm';
-import { connect } from 'react-redux';
-import { has } from 'lodash';
+import './styles.scss';
 
 const FormBuilder = props => {
   const {

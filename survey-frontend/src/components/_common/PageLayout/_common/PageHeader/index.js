@@ -1,16 +1,11 @@
 import { Avatar, Button, Input, Layout, Space } from 'antd';
 import React from 'react';
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  SearchOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
+import { MenuFoldOutlined, MenuUnfoldOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { addSurvey } from '../../../../../redux/actions';
 import FormModal from '../../../ModalForm/index';
 import { Logo } from '../../../../route/Authentication/_common/components';
-import SurveyForm from './SurveyForm';
+import Index from '../../../../route/Survey/SurveysList/_common/SurveyForm';
 
 const { Header } = Layout;
 
@@ -21,7 +16,14 @@ const { Header } = Layout;
  * @constructor
  */
 const PageHeader = props => {
-  const { toggleSideBar, menuCollapsed, onSearch, user, addSurvey } = props;
+  const {
+    toggleSideBar,
+    menuCollapsed,
+    onSearch,
+    user,
+    addSurvey,
+    isCreatingSurvey,
+  } = props;
 
   const handleSubmit = value => {
     addSurvey(value);
@@ -45,15 +47,16 @@ const PageHeader = props => {
         </div>
 
         <Space size={15} align={'center'}>
-          {location && location.pathname === '/dashboard' && (
+          {location && location.pathname === '/surveys' && (
             <div>
               <FormModal
                 title="New Survey"
                 BtnTitle={'New Survey'}
                 formProps={{
-                  handleSubmit: handleSubmit,
+                  handleSubmit,
+                  isCreatingSurvey,
                 }}
-                formComponent={SurveyForm}
+                formComponent={Index}
               />
             </div>
           )}
@@ -84,6 +87,7 @@ const PageHeader = props => {
 const mapStateToProps = state => {
   return {
     user: state.auth.user,
+    isCreatingSurvey: state.ui.loading.addSurvey,
   };
 };
 

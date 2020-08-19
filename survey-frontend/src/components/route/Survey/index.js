@@ -11,6 +11,7 @@ import {
   Tooltip,
   Popconfirm,
   Spin,
+  PageHeader,
 } from 'antd';
 import { motion } from 'framer-motion';
 import { LoadingOutlined } from '@ant-design/icons';
@@ -63,23 +64,26 @@ const Survey = props => {
         </motion.div>
       ) : (
         <motion.div animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
-          <Align alignCenter justifyBetween>
-            <Typography.Title level={3}>{survey?.name || ''}</Typography.Title>
-            <Space align={'center'} size={20}>
-              <Button type={'primary'}>Save</Button>
+          <PageHeader
+            ghost={false}
+            onBack={() => window.history.back()}
+            title={survey?.name || ''}
+            extra={[
               <Popconfirm
                 placement="bottomLeft"
-                title={'Are you sure you want to delete this survey?'}
+                title={'Are you sure you want to close this survey?'}
                 onConfirm={() => null}
                 okText="Yes"
                 cancelText="No"
               >
-                <Button type={'danger'} ghost>
-                  Close
-                </Button>
-              </Popconfirm>
-            </Space>
-          </Align>
+                <Tooltip title={'Close survey'}>
+                  <Button type={'danger'} ghost>
+                    Close
+                  </Button>
+                </Tooltip>
+              </Popconfirm>,
+            ]}
+          />
           <Divider />
           <Space align={'center'} size={20}>
             <Radio.Group

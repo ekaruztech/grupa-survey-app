@@ -74,7 +74,7 @@ const addSurvey = ({ dispatch }) => next => action => {
         key: 'addSurvey',
         onSuccess: data => {
           dispatch({ type: ADD_SURVEY.SUCCESS, payload: data });
-          push(`/surveys/${data.id}`);
+          dispatch(push(`/surveys/${data.id}`));
         },
         ...action.meta,
       })

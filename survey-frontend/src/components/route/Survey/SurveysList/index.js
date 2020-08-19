@@ -5,21 +5,21 @@ import { connect } from 'react-redux';
 import { LoadingOutlined } from '@ant-design/icons';
 import { fetchSurveys } from '../../../../redux/actions';
 import { Align, Padding } from '../../Authentication/_common/components';
-import Index from './_common/SurveyDisplayCard';
+import SurveyDisplayCard from './_common/SurveyDisplayCard';
 import './styles.scss';
 
 const SurveyList = props => {
   const { auth, fetchSurveys, surveys, isFetchingSurveys, pagination } = props;
 
   useEffect(() => {
-    fetchSurveys();
+    fetchSurveys({ per_page: 8 });
     // return () => {};
   }, []);
 
   const handlePagination = pageNo => {
     fetchSurveys({
       page: pageNo,
-      per_page: pagination.per_page || 10,
+      per_page: pagination.per_page || 8,
     });
   };
 
@@ -54,9 +54,10 @@ const SurveyList = props => {
     >
       <Row gutter={[16, 24]}>
         {surveys &&
-          surveys.map(survey => {
+          surveys.map((survey, index) => {
             return (
-              <Index
+              <SurveyDisplayCard
+                key={`${survey?.name}_${index}`}
                 name={survey.name}
                 responseCount={survey.responseCount}
                 key={survey._id}
@@ -65,7 +66,7 @@ const SurveyList = props => {
             );
           })}
       </Row>
-      <Padding top={50}>
+      <Padding top={30}>
         {pagination && (
           <Pagination
             defaultCurrent={1}

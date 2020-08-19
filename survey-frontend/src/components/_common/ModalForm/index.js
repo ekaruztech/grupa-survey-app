@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button } from 'antd';
+import { Button, Modal } from 'antd';
 
 class App extends React.Component {
   state = { visible: false };
@@ -36,6 +36,7 @@ class App extends React.Component {
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           footer={null}
+          centered
         >
           <this.props.formComponent {...this.props.formProps} />
         </Modal>
