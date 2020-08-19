@@ -19,10 +19,12 @@ export const Align = props => {
     justifyStart,
     justifyEnd,
     justifyAround,
+    style,
   } = props;
   return (
     <div
       style={{
+        ...style,
         display: 'flex',
         flexFlow: type || 'row',
         ...(alignCenter ? { alignItems: 'center' } : {}),
@@ -63,6 +65,30 @@ export const Padding = props => {
     </div>
   );
 };
+
+/**
+ * JSX wrapper for CSS's Margin
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export const Margin = props => {
+  const { left, right, top, bottom, children, style = {} } = props;
+  return (
+    <div
+      style={{
+        marginLeft: left || 0,
+        marginRight: right || 0,
+        marginTop: top || 0,
+        marginBottom: bottom || 0,
+        ...style,
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
 export const FacebookIcon = () => {
   return (
     <span className={'anticon'} style={{ paddingRight: 20 }}>
