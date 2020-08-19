@@ -7,7 +7,6 @@ import auth from './auth';
 import profile from './profile';
 import surveys from './survey';
 
-
 // main reducers
 export default history =>
   combineReducers({
