@@ -1,5 +1,3 @@
-import React from 'react';
-import { Redirect } from 'react-router-dom';
 import Home from './components/route/Home';
 import Users from './components/route/Users';
 import Login from './components/route/Authentication/Login';
@@ -9,6 +7,8 @@ import VerifyUser from './components/route/Authentication/Verify/ByLink';
 import VerifyCode from './components/route/Authentication/Verify/ByCode';
 import PasswordRequestEmail from './components/route/Authentication/Password/RequestEmail';
 import resetPassword from './components/route/Authentication/Password/Update';
+import { Redirect } from 'react-router-dom';
+import React from 'react';
 
 export const generalRoutes = [
   { exact: true, path: '/login', component: Login },
@@ -25,6 +25,7 @@ export const generalRoutes = [
 export const layoutRoutes = [
   { exact: true, path: '/', component: () => <Redirect to="/login" /> },
   { exact: true, path: '/dashboard', component: Home, isPrivate: true },
-  { exact: true, path: '/users', component: Users, isPrivate: true },
   { exact: true, path: '/surveys', component: Survey, isPrivate: true },
+  { exact: true, path: `/surveys/:id`, component: Survey, isPrivate: true },
+  { exact: true, path: '/users', component: Users, isPrivate: true },
 ];
