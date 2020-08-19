@@ -7,7 +7,7 @@
     "build:production": "npm run build-prod",
     "build-prod": "cross-env NODE_ENV=production webpack --display errors-only -p --config webpack.prod.config.js",
     "start-prod": "node server.js",
-    "iipostinstall": "if-env NODE_ENV=production && npm run build-prod",
+    "postinstall": "if-env NODE_ENV=production && npm run build-prod",
     "deploy": "git push origin master && git push heroku master",
     "deploy-live": "git push efex && git push atl",
     "heroku-redeploy": "git commit --allow-empty -m \"Trigger empty commit\" && git push heroku master"

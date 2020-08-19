@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5b8aaa4c-5012-4152-b4a0-b3b6bac0670c" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/survey-frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/survey-frontend/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/public/template.html" beforeDir="false" afterPath="$PROJECT_DIR$/survey-frontend/public/template.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/survey-frontend/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/survey-frontend/webpack.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
