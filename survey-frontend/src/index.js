@@ -11,7 +11,7 @@ import OfflineView from './components/_common/Layout/OfflineView';
 import App from './components/App';
 import store, { history, persistor } from './redux/store';
 
-const container = document.getElementById('voomsway');
+const container = document.getElementById('root');
 
 const main = (
   <Provider store={store}>
