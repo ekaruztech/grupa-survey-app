@@ -1,5 +1,6 @@
 import { Redirect } from 'react-router-dom';
 import React from 'react';
+import Landing from './components/route/Landing';
 import Users from './components/route/Users';
 import Login from './components/route/Authentication/Login';
 import Survey from './components/route/Survey';
@@ -8,7 +9,6 @@ import VerifyUser from './components/route/Authentication/Verify/ByLink';
 import VerifyCode from './components/route/Authentication/Verify/ByCode';
 import PasswordRequestEmail from './components/route/Authentication/Password/RequestEmail';
 import resetPassword from './components/route/Authentication/Password/Update';
-import SurveyList from './components/route/Survey/SurveysList';
 
 export const generalRoutes = [
   { exact: true, path: '/login', component: Login },
@@ -23,8 +23,8 @@ export const generalRoutes = [
   { exact: true, path: '/password/update', component: resetPassword },
 ];
 export const layoutRoutes = [
-  { exact: true, path: '/', component: () => <Redirect to="/login" /> },
-  { exact: true, path: '/surveys', component: SurveyList, isPrivate: true },
+  { exact: true, path: '/', component: Landing },
+  { exact: true, path: '/surveys', component: Survey, isPrivate: true },
   { exact: true, path: `/surveys/:id`, component: Survey, isPrivate: true },
   { exact: true, path: '/users', component: Users, isPrivate: true },
 ];

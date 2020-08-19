@@ -6,9 +6,11 @@ import PageHeader from './_common/PageHeader';
 import PageNavigation from './_common/PageNavigation';
 import PageContent from './_common/PageContent';
 import './styles.scss';
+import { fetchSurveys, logout } from '../../../redux/actions';
+import { connect } from 'react-redux';
 
 const PageLayout = props => {
-  const { children } = props;
+  const { children, auth, logout } = props;
   const [menuCollapsed, setMenuCollapsed] = useState(true);
   const history = useHistory();
   const toggle = () => {
@@ -30,10 +32,13 @@ const PageLayout = props => {
           onSearh={value => console.log(value)}
         />
         <Layout style={{ height: '100vh' }}>
-          <PageNavigation
-            menuCollapsed={menuCollapsed}
-            onNavigate={onNavigate}
-          />
+          {auth && auth.session && (
+            <PageNavigation
+              logout={logout}
+              menuCollapsed={menuCollapsed}
+              onNavigate={onNavigate}
+            />
+          )}
           <PageContent menuCollapsed={menuCollapsed}>{children}</PageContent>
         </Layout>
       </Layout>
@@ -41,4 +46,14 @@ const PageLayout = props => {
   );
 };
 
-export default PageLayout;
+const mapStateToProps = state => {
+  return {
+    auth: state.auth,
+  };
+};
+
+const dispatchToProps = {
+  logout,
+};
+
+export default connect(mapStateToProps, dispatchToProps)(PageLayout);

@@ -1,10 +1,24 @@
-import User from './user.model';
-import AppProcessor from '../_core/app.processor';
+import User from "./user.model";
+import AppProcessor from "../_core/app.processor";
 
 /**
  * The ModuleProcessor class
  */
 class UserProcessor extends AppProcessor {
+	/**
+	 * @param {String} authId The payload object
+	 * @param {Object} obj The payload object
+	 * @param {Object} session The payload object
+	 * @return {Object}
+	 */
+	static async getUser(authId, obj, session = null) {
+		let user = await User.findOne({ _id: authId });
+		if (!user) {
+			user = await new User({ _id: authId, email: obj.email }).save(session);
+		}
+		return user;
+	}
+
 	/**
 	 * @param {Object} current required for response
 	 * @param {Object} obj required for response
@@ -28,20 +42,6 @@ class UserProcessor extends AppProcessor {
 			// 		err => formatError(err));
 		}
 		return null;
-	}
-	
-	/**
-	 * @param {String} authId The payload object
-	 * @param {Object} obj The payload object
-	 * @param {Object} session The payload object
-	 * @return {Object}
-	 */
-	static async getUser(authId, obj, session = null) {
-		let user = await User.findOne({ _id: authId });
-		if (!user) {
-			user = await (new User({ _id: authId, email: obj.email })).save(session);
-		}
-		return user;
 	}
 }
 

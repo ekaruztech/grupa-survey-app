@@ -3,18 +3,18 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../styles.scss';
 import {
-  Layout,
-  Row,
+  Button,
   Col,
   Divider,
   Form,
   Input,
+  Layout,
+  Row,
   Typography,
-  Button,
 } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { pick } from 'lodash';
-import { Logo, Padding, FacebookIcon, GoogleIcon } from '../_common/components';
+import { FacebookIcon, GoogleIcon, Logo, Padding } from '../_common/components';
 import SocialButton from '../../../_common/SocialButton';
 import {
   doFacebookAuth,
@@ -38,6 +38,7 @@ const Login = props => {
     isDoingFacebookAuth,
     socialAuthMode,
     setSocialAuthMode,
+    history,
   } = props;
   const FACEBOOK_APP_ID = process.env.REACT_APP_FACEBOOK_APP_ID;
   const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
@@ -84,7 +85,7 @@ const Login = props => {
           <Col className={'col-container'}>
             <div className={'login-header'}>
               <Padding top={20}>
-                <span className={'logo'}>
+                <span className={'logo'} onClick={() => history.push('/')}>
                   <Logo />
                 </span>
               </Padding>
