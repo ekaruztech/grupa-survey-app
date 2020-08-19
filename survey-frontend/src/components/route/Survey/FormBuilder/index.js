@@ -40,6 +40,7 @@ const FormBuilder = props => {
             setHideQuestionCreator={setHideQuestionCreator}
             initialValues={initialFormState}
             resetInitialFormState={resetInitialFormState}
+            allQuestions={allQuestions}
           />
         )}
       </Row>

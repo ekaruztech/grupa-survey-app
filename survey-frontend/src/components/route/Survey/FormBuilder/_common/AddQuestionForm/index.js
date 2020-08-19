@@ -40,6 +40,7 @@ const AddQuestionForm = props => {
     setHideQuestionCreator,
     initialValues,
     resetInitialFormState,
+    allQuestions,
   } = props;
   const [showDescription, setShowDescription] = useState(false);
   const [optionsState, dispatch] = useReducer(
@@ -198,6 +199,7 @@ const AddQuestionForm = props => {
                         <Button
                           shape={'circle'}
                           type="text"
+                          disabled={(allQuestions?.length || 0) < 1}
                           onClick={() => setHideQuestionCreator(true)}
                           icon={<DeleteOutlined />}
                         />
