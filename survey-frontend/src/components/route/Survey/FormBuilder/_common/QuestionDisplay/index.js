@@ -1,8 +1,12 @@
-import { Button, Col, Divider, Row, Tooltip, Typography } from 'antd';
+import { Button, Col, Divider, Row, Spin, Tooltip, Typography } from 'antd';
 import { motion } from 'framer-motion';
 import { map } from 'lodash';
 import React from 'react';
-import { CheckCircleOutlined, DeleteOutlined } from '@ant-design/icons';
+import {
+  CheckCircleOutlined,
+  DeleteOutlined,
+  LoadingOutlined,
+} from '@ant-design/icons';
 import { Align, Padding } from '../../../../Authentication/_common/components';
 
 const QuestionDisplay = props => {
@@ -11,9 +15,12 @@ const QuestionDisplay = props => {
     setHideQuestionCreator,
     removeQuestion,
     setInitialFormState,
+    isDeletingQuestion,
+    hideDisplay,
   } = props;
-  return (
-    <Col span={16}>
+
+  return !hideDisplay ? (
+    <Col span={16} offset={4}>
       <motion.div layout className={'sv-form-builder-question-display-wrapper'}>
         <Padding
           top={30}
@@ -25,7 +32,9 @@ const QuestionDisplay = props => {
           <Row>
             <Col span={24}>
               <Align type={'column'}>
-                <Typography.Title level={3}>{data.question}</Typography.Title>
+                <Typography.Title level={3}>
+                  {data?.label || 'Untitled question'}
+                </Typography.Title>
                 {data?.description && (
                   <Padding top={5} bottom={20}>
                     <Typography.Paragraph>
@@ -35,7 +44,7 @@ const QuestionDisplay = props => {
                 )}
               </Align>
               <Align type={'column'}>
-                {data.answers.map((value, index) => {
+                {data.options.map((value, index) => {
                   return (
                     <Padding bottom={20} key={index}>
                       <Align type={'row'} alignCenter>
@@ -46,7 +55,7 @@ const QuestionDisplay = props => {
                             }}
                           />
                         </Padding>
-                        <Typography.Text>{value}</Typography.Text>
+                        <Typography.Text>{value?.label}</Typography.Text>
                       </Align>
                     </Padding>
                   );
@@ -63,8 +72,11 @@ const QuestionDisplay = props => {
                       <Tooltip title={'Delete'}>
                         <Button
                           shape={'circle'}
-                          type="text"
-                          onClick={() => removeQuestion(data.id)}
+                          type="danger"
+                          ghost
+                          disabled={isDeletingQuestion}
+                          style={{ border: 0 }}
+                          onClick={() => removeQuestion(data._id)}
                           icon={<DeleteOutlined />}
                         />
                       </Tooltip>
@@ -74,16 +86,15 @@ const QuestionDisplay = props => {
                       <Button
                         onClick={() => {
                           setInitialFormState(() => ({
-                            id: data.id,
-                            question: data.question,
-                            options: map(data.answers, (value, index) => ({
-                              key: index,
-                              value,
+                            _id: data._id,
+                            question: data.label,
+                            options: map(data.options, (option, index) => ({
+                              key: option._id,
+                              value: option.label,
                             })),
                             description: data.description,
                           }));
                           setHideQuestionCreator(false);
-                          removeQuestion(data.id);
                         }}
                       >
                         Edit
@@ -97,7 +108,7 @@ const QuestionDisplay = props => {
         </Padding>
       </motion.div>
     </Col>
-  );
+  ) : null;
 };
 
 export default QuestionDisplay;

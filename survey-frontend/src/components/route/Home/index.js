@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import './Home.scss';
-import { Pagination , Col, Row } from 'antd';
+import { Pagination, Col, Row } from 'antd';
 import { fetchSurveys } from '../../../redux/actions';
 import SurveyCard from '../surveyComponents/SurveyCard';
-
 
 const Home = props => {
   const { auth, fetchSurveys, surveys, location, pagination } = props;

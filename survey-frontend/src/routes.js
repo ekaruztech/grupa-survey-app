@@ -1,3 +1,5 @@
+import { Redirect } from 'react-router-dom';
+import React from 'react';
 import Home from './components/route/Home';
 import Users from './components/route/Users';
 import Login from './components/route/Authentication/Login';
@@ -7,8 +9,6 @@ import VerifyUser from './components/route/Authentication/Verify/ByLink';
 import VerifyCode from './components/route/Authentication/Verify/ByCode';
 import PasswordRequestEmail from './components/route/Authentication/Password/RequestEmail';
 import resetPassword from './components/route/Authentication/Password/Update';
-import { Redirect } from 'react-router-dom';
-import React from 'react';
 
 export const generalRoutes = [
   { exact: true, path: '/login', component: Login },

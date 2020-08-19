@@ -1,7 +1,3 @@
-import { addSurvey } from '../../../../../redux/actions';
-import FormModal from '../../../ModalForm/index';
-import { Logo } from '../../../../route/Authentication/_common/components';
-import SurveyForm from './SurveyForm';
 import { Avatar, Button, Input, Layout, Space } from 'antd';
 import React from 'react';
 import {
@@ -11,6 +7,10 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import { connect } from 'react-redux';
+import { addSurvey } from '../../../../../redux/actions';
+import FormModal from '../../../ModalForm/index';
+import { Logo } from '../../../../route/Authentication/_common/components';
+import SurveyForm from './SurveyForm';
 
 const { Header } = Layout;
 
