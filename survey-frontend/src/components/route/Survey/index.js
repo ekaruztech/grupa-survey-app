@@ -14,6 +14,7 @@ import {
 } from 'antd';
 import { motion } from 'framer-motion';
 import { LoadingOutlined } from '@ant-design/icons';
+import { useLocation, useParams } from 'react-router';
 import { Padding, Align } from '../Authentication/_common/components';
 import { getSurvey } from '../../../redux/actions';
 import FormBuilder from './FormBuilder';
@@ -23,8 +24,10 @@ const { Content } = Layout;
 
 const Survey = props => {
   const { getSurvey, survey, isGettingSurvey } = props;
+  const params = useParams();
+  console.log(params);
   useEffect(() => {
-    getSurvey('5f3afb688fe57cb1a902c0d1');
+    getSurvey(params?.id || '');
     return () => {};
   }, []);
 
@@ -112,10 +115,12 @@ const Survey = props => {
             <Content className={'sv-response-content'}>
               {currentRoute === 'form-builder' && (
                 <motion.div layout>
-                  <FormBuilder />
+                  <FormBuilder surveyId={params.id} />
                 </motion.div>
               )}
-              {currentRoute === 'responses' && <Response />}
+              {currentRoute === 'responses' && (
+                <Response surveyId={params.id} />
+              )}
               {/*{currentRoute === 'form-builder' && <FormBuilder />}*/}
             </Content>
           </Padding>

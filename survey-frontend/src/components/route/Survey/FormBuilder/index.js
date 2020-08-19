@@ -22,6 +22,7 @@ const FormBuilder = props => {
     isGettingSurvey,
     isUpdatingSurveyQuestion,
     survey,
+    surveyId,
   } = props;
   const [hideQuestionCreator, setHideQuestionCreator] = useState(false);
   const [allQuestions, setAllQuestions] = useState(survey?.questions || []);
@@ -40,7 +41,7 @@ const FormBuilder = props => {
   }, [survey]);
   const addQuestionToSurvey = (questionData, onSuccess) => {
     addOrUpdateSurveyQuestion(
-      '5f3afb688fe57cb1a902c0d1',
+      surveyId,
       questionData,
       {},
       'addOrUpdateQuestion',
@@ -48,7 +49,7 @@ const FormBuilder = props => {
     );
   };
   const removeQuestion = id => {
-    deleteSurveyQuestion('5f3afb688fe57cb1a902c0d1', id);
+    deleteSurveyQuestion(surveyId, id);
   };
 
   return (
