@@ -89,6 +89,30 @@ export const Margin = props => {
   );
 };
 
+/**
+ * JSX wrapper for CSS position property
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export const Position = props => {
+  const { children, type, top, bottom, left, right, style } = props;
+  return (
+    <div
+      style={{
+        ...style,
+        position: type || 'relative',
+        top: top || 0,
+        bottom: bottom || 0,
+        right: right || 0,
+        left: left || 0,
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
 export const FacebookIcon = () => {
   return (
     <span className={'anticon'} style={{ paddingRight: 20 }}>

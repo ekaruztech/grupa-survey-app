@@ -1,7 +1,6 @@
 import { Redirect } from 'react-router-dom';
 import React from 'react';
 import Landing from './components/route/Landing';
-import Home from './components/route/Home';
 import Users from './components/route/Users';
 import Login from './components/route/Authentication/Login';
 import Survey from './components/route/Survey';
@@ -25,7 +24,6 @@ export const generalRoutes = [
 ];
 export const layoutRoutes = [
   { exact: true, path: '/', component: Landing },
-  { exact: true, path: '/dashboard', component: Home, isPrivate: true },
   { exact: true, path: '/surveys', component: Survey, isPrivate: true },
   { exact: true, path: `/surveys/:id`, component: Survey, isPrivate: true },
   { exact: true, path: '/users', component: Users, isPrivate: true },
