@@ -1,10 +1,15 @@
-import AppController from '../_core/app.controller';
-import { BAD_REQUEST, FORBIDDEN, NOT_FOUND, OK } from '../../../utils/constants';
-import AppError from '../../../lib/app-error';
-import lang from '../../lang';
-import _ from 'lodash';
-import Response from '../response/response.model';
-import mongoose from 'mongoose';
+import AppController from "../_core/app.controller";
+import {
+	BAD_REQUEST,
+	FORBIDDEN,
+	NOT_FOUND,
+	OK
+} from "../../../utils/constants";
+import AppError from "../../../lib/app-error";
+import lang from "../../lang";
+import _ from "lodash";
+import Response from "../response/response.model";
+import mongoose from "mongoose";
 
 /**
  *  SurveyController
@@ -21,7 +26,7 @@ class SurveyController extends AppController {
 		this.addOrUpdateQuestion = this.addOrUpdateQuestion.bind(this);
 		this.response = this.response.bind(this);
 	}
-	
+
 	/**
 	 * @param {Object} req The request object
 	 * @param {Object} res The response object
@@ -33,13 +38,17 @@ class SurveyController extends AppController {
 		try {
 			const validate = await this.model.getValidator().addOrUpdateQuestion(obj);
 			if (!validate.passed) {
-				return next(new AppError(lang.get('error').inputs, BAD_REQUEST, validate.errors));
+				return next(
+					new AppError(lang.get("error").inputs, BAD_REQUEST, validate.errors)
+				);
 			}
 			let tripObject = {
-				..._.pick(obj, ['_id', 'label', 'options'])
+				..._.pick(obj, ["_id", "label", "options"])
 			};
 			let survey = req.object;
-			let existingQuestionIndex = survey.questions.findIndex((e) => String(e._id) === String(tripObject['_id']));
+			let existingQuestionIndex = survey.questions.findIndex(
+				e => String(e._id) === String(tripObject["_id"])
+			);
 			if (existingQuestionIndex > -1) {
 				survey.questions[existingQuestionIndex] = tripObject;
 			} else {
@@ -57,7 +66,7 @@ class SurveyController extends AppController {
 			return next(err);
 		}
 	}
-	
+
 	/**
 	 * @param {Object} req The request object
 	 * @param {Object} res The response object
@@ -68,10 +77,16 @@ class SurveyController extends AppController {
 		const obj = req.params;
 		try {
 			let survey = req.object;
-			let existingQuestionIndex = survey.questions && survey.questions.length
-				? survey.questions.findIndex((e) => String(e._id) === String(obj['questionId'])) : -1;
+			let existingQuestionIndex =
+				survey.questions && survey.questions.length
+					? survey.questions.findIndex(
+							e => String(e._id) === String(obj["questionId"])
+					  )
+					: -1;
 			if (existingQuestionIndex < 0) {
-				return next(new AppError(lang.get('surveys').question_not_found, NOT_FOUND));
+				return next(
+					new AppError(lang.get("surveys").question_not_found, NOT_FOUND)
+				);
 			}
 			survey.questions.splice(existingQuestionIndex, 1);
 			survey = await survey.save();
@@ -86,7 +101,7 @@ class SurveyController extends AppController {
 			return next(err);
 		}
 	}
-	
+
 	/**
 	 * @param {Object} req The request object
 	 * @param {Object} res The response object
@@ -102,39 +117,55 @@ class SurveyController extends AppController {
 			const obj = await processor.prepareBodyObject(req);
 			const validate = await this.model.getValidator().response(obj);
 			if (!validate.passed) {
-				return next(new AppError(lang.get('error').inputs, BAD_REQUEST, validate.errors));
+				return next(
+					new AppError(lang.get("error").inputs, BAD_REQUEST, validate.errors)
+				);
 			}
 			let survey = req.object;
-			let existingQuestionIndex = survey.questions && survey.questions.length
-				? survey.questions.findIndex((e) => String(e._id) === String(obj['questionId'])) : -1;
-			if (existingQuestionIndex < 0) {
-				return next(new AppError(lang.get('surveys').question_not_found, NOT_FOUND));
+			const invalidQuestionId = obj.results.some(
+				result =>
+					survey.questions.findIndex(
+						e => String(e._id) === String(result["question"])
+					) <= -1
+			);
+			if (invalidQuestionId) {
+				return next(
+					new AppError(lang.get("surveys").question_not_found, NOT_FOUND)
+				);
 			}
-			const question = survey.questions[existingQuestionIndex];
-			const findValue = question.options.some(o => o.value === obj.value);
-			if (!findValue) {
-				return next(new AppError(lang.get('surveys').response_value_invalid, FORBIDDEN));
+			const invalidValue = obj.results.every(result => {
+				const qIndex = survey.questions.findIndex(
+					e => String(e._id) === String(result["question"])
+				);
+				return survey.questions[qIndex].options.some(
+					o => o.value === result.value
+				);
+			});
+			if (!invalidValue) {
+				return next(
+					new AppError(lang.get("surveys").response_value_invalid, FORBIDDEN)
+				);
 			}
-			console.log('findValue ::: ', findValue);
-			const value = Response.findOneAndUpdate(
+			const value = await Response.findOneAndUpdate(
+				{ user: req.authId, survey: survey._id },
 				{
-					user: req.authId,
-					survey: survey._id,
-					question: obj['questionId']
-				},
-				{
-					value: obj.value,
+					results: obj.results,
 					$setOnInsert: {
 						user: req.authId,
-						survey: survey._id,
-						question: obj['questionId']
+						survey: survey._id
 					}
-				}, { new: true, upsert: true, setDefaultsOnInsert: true, session });
+				},
+				{ new: true, upsert: true, setDefaultsOnInsert: true, session }
+			);
+			survey.responseCount = await Response.find({
+				survey: survey._id
+			}).countDocuments();
+			await survey.save();
 			req.response = {
 				model: this.model,
 				code: OK,
 				message: this.lang.updated,
-				value: await value
+				value: value
 			};
 			await session.commitTransaction();
 			return next();

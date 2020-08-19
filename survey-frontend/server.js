@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const app = express();
 app.use(express.static(path.join(__dirname, 'public')));
-app.get('*', function(req, res){
+app.get('*', function(req, res) {
   return res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
 });
 app.set('port', process.env.PORT || 8081);
