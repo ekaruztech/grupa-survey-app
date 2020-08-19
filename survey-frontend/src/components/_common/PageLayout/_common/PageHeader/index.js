@@ -1,3 +1,7 @@
+import { addSurvey } from '../../../../../redux/actions';
+import FormModal from '../../../ModalForm/index';
+import { Logo } from '../../../../route/Authentication/_common/components';
+import SurveyForm from './SurveyForm';
 import { Avatar, Button, Input, Layout, Space } from 'antd';
 import React from 'react';
 import {
@@ -7,7 +11,6 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import { connect } from 'react-redux';
-import { Logo } from '../../../../route/Authentication/_common/components';
 
 const { Header } = Layout;
 
@@ -18,7 +21,11 @@ const { Header } = Layout;
  * @constructor
  */
 const PageHeader = props => {
-  const { toggleSideBar, menuCollapsed, onSearch, user } = props;
+  const { toggleSideBar, menuCollapsed, onSearch, user, addSurvey } = props;
+
+  const handleSubmit = value => {
+    addSurvey(value);
+  };
   return (
     <Header className="sv-layout-header">
       <div className={'sv-layout-header-right'}>
@@ -38,6 +45,18 @@ const PageHeader = props => {
         </div>
 
         <Space size={15} align={'center'}>
+          {location && location.pathname === '/dashboard' && (
+            <div>
+              <FormModal
+                title="New Survey"
+                BtnTitle={'New Survey'}
+                formProps={{
+                  handleSubmit: handleSubmit,
+                }}
+                formComponent={SurveyForm}
+              />
+            </div>
+          )}
           <Input
             placeholder="Search"
             allowClear={false}
@@ -68,6 +87,8 @@ const mapStateToProps = state => {
   };
 };
 
-const dispatchToProps = {};
+const dispatchToProps = {
+  addSurvey,
+};
 
 export default connect(mapStateToProps, dispatchToProps)(PageHeader);
