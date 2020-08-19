@@ -1,9 +1,12 @@
 import { isFunction } from 'lodash';
+import { push } from 'connected-react-router';
 import {
   apiRequest,
   GET_SURVEY,
   ADD_OR_UPDATE_SURVEY_QUESTION,
   DELETE_SURVEY_QUESTION,
+  FETCH_SURVEY,
+  ADD_SURVEY,
 } from '../actions';
 
 const getSurvey = ({ dispatch }) => next => action => {
@@ -20,6 +23,21 @@ const getSurvey = ({ dispatch }) => next => action => {
           if (isFunction(onSuccess)) onSuccess(data);
         },
         ...rest,
+      })
+    );
+  }
+};
+
+const fetchSurveys = ({ dispatch }) => next => action => {
+  next(action);
+  if (action.type === FETCH_SURVEY.START) {
+    dispatch(
+      apiRequest({
+        method: 'get',
+        url: `/surveys`,
+        key: 'fetchSurveys',
+        onSuccess: FETCH_SURVEY.SUCCESS,
+        ...action.meta,
       })
     );
   }
@@ -46,6 +64,23 @@ const addOrUpdateSurveyQuestion = ({ dispatch }) => next => action => {
     );
   }
 };
+const addSurvey = ({ dispatch }) => next => action => {
+  next(action);
+  if (action.type === ADD_SURVEY.START) {
+    dispatch(
+      apiRequest({
+        method: 'post',
+        url: `/surveys`,
+        key: 'addSurvey',
+        onSuccess: data => {
+          dispatch({ type: ADD_SURVEY.SUCCESS, payload: data });
+          push(`/surveys/${data.id}`);
+        },
+        ...action.meta,
+      })
+    );
+  }
+};
 
 const deleteSurveyQuestion = ({ dispatch }) => next => action => {
   next(action);
@@ -65,4 +100,10 @@ const deleteSurveyQuestion = ({ dispatch }) => next => action => {
     );
   }
 };
-export default [getSurvey, addOrUpdateSurveyQuestion, deleteSurveyQuestion];
+export default [
+  getSurvey,
+  addOrUpdateSurveyQuestion,
+  deleteSurveyQuestion,
+  fetchSurveys,
+  addSurvey,
+];

@@ -2,6 +2,8 @@ import {
   ADD_OR_UPDATE_SURVEY_QUESTION,
   DELETE_SURVEY_QUESTION,
   GET_SURVEY,
+  FETCH_SURVEY,
+  ADD_SURVEY,
 } from '../actions';
 
 const initialState = {
@@ -15,8 +17,14 @@ const surveyReducer = (state = initialState, action) => {
     case DELETE_SURVEY_QUESTION.SUCCESS:
     case ADD_OR_UPDATE_SURVEY_QUESTION.SUCCESS:
       return { ...state, current: action.payload };
-    default:
-      return state;
+    case FETCH_SURVEY.SUCCESS:
+      return { ...state, byList: action.payload };
+    case ADD_SURVEY.SUCCESS:
+      return {
+        ...state,
+        current: action.payload,
+        byList: [action.payload, ...state.byList],
+      };
   }
 };
 
