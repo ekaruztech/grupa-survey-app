@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5b8aaa4c-5012-4152-b4a0-b3b6bac0670c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="5b8aaa4c-5012-4152-b4a0-b3b6bac0670c" name="Default" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -130,10 +128,10 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="371" y="186" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1597751985168" />
-    <state x="598" y="452" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1597774777060">
+    <state x="598" y="452" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1597825148477">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="598" y="452" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1680.1050@0.0.1680.1050" timestamp="1597774777060" />
+    <state x="598" y="452" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1680.1050@0.0.1680.1050" timestamp="1597825148477" />
     <state x="522" y="244" width="635" height="584" key="find.popup" timestamp="1597787695789">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
