@@ -1,12 +1,15 @@
 import { isFunction } from 'lodash';
 import { push } from 'connected-react-router';
 import {
-  apiRequest,
-  GET_SURVEY,
   ADD_OR_UPDATE_SURVEY_QUESTION,
+  ADD_SURVEY,
+  apiRequest,
   DELETE_SURVEY_QUESTION,
   FETCH_SURVEY,
-  ADD_SURVEY,
+  GET_SURVEY,
+  SUBMIT_SURVEY_RESPONSE,
+  GET_SURVEY_RESPONSE,
+  UPDATE_SURVEY_STATUS,
 } from '../actions';
 
 const getSurvey = ({ dispatch }) => next => action => {
@@ -27,14 +30,72 @@ const getSurvey = ({ dispatch }) => next => action => {
     );
   }
 };
-
-const fetchSurveys = ({ dispatch }) => next => action => {
+const updateSurveyStatus = ({ dispatch }) => next => action => {
   next(action);
-  if (action.type === FETCH_SURVEY.START) {
+  if (action.type === UPDATE_SURVEY_STATUS.START) {
+    const { surveyId, key, onSuccess, payload, ...rest } = action.meta;
     dispatch(
       apiRequest({
+        method: 'PUT',
+        url: `/surveys/${surveyId}/status/${payload.status}`,
+        key: key || 'updateSurveyStatus',
+        onSuccess: data => {
+          dispatch({ type: UPDATE_SURVEY_STATUS.SUCCESS, payload: data });
+          if (isFunction(onSuccess)) onSuccess(data);
+        },
+        ...rest,
+      })
+    );
+  }
+};
+
+const getSurveyResponse = ({ dispatch }) => next => action => {
+  next(action);
+  if (action.type === GET_SURVEY_RESPONSE.START) {
+    const { surveyId, key, onSuccess, ...rest } = action.meta;
+    dispatch(
+      apiRequest({
+        method: 'GET',
+        url: `/surveys/${surveyId}/results`,
+        key: key || 'getSurveyResponse',
+        onSuccess: data => {
+          dispatch({ type: GET_SURVEY_RESPONSE.SUCCESS, payload: data });
+          if (isFunction(onSuccess)) onSuccess(data);
+        },
+        ...rest,
+      })
+    );
+  }
+};
+
+const submitSurveyResponse = ({ dispatch }) => next => action => {
+  next(action);
+  if (action.type === SUBMIT_SURVEY_RESPONSE.START) {
+    const { surveyId, key, onSuccess, ...rest } = action.meta;
+    dispatch(
+      apiRequest({
+        method: 'PUT',
+        url: `/surveys/${surveyId}/response`,
+        key: key || 'submitSurveyResponse',
+        onSuccess: data => {
+          dispatch({ type: SUBMIT_SURVEY_RESPONSE.SUCCESS, payload: data });
+          if (isFunction(onSuccess)) onSuccess(data);
+        },
+        ...rest,
+      })
+    );
+  }
+};
+const fetchSurveys = ({ dispatch, getState }) => next => action => {
+  next(action);
+  if (action.type === FETCH_SURVEY.START) {
+    const state = getState();
+    const auth = state.auth;
+    const url = auth.session ? '/surveys' : '/surveys/find';
+    dispatch(
+      apiRequest({
+        url,
         method: 'get',
-        url: `/surveys`,
         key: 'fetchSurveys',
         onSuccess: FETCH_SURVEY.SUCCESS,
         ...action.meta,
@@ -106,4 +167,7 @@ export default [
   deleteSurveyQuestion,
   fetchSurveys,
   addSurvey,
+  submitSurveyResponse,
+  getSurveyResponse,
+  updateSurveyStatus,
 ];

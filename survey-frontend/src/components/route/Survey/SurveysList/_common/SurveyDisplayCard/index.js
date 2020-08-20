@@ -1,15 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Col, Button } from 'antd';
-import { EditOutlined, CompassOutlined } from '@ant-design/icons';
+import { Col, Button, Popconfirm, Spin } from 'antd';
+import { motion } from 'framer-motion';
+import {
+  CloseCircleOutlined,
+  CompassOutlined,
+  QuestionCircleOutlined,
+  LoadingOutlined,
+} from '@ant-design/icons';
 import { Align, Padding } from '../../../../Authentication/_common/components';
+import { updateSurveyStatus } from '../../../../../../redux/actions';
 
 const Index = props => {
-  const { name, responseCount, id } = props;
+  const {
+    name,
+    responseCount,
+    updateSurveyStatus,
+    surveyId,
+    isClosingSurvey,
+    surveyActive,
+  } = props;
+  const [statusLoading, setStatusLoading] = useState(false);
   const history = useHistory();
   return (
     <Col span={6}>
-      <Padding style={{ height: '100%' }}>
+      <motion.div layout style={{ height: '100%' }}>
         <Align
           style={{ height: 250 }}
           alignCenter
@@ -25,25 +40,54 @@ const Index = props => {
             borderTop: '1px solid var(--border-default-color)',
           }}
           alignCenter
-          justifyBetween
+          justifyBetween={surveyActive}
+          justifyCenter={!surveyActive}
         >
           <Button
             type={'link'}
-            onClick={() => history.push(`/surveys/${id}`)}
+            block={!surveyActive}
+            onClick={() => history.push(`/surveys/${surveyId}`)}
             icon={<CompassOutlined />}
           >
             View
           </Button>
 
-          <Button
-            type={'link'}
-            onClick={() => null}
-            icon={<EditOutlined key="edit" />}
-          >
-            Edit
-          </Button>
+          {surveyActive && (
+            <Popconfirm
+              title="Are you sure？"
+              icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+              onConfirm={() => {
+                setStatusLoading(true);
+                updateSurveyStatus(
+                  surveyId,
+                  { status: false },
+                  {},
+                  'updateSurveyStatus',
+                  () => setStatusLoading(false)
+                );
+              }}
+            >
+              <Button
+                type={'text'}
+                danger
+                icon={!statusLoading && <CloseCircleOutlined />}
+              >
+                {statusLoading ? (
+                  <Spin
+                    indicator={
+                      <Padding right={5}>
+                        <LoadingOutlined style={{ color: 'red' }} spin />
+                      </Padding>
+                    }
+                  />
+                ) : (
+                  'Close'
+                )}
+              </Button>
+            </Popconfirm>
+          )}
         </Align>
-      </Padding>
+      </motion.div>
     </Col>
   );
 };

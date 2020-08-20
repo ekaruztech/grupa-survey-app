@@ -16,7 +16,7 @@ import { motion } from 'framer-motion';
 import { LoadingOutlined } from '@ant-design/icons';
 import { useParams } from 'react-router';
 import { Padding, Align } from '../Authentication/_common/components';
-import { getSurvey } from '../../../redux/actions';
+import { getSurvey, updateSurveyStatus } from '../../../redux/actions';
 import FormBuilder from './FormBuilder';
 import Response from './Response';
 import FormPreview from './Preview';
@@ -24,11 +24,17 @@ import FormPreview from './Preview';
 const { Content } = Layout;
 
 const Survey = props => {
-  const { getSurvey, survey, isGettingSurvey } = props;
+  const {
+    getSurvey,
+    survey,
+    isGettingSurvey,
+    updateSurveyStatus,
+    isClosingSurvey,
+  } = props;
   const params = useParams();
-
+  const surveyId = params?.id;
   useEffect(() => {
-    getSurvey(params?.id || '');
+    getSurvey(surveyId || '');
     return () => {};
   }, []);
 
@@ -36,7 +42,6 @@ const Survey = props => {
 
   const onNavigate = route => {
     setCurrentRoute(route);
-    console.log(route);
   };
   return (
     <Layout className={'sv-survey-layout'} style={{ overflow: 'scroll' }}>
@@ -69,21 +74,48 @@ const Survey = props => {
             ghost={false}
             onBack={() => window.history.back()}
             title={survey?.name || ''}
+            subTitle={
+              <span style={{ color: 'red', opacity: 0.5 }}>
+                {!survey?.active ? 'Closed' : ''}
+              </span>
+            }
             extra={[
-              <Popconfirm
-                placement="bottomLeft"
-                title={'Are you sure you want to close this survey?'}
-                onConfirm={() => null}
-                okText="Yes"
-                cancelText="No"
-                key={'page-header-close'}
-              >
-                <Tooltip title={'Close survey'}>
-                  <Button type={'danger'} ghost>
-                    Close
-                  </Button>
-                </Tooltip>
-              </Popconfirm>,
+              survey?.active ? (
+                <Popconfirm
+                  placement="bottomLeft"
+                  title={'Are you sure you want to close this survey?'}
+                  onConfirm={() => {
+                    updateSurveyStatus(
+                      surveyId,
+                      {
+                        status: false,
+                      },
+                      {},
+                      'updateSurveyStatus',
+                      () => window.history.back()
+                    );
+                  }}
+                  okText="Yes"
+                  cancelText="No"
+                  key={'page-header-close'}
+                >
+                  <Tooltip title={'Close survey'}>
+                    <Button type={'danger'} ghost>
+                      {isClosingSurvey ? (
+                        <Spin
+                          indicator={
+                            <Padding right={5}>
+                              <LoadingOutlined spin />
+                            </Padding>
+                          }
+                        />
+                      ) : (
+                        'Close'
+                      )}
+                    </Button>
+                  </Tooltip>
+                </Popconfirm>
+              ) : null,
             ]}
           />
           <Divider />
@@ -125,7 +157,7 @@ const Survey = props => {
                 </motion.div>
               )}
               {currentRoute === 'responses' && (
-                <Response surveyId={params.id} />
+                <Response surveyId={params.id} survey={survey} />
               )}
               {currentRoute === 'form-preview' && (
                 <FormPreview survey={survey} navigateTo={onNavigate} />
@@ -140,9 +172,11 @@ const Survey = props => {
 const stateToProps = state => ({
   isGettingSurvey: state.ui.loading.getSurvey,
   survey: state.surveys.current,
+  isClosingSurvey: state.ui.loading.updateSurveyStatus,
 });
 const dispatchToProps = {
   getSurvey,
+  updateSurveyStatus,
 };
 
 export default connect(stateToProps, dispatchToProps)(Survey);

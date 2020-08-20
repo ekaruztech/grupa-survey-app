@@ -18,7 +18,7 @@ export default class AppProcessor {
 	constructor(model) {
 		this.model = model;
 	}
-	
+
 	/**
 	 * @param {Object} obj required for response
 	 * @return {Object}
@@ -26,7 +26,7 @@ export default class AppProcessor {
 	async postDeleteResponse(obj) {
 		return true;
 	}
-	
+
 	/**
 	 * @param {Object} current required for response
 	 * @param {Object} obj required for response
@@ -35,7 +35,7 @@ export default class AppProcessor {
 	async validateUpdate(current, obj) {
 		return null;
 	}
-	
+
 	/**
 	 * @param {Object} obj required for response
 	 * @return {Object}
@@ -43,7 +43,7 @@ export default class AppProcessor {
 	async validateDelete(obj) {
 		return null;
 	}
-	
+
 	/**
 	 * @param {Object} obj required for response
 	 * @return {Object}
@@ -76,7 +76,6 @@ export default class AppProcessor {
 	async getApiClientResponse(options) {
 		let {
 			model,
-			chatUser,
 			value,
 			code,
 			message,

@@ -22,7 +22,6 @@ export const CustomRoute = customProps => {
   const isLoggedIn =
     auth.sessionTimeExpiration &&
     auth.sessionTimeExpiration > new Date().getTime() / 1000;
-  console.log('auth ::::: ', auth);
   return (
     <Route
       {...rest}

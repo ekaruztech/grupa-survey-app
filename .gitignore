@@ -3,10 +3,8 @@
 .git
 survey-webservice/node_modules
 survey-webservice/.git
-survey-webservice/.idea
 survey-webservice/.env
 
 survey-frontend/node_modules
 survey-frontend/.git
-survey-frontend/.idea
 survey-frontend/.env

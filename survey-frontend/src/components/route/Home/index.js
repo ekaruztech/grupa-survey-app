@@ -37,6 +37,7 @@ const HomeSurveyList = props => {
 
   const getSurveys = (params = { page: 1, per_page: 8 }, active = true) => {
     fetchSurveys({
+      hasQuestion: true,
       ...params,
       active,
     });
@@ -59,10 +60,7 @@ const HomeSurveyList = props => {
             type={active ? `primary` : 'default'}
             onClick={() => updateList(!active)}
             style={{
-              height: 40,
-              borderRadius: 0,
               marginBottom: 20,
-              width: 120,
             }}
           >
             Active Surveys
@@ -71,10 +69,7 @@ const HomeSurveyList = props => {
             type={!active ? `primary` : 'default'}
             onClick={() => updateList(!active)}
             style={{
-              height: 40,
-              borderRadius: 0,
               marginBottom: 20,
-              width: 120,
             }}
           >
             Closed
