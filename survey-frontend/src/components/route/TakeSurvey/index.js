@@ -11,7 +11,7 @@ import {
   Spin,
   Empty,
 } from 'antd';
-import './users.scss';
+import './styles.scss';
 import {
   LeftOutlined,
   RightOutlined,
@@ -40,7 +40,7 @@ const answeredQuestionsReducer = (state, action) => {
       return state;
   }
 };
-const Users = props => {
+const TakeSurvey = props => {
   const {
     survey,
     isGettingSurvey,
@@ -297,4 +297,4 @@ const dispatchToProps = {
   getSurvey,
   submitSurveyResponse,
 };
-export default connect(stateToProps, dispatchToProps)(Users);
+export default connect(stateToProps, dispatchToProps)(TakeSurvey);
