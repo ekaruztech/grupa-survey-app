@@ -37,6 +37,7 @@ const HomeSurveyList = props => {
 
   const getSurveys = (params = { page: 1, per_page: 8 }, active = true) => {
     fetchSurveys({
+      hasQuestion: true,
       ...params,
       active,
     });
