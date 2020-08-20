@@ -26,16 +26,27 @@ const Index = ({ survey, history }) => {
           alignCenter
           justifyBetween
         >
-          <Button
-            block
-            type={'primary'}
-            onClick={() => {
-              history.push(`/surveys/${survey._id}/take-survey`);
-            }}
-            style={{ height: 50, borderRadius: 0 }}
-          >
-            Take Survey
-          </Button>
+          {survey.active && (
+            <Button
+              block
+              type={'primary'}
+              onClick={() => {
+                history.push(`/surveys/${survey._id}/take-survey`);
+              }}
+              style={{ height: 50, borderRadius: 0 }}
+            >
+              Take Survey
+            </Button>
+          )}
+          {!survey.active && (
+            <Button
+              block
+              type={'default'}
+              style={{ height: 50, borderRadius: 0 }}
+            >
+              Closed Survey
+            </Button>
+          )}
         </Align>
       </Padding>
     </Col>

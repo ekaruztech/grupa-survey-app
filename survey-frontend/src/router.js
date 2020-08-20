@@ -1,5 +1,5 @@
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
-import React, { Suspense } from 'react';
+import React from 'react';
 import { toast } from 'react-toastify';
 import { get } from 'lodash';
 import { generalRoutes, layoutRoutes } from './routes';
@@ -10,12 +10,19 @@ import PageLayout from './components/_common/PageLayout';
 import ErrorBoundary from './components/_common/ErrorBoundary';
 
 export const CustomRoute = customProps => {
-  const { component: Component, isPrivate, location, ...rest } = customProps;
+  const {
+    component: Component,
+    isPrivate,
+    isCoordinator,
+    location,
+    ...rest
+  } = customProps;
   const { auth } = store.getState();
   const isVerified = !!auth.user && auth.user.accountVerified;
   const isLoggedIn =
     auth.sessionTimeExpiration &&
     auth.sessionTimeExpiration > new Date().getTime() / 1000;
+  console.log('auth ::::: ', auth);
   return (
     <Route
       {...rest}
@@ -33,6 +40,15 @@ export const CustomRoute = customProps => {
             toast.error('Your account needs to be verified first');
             return <Redirect to="/verify-code" />;
           }
+        } else if (
+          isPrivate &&
+          isLoggedIn &&
+          isCoordinator &&
+          auth.user &&
+          auth.user.role !== 'coordinator'
+        ) {
+          toast.error('You need logged in as a Coordinator');
+          return <Redirect to="/" />;
         }
         return (
           <ErrorBoundary>

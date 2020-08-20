@@ -35,6 +35,7 @@ const PageLayout = props => {
           {auth && auth.session && (
             <PageNavigation
               logout={logout}
+              auth={auth}
               menuCollapsed={menuCollapsed}
               onNavigate={onNavigate}
             />

@@ -305,11 +305,12 @@ const onAuthSuccess = ({ data, dispatch, key, getState }) => {
     }
   }
   if (key === KEY_MAPS.register) {
-    const { email, accountVerified } = data;
+    const { email, accountVerified, role } = data;
     const payload = {
       user: {
         email,
         accountVerified,
+        role,
       },
     };
     dispatch(updateAuthSettings(payload));
@@ -333,7 +334,7 @@ const saveCustomerSession = (response, dispatch) => {
 };
 
 const attemptUserLogIn = ({ data = {}, dispatch, getState }) => {
-  const { email, accountVerified, firstName, lastName, _id } = data;
+  const { email, accountVerified, role, firstName, lastName, _id } = data;
   const payload = {
     user: {
       _id,
@@ -341,6 +342,7 @@ const attemptUserLogIn = ({ data = {}, dispatch, getState }) => {
       accountVerified,
       firstName,
       lastName,
+      role,
     },
   };
   const state = getState();

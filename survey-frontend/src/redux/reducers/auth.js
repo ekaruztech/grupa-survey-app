@@ -1,8 +1,8 @@
 import {
+  LOGOUT,
+  RESET_AUTHENTICATION,
   SET_SOCIAL_AUTH_MODE,
   UPDATE_AUTH_SETTINGS,
-  RESET_AUTHENTICATION,
-  LOGOUT,
 } from '../actions';
 
 const initialState = {
@@ -13,6 +13,7 @@ const initialState = {
     _id: null,
     email: null,
     accountVerified: false,
+    role: 'respondent',
   },
 };
 

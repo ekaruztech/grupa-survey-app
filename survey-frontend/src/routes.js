@@ -25,8 +25,20 @@ export const generalRoutes = [
 ];
 export const layoutRoutes = [
   { exact: true, path: '/', component: Home },
-  { exact: true, path: '/surveys', component: SurveyList, isPrivate: true },
-  { exact: true, path: `/surveys/:id`, component: Survey, isPrivate: true },
+  {
+    exact: true,
+    path: '/surveys',
+    component: SurveyList,
+    isPrivate: true,
+    isCoordinator: true,
+  },
+  {
+    exact: true,
+    path: `/surveys/:id`,
+    component: Survey,
+    isPrivate: true,
+    isCoordinator: true,
+  },
   {
     exact: true,
     path: `/surveys/:id/take-survey`,
