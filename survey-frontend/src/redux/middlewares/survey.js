@@ -8,6 +8,7 @@ import {
   FETCH_SURVEY,
   GET_SURVEY,
   SUBMIT_SURVEY_RESPONSE,
+  GET_SURVEY_RESPONSE,
 } from '../actions';
 
 const getSurvey = ({ dispatch }) => next => action => {
@@ -21,6 +22,25 @@ const getSurvey = ({ dispatch }) => next => action => {
         key: key || 'getSurvey',
         onSuccess: data => {
           dispatch({ type: GET_SURVEY.SUCCESS, payload: data });
+          if (isFunction(onSuccess)) onSuccess(data);
+        },
+        ...rest,
+      })
+    );
+  }
+};
+
+const getSurveyResponse = ({ dispatch }) => next => action => {
+  next(action);
+  if (action.type === GET_SURVEY_RESPONSE.START) {
+    const { surveyId, key, onSuccess, ...rest } = action.meta;
+    dispatch(
+      apiRequest({
+        method: 'GET',
+        url: `/surveys/${surveyId}/results`,
+        key: key || 'getSurveyResponse',
+        onSuccess: data => {
+          dispatch({ type: GET_SURVEY_RESPONSE.SUCCESS, payload: data });
           if (isFunction(onSuccess)) onSuccess(data);
         },
         ...rest,
@@ -129,4 +149,5 @@ export default [
   fetchSurveys,
   addSurvey,
   submitSurveyResponse,
+  getSurveyResponse,
 ];

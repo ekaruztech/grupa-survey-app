@@ -125,7 +125,7 @@ const Survey = props => {
                 </motion.div>
               )}
               {currentRoute === 'responses' && (
-                <Response surveyId={params.id} />
+                <Response surveyId={params.id} survey={survey} />
               )}
               {currentRoute === 'form-preview' && (
                 <FormPreview survey={survey} navigateTo={onNavigate} />
