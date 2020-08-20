@@ -25,11 +25,13 @@ const Index = ({ survey, history }) => {
           <p className="text2">{survey.questions.length} Questions</p>
         </Align>
         <Align
-          alignCenter
           justifyCenter
+          alignCenter
           style={{
             height: 50,
-            // borderTop: '1px solid var(--border-default-color)',
+            borderRight: '1px solid var(--border-default-color)',
+            borderLeft: '1px solid var(--border-default-color)',
+            borderBottom: '1px solid var(--border-default-color)',
           }}
         >
           {survey.active && (
@@ -47,13 +49,18 @@ const Index = ({ survey, history }) => {
                 borderTopRightRadius: 0,
                 borderTopLeftRadius: 0,
               }}
+              style={{
+                height: 50,
+                borderTopRightRadius: 0,
+                borderTopLeftRadius: 0,
+              }}
             >
               {!survey.hasResponded ? 'Take Survey' : 'Survey Taken'}
             </Button>
           )}
           {!survey.active && (
             <Row>
-              <Col>Closed Survey</Col>
+              <Col className="text-gray">Closed Survey</Col>
             </Row>
           )}
         </Align>
