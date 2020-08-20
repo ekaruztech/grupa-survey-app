@@ -1,55 +1,9 @@
-html,
-body {
-  .users-layout {
-    height: 80vh;
-  }
+.sv-question-display-wrapper {
+  min-height: 200px;
+  height: 100%;
+  background: var(--white);
+  border-radius: 4px;
 
-  .bg-white {
-    position: relative;
-    background-color: #ffffff;
-    border: 1px solid #e3e8f4;
-  }
-
-  .prevPosition {
-    border-radius: 0 !important;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  .p-4 {
-    padding: 2rem 0 1.5rem 2rem;
-    width: 800px;
-  }
-
-  .mt-2 {
-    margin-top: 2rem;
-  }
-
-  .users-h1 {
-    margin-top: 2rem;
-    font-size: 1.2rem;
-    color: #16223d;
-  }
-
-  .nextbtn {
-    width: 100%;
-  }
-
-  .align-center {
-    text-align: center;
-  }
-
-  .ant-form-item {
-    margin-top: 0.9rem !important;
-    margin-bottom: 0 !important;
-  }
-
-  .ant-checkbox-inner {
-    border-radius: 2px !important;
-  }
-
-  .ant-form-item-hover {
-    padding: 1.2rem 0 1.2rem 0;
-  }
+  //border: 1px solid var(--border-default-color);
+  width: 100%;
 }
