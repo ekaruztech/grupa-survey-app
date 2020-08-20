@@ -4,7 +4,7 @@ import { Align, Padding } from '../../../Authentication/_common/components';
 
 const Index = ({ surveyQuestion }) => {
   return (
-    <Col span={4}>
+    <Col span={6}>
       <Padding style={{ height: '100%' }}>
         <Align
           style={{ height: 250 }}
