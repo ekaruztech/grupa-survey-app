@@ -39,9 +39,11 @@ const PageHeader = props => {
       <div className={'sv-layout-header-right'}>
         <div
           className={'sv-layout-header-right-inner'}
-          onClick={auth && auth.session ? toggleSideBar : null}
+          onClick={
+            auth.user && auth.user.role === 'coordinator' ? toggleSideBar : null
+          }
         >
-          {auth && auth.session && (
+          {auth.user && auth.user.role === 'coordinator' && (
             <div className={'sv-sidebar-collapsible-container'}>
               <Button
                 type={'text'}

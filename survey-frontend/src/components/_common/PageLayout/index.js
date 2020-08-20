@@ -32,14 +32,17 @@ const PageLayout = props => {
           onSearh={value => console.log(value)}
         />
         <Layout style={{ height: '100vh' }}>
-          {auth && auth.session && (
-            <PageNavigation
-              logout={logout}
-              auth={auth}
-              menuCollapsed={menuCollapsed}
-              onNavigate={onNavigate}
-            />
-          )}
+          {auth &&
+            auth.session &&
+            auth.user &&
+            auth.user.role === 'coordinator' && (
+              <PageNavigation
+                logout={logout}
+                auth={auth}
+                menuCollapsed={menuCollapsed}
+                onNavigate={onNavigate}
+              />
+            )}
           <PageContent menuCollapsed={menuCollapsed}>{children}</PageContent>
         </Layout>
       </Layout>
