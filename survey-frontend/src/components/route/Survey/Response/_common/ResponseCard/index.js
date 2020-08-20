@@ -1,6 +1,7 @@
 import { Card, Col, Skeleton, Typography } from 'antd';
 import Chart from 'react-apexcharts';
 import React from 'react';
+import { truncate } from 'lodash';
 import { Align, Padding } from '../../../../Authentication/_common/components';
 
 const ResponseCard = props => {
@@ -15,13 +16,25 @@ const ResponseCard = props => {
           return {
             ...prev,
             series: [...prev.series, currentResponse[cur.value]],
-            labels: [...prev.labels, cur.value],
+            labels: [
+              ...prev.labels,
+              truncate(cur.value, {
+                length: 25,
+                omission: ' ...',
+              }),
+            ],
           };
         } else {
           return {
             ...prev,
             series: [...prev.series, 0],
-            labels: [...prev.labels, cur.value],
+            labels: [
+              ...prev.labels,
+              truncate(cur.value, {
+                length: 25,
+                omission: ' ...',
+              }),
+            ],
           };
         }
       },

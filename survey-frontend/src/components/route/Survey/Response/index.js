@@ -14,9 +14,8 @@ const Response = props => {
     surveyResponse,
     isGettingSurveyResponse,
     survey,
-    // surveyId
+    surveyId,
   } = props;
-  const surveyId = '5f3d73b0045cc2002c03c48b';
 
   useEffect(() => {
     getSurveyResponse(surveyId);
