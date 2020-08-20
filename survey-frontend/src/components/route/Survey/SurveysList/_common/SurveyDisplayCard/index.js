@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Col, Button, Popconfirm, Spin } from 'antd';
+import { Button, Col, Popconfirm, Spin } from 'antd';
 import { motion } from 'framer-motion';
 import {
   CloseCircleOutlined,
   CompassOutlined,
-  QuestionCircleOutlined,
   LoadingOutlined,
+  QuestionCircleOutlined,
 } from '@ant-design/icons';
 import { Align, Padding } from '../../../../Authentication/_common/components';
 import { updateSurveyStatus } from '../../../../../../redux/actions';
@@ -17,8 +17,8 @@ const Index = props => {
     responseCount,
     updateSurveyStatus,
     surveyId,
-    isClosingSurvey,
     surveyActive,
+    questions,
   } = props;
   const [statusLoading, setStatusLoading] = useState(false);
   const history = useHistory();
@@ -33,6 +33,7 @@ const Index = props => {
         >
           <p>{name}</p>
           <p className={'text2'}>{responseCount} Responses</p>
+          <p>{questions.length} Questions</p>
         </Align>
         <Align
           style={{

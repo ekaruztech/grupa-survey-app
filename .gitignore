@@ -4,7 +4,9 @@
 survey-webservice/node_modules
 survey-webservice/.git
 survey-webservice/.env
+survey-webservice/.idea/
 
 survey-frontend/node_modules
 survey-frontend/.git
 survey-frontend/.env
+survey-frontend/.idea/

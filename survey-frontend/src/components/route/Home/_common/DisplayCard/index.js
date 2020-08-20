@@ -49,11 +49,6 @@ const Index = ({ survey, history }) => {
                 borderTopRightRadius: 0,
                 borderTopLeftRadius: 0,
               }}
-              style={{
-                height: 50,
-                borderTopRightRadius: 0,
-                borderTopLeftRadius: 0,
-              }}
             >
               {!survey.hasResponded ? 'Take Survey' : 'Survey Taken'}
             </Button>
