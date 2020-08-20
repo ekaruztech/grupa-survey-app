@@ -50,7 +50,7 @@ const SurveyList = props => {
     <motion.div
       animate={{ opacity: 1 }}
       initial={{ opacity: 0 }}
-      className={'home'}
+      className={'survey-list'}
     >
       <Row gutter={[16, 24]}>
         {surveys?.length < 1 && (

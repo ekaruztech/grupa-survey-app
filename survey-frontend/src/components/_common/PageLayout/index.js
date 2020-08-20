@@ -30,6 +30,7 @@ const PageLayout = props => {
           menuCollapsed={menuCollapsed}
           toggleSideBar={toggle}
           onSearh={value => console.log(value)}
+          logout={logout}
         />
         <Layout style={{ height: '100vh' }}>
           {auth &&
