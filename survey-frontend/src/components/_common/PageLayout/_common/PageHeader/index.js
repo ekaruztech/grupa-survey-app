@@ -1,4 +1,4 @@
-import { Avatar, Button, Input, Layout, Space, Popconfirm } from 'antd';
+import { Avatar, Button, Input, Layout, Popconfirm, Space } from 'antd';
 import React from 'react';
 import {
   MenuFoldOutlined,
@@ -8,6 +8,7 @@ import {
 } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { isEmpty } from 'lodash';
+import { useHistory } from 'react-router';
 import { addSurvey } from '../../../../../redux/actions';
 import FormModal from '../../../ModalForm/index';
 import { Logo } from '../../../../route/Authentication/_common/components';
@@ -32,6 +33,8 @@ const PageHeader = props => {
     auth,
     logout,
   } = props;
+
+  const history = useHistory();
 
   const handleSubmit = value => {
     addSurvey(value);
@@ -95,7 +98,12 @@ const PageHeader = props => {
             />
           )}
 
-          {!auth || (!auth.session && <Button type={'primary'}>Login</Button>)}
+          {!auth ||
+            (!auth.session && (
+              <Button onClick={() => history.push('/login')} type={'primary'}>
+                Login
+              </Button>
+            ))}
           {!isEmpty(auth.session) && (
             <Popconfirm
               placement="bottomLeft"

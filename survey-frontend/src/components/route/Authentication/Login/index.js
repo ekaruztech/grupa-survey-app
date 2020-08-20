@@ -3,18 +3,18 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../styles.scss';
 import {
-  Layout,
-  Row,
+  Button,
   Col,
   Divider,
   Form,
   Input,
+  Layout,
+  Row,
   Typography,
-  Button,
 } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { pick } from 'lodash';
-import { Logo, Padding, FacebookIcon, GoogleIcon } from '../_common/components';
+import { FacebookIcon, GoogleIcon, Logo, Padding } from '../_common/components';
 import SocialButton from '../../../_common/SocialButton';
 import {
   doFacebookAuth,
@@ -55,8 +55,8 @@ const Login = props => {
 
   const onSocialAuthResponse = ({ _profile, _token }, type = 'google') => {
     const payload = {
-      social_id: _profile.id,
-      access_token: type === 'google' ? _token.idToken : _token.accessToken,
+      socialId: _profile.id,
+      accessToken: type === 'google' ? _token.idToken : _token.accessToken,
       ...pick(_profile, ['email', 'firstName', 'lastName']),
     };
 
@@ -177,19 +177,13 @@ const Login = props => {
                   }
                   onLoginFailure={onSocialAuthFailure}
                   appId={FACEBOOK_APP_ID}
+                  loading={isDoingFacebookAuth}
                 >
-                  <Button
-                    block
-                    className={'login-btn social-btn'}
-                    loading={isDoingFacebookAuth}
-                  >
-                    <div className={'btn-icon-container'}>
-                      <FacebookIcon />
-                      <span>Sign in with Facebook</span>
-                    </div>
-                  </Button>
+                  <div className={'btn-icon-container'}>
+                    <FacebookIcon />
+                    <span>Sign in with Facebook</span>
+                  </div>
                 </SocialButton>
-
                 <SocialButton
                   provider="google"
                   key="google"
@@ -198,17 +192,12 @@ const Login = props => {
                     onSocialAuthResponse(payload, 'google')
                   }
                   onLoginFailure={onSocialAuthFailure}
+                  loading={isDoingGoogleAuth}
                 >
-                  <Button
-                    block
-                    className={'login-btn social-btn'}
-                    loading={isDoingGoogleAuth}
-                  >
-                    <div className={'btn-icon-container'}>
-                      <GoogleIcon />
-                      <span>Sign in with Google</span>
-                    </div>
-                  </Button>
+                  <div className={'btn-icon-container'}>
+                    <GoogleIcon />
+                    <span>Sign in with Google</span>
+                  </div>
                 </SocialButton>
               </div>
             </Padding>

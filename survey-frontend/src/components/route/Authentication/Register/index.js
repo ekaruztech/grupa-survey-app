@@ -1,26 +1,26 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { pick } from 'lodash';
 import '../styles.scss';
 import {
-  Layout,
-  Row,
+  Button,
   Col,
   Divider,
   Form,
   Input,
+  Layout,
+  Row,
   Typography,
-  Button,
 } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { Logo, Padding, FacebookIcon, GoogleIcon } from '../_common/components';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { FacebookIcon, GoogleIcon, Logo, Padding } from '../_common/components';
 import SocialButton from '../../../_common/SocialButton';
 import {
   doFacebookAuth,
   doGoogleAuth,
-  setSocialAuthMode,
   register,
+  setSocialAuthMode,
 } from '../../../../redux/actions';
 
 const { Content } = Layout;
@@ -55,8 +55,8 @@ const Register = props => {
 
   const onSocialAuthResponse = ({ _profile, _token }, type = 'google') => {
     const payload = {
-      social_id: _profile.id,
-      access_token: type === 'google' ? _token.idToken : _token.accessToken,
+      socialId: _profile.id,
+      accessToken: type === 'google' ? _token.idToken : _token.accessToken,
       ...pick(_profile, ['email', 'firstName', 'lastName']),
     };
 
@@ -182,7 +182,7 @@ const Register = props => {
                       block
                       className={'login-btn btn-shadow'}
                     >
-                      Sign In
+                      Sign Up
                     </Button>
                   </Form.Item>
                 </Form>
@@ -205,19 +205,13 @@ const Register = props => {
                   }
                   onLoginFailure={onSocialAuthFailure}
                   appId={FACEBOOK_APP_ID}
+                  loading={isDoingFacebookAuth}
                 >
-                  <Button
-                    block
-                    className={'login-btn social-btn'}
-                    loading={isDoingFacebookAuth}
-                  >
-                    <div className={'btn-icon-container'}>
-                      <FacebookIcon />
-                      <span>Sign in with Facebook</span>
-                    </div>
-                  </Button>
+                  <div className={'btn-icon-container'}>
+                    <FacebookIcon />
+                    <span>Sign in with Facebook</span>
+                  </div>
                 </SocialButton>
-
                 <SocialButton
                   provider="google"
                   key="google"
@@ -226,17 +220,12 @@ const Register = props => {
                     onSocialAuthResponse(payload, 'google')
                   }
                   onLoginFailure={onSocialAuthFailure}
+                  loading={isDoingGoogleAuth}
                 >
-                  <Button
-                    block
-                    className={'login-btn social-btn'}
-                    loading={isDoingGoogleAuth}
-                  >
-                    <div className={'btn-icon-container'}>
-                      <GoogleIcon />
-                      <span>Sign in with Google</span>
-                    </div>
-                  </Button>
+                  <div className={'btn-icon-container'}>
+                    <GoogleIcon />
+                    <span>Sign in with Google</span>
+                  </div>
                 </SocialButton>
               </div>
             </Padding>

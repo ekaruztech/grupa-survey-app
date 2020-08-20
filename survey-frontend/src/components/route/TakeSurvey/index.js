@@ -55,6 +55,7 @@ const TakeSurvey = props => {
     submitSurveyResponse,
     isSubmittingResponse,
     resetCurrentSurvey,
+    auth,
   } = props;
 
   const params = useParams();
@@ -90,7 +91,7 @@ const TakeSurvey = props => {
       'submitSurveyResponse',
       () => {
         resetCurrentSurvey();
-        window.history.back();
+        history.push('/');
       }
     );
   };
@@ -157,7 +158,7 @@ const TakeSurvey = props => {
                 <Button
                   type="primary"
                   onClick={() => {
-                    window.history.back();
+                    history.back();
                   }}
                 >
                   Go back to surveys
@@ -315,6 +316,7 @@ const TakeSurvey = props => {
 };
 
 const stateToProps = state => ({
+  auth: state.auth,
   survey: state.surveys.current,
   isGettingSurvey: state.ui.loading.getSurvey,
   isSubmittingResponse: state.ui.loading.submitSurveyResponse,

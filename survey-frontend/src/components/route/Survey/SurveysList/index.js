@@ -79,6 +79,7 @@ const SurveyList = props => {
             return (
               <SurveyDisplayCard
                 name={survey.name}
+                questions={survey.questions}
                 responseCount={survey.responseCount}
                 key={survey._id}
                 surveyId={survey._id}
