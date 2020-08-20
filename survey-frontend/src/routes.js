@@ -29,7 +29,7 @@ export const layoutRoutes = [
   { exact: true, path: `/surveys/:id`, component: Survey, isPrivate: true },
   {
     exact: true,
-    path: `/surveys/:id/takeSurvey`,
+    path: `/surveys/:id/take-survey`,
     component: Users,
     isPrivate: true,
   },

@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Col } from 'antd';
 import { Align, Padding } from '../../../Authentication/_common/components';
 
-const Index = ({ survey }) => {
+const Index = ({ survey, history }) => {
   return (
     <Col span={6}>
       <Padding style={{ height: '100%' }}>
@@ -29,7 +29,9 @@ const Index = ({ survey }) => {
           <Button
             block
             type={'primary'}
-            onClick={false}
+            onClick={() => {
+              history.push(`/surveys/${survey._id}/take-survey`);
+            }}
             style={{ height: 50, borderRadius: 0 }}
           >
             Take Survey

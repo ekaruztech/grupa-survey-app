@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { LoadingOutlined } from '@ant-design/icons';
-import { Button, Row, Spin, Empty, Pagination, Space } from 'antd';
+import { Button, Empty, Pagination, Row, Space, Spin } from 'antd';
 import { motion } from 'framer-motion';
 import { fetchSurveys } from '../../../redux/actions';
 import { Align, Padding } from '../Authentication/_common/components';
 import DisplayCard from './_common/DisplayCard/index';
 import './home.scss';
 
-const HomeSurveyList = ({
-  fetchSurveys,
-  isFetchingSurveys,
-  surveys,
-  pagination,
-}) => {
+const HomeSurveyList = props => {
+  const {
+    fetchSurveys,
+    isFetchingSurveys,
+    surveys,
+    pagination,
+    history,
+  } = props;
   const [size] = useState(10);
 
   useEffect(() => {
@@ -98,7 +100,9 @@ const HomeSurveyList = ({
         )}
         {(surveys?.length || 0) > 0 &&
           surveys.map(survey => {
-            return <DisplayCard key={survey._id} survey={survey} />;
+            return (
+              <DisplayCard key={survey._id} survey={survey} history={history} />
+            );
           })}
       </Row>
       <Padding top={30}>
