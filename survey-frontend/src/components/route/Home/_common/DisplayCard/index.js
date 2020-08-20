@@ -1,8 +1,8 @@
 import React from 'react';
-import { Col, Button } from 'antd';
+import { Button, Col } from 'antd';
 import { Align, Padding } from '../../../Authentication/_common/components';
 
-const Index = ({ surveyQuestion }) => {
+const Index = ({ survey }) => {
   return (
     <Col span={4}>
       <Padding style={{ height: '100%' }}>
@@ -12,9 +12,11 @@ const Index = ({ surveyQuestion }) => {
           justifyCenter
           type={'column'}
         >
-          <h1 className="text0">New website</h1>
-          <h4 className="text1">New website feedback survey</h4>
-          <p className="text2">{surveyQuestion.length} Questions</p>
+          <h1 className="text0">{survey.name}</h1>
+          {survey.description && (
+            <h4 className="text1">New website feedback survey</h4>
+          )}
+          <p className="text2">{survey.questions.length} Questions</p>
         </Align>
         <Align
           style={{

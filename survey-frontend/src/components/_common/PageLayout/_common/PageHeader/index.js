@@ -1,6 +1,11 @@
 import { Avatar, Button, Input, Layout, Space } from 'antd';
 import React from 'react';
-import { MenuFoldOutlined, MenuUnfoldOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  SearchOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { addSurvey } from '../../../../../redux/actions';
 import FormModal from '../../../ModalForm/index';
@@ -23,6 +28,7 @@ const PageHeader = props => {
     user,
     addSurvey,
     isCreatingSurvey,
+    auth,
   } = props;
 
   const handleSubmit = value => {
@@ -31,15 +37,20 @@ const PageHeader = props => {
   return (
     <Header className="sv-layout-header">
       <div className={'sv-layout-header-right'}>
-        <div className={'sv-layout-header-right-inner'} onClick={toggleSideBar}>
-          <div className={'sv-sidebar-collapsible-container'}>
-            <Button
-              type={'text'}
-              icon={
-                menuCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
-              }
-            />
-          </div>
+        <div
+          className={'sv-layout-header-right-inner'}
+          onClick={auth && auth.session ? toggleSideBar : null}
+        >
+          {auth && auth.session && (
+            <div className={'sv-sidebar-collapsible-container'}>
+              <Button
+                type={'text'}
+                icon={
+                  menuCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
+                }
+              />
+            </div>
+          )}
 
           <div className={'sv-logo-container'}>
             <Logo />
@@ -72,12 +83,15 @@ const PageHeader = props => {
             onChange={onSearch}
             // style={{borderRadius: 5, borderColor: 'var(--accent)'}}
           />
-          <Button type={'link'}>{user.email}</Button>
+          {user.email && <Button type={'link'}>{user.email}</Button>}
+          {user.email && (
+            <Avatar
+              style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
+              icon={<UserOutlined />}
+            />
+          )}
 
-          <Avatar
-            style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
-            icon={<UserOutlined />}
-          />
+          {!auth || (!auth.session && <Button type={'primary'}>Login</Button>)}
         </Space>
       </div>
     </Header>
@@ -87,6 +101,7 @@ const PageHeader = props => {
 const mapStateToProps = state => {
   return {
     user: state.auth.user,
+    auth: state.auth,
     isCreatingSurvey: state.ui.loading.addSurvey,
   };
 };

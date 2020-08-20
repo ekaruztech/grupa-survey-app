@@ -1,28 +1,24 @@
 import jwtDecode from 'jwt-decode';
-import { change } from 'redux-form';
 import { push } from 'connected-react-router';
 import { get, pick } from 'lodash';
 import { toast } from 'react-toastify';
 import {
   apiRequest,
-  closeModal,
   FACEBOOK_AUTH,
   GOOGLE_AUTH,
   LOGIN,
   LOGOUT,
-  openModal,
   REGISTER,
   RESEND_REG_VERIFICATION_CODE,
+  resetAuthentication,
   SEND_PASSWORD_RESET_EMAIL,
   setNextUrl,
   UPDATE_PASSWORD,
   updateAuthSettings,
   VERIFY_REGISTRATION_CODE,
   VERIFY_USER_BY_EMAIL,
-  resetAuthentication,
 } from '../actions';
 import { history } from '../store';
-import mixPanelService from '../../utils/services/mixPanelService';
 
 const KEY_MAPS = {
   login: 'login',
@@ -210,11 +206,6 @@ const resetPassword = ({ dispatch }) => next => action => {
 };
 
 const doFacebookAuth = ({ dispatch, getState }) => next => action => {
-  const {
-    ui: { modal },
-  } = getState();
-  const modalReducerKey =
-    (modal.login && 'login') || (modal.register && 'register');
   const { type, payload, ...rest } = action;
   if (type === FACEBOOK_AUTH.START) {
     const key = 'facebookAuth';
@@ -241,11 +232,6 @@ const doFacebookAuth = ({ dispatch, getState }) => next => action => {
 };
 
 const doGoogleAuth = ({ dispatch, getState }) => next => action => {
-  const {
-    ui: { modal },
-  } = getState();
-  const modalReducerKey =
-    (!!modal.login && 'login') || (!!modal.register && 'register');
   const { type, payload, ...rest } = action;
   if (type === GOOGLE_AUTH.START) {
     const key = 'googleAuth';
@@ -329,19 +315,6 @@ const onAuthSuccess = ({ data, dispatch, key, getState }) => {
     dispatch(updateAuthSettings(payload));
     dispatch(push('/verify-code'));
   }
-  /*
-  if (key === KEY_MAPS.resendRegVerificationCode) {
-    if (getState) {
-      const {
-        ui: {
-          modal: { verifyRegistrationCode },
-        },
-      } = getState();
-      if (!verifyRegistrationCode) {
-        dispatch(openModal(KEY_MAPS.verifyRegistrationCode));
-      }
-    }
-  }*/
   if (key === KEY_MAPS.sendPasswordResetEmail) {
     dispatch(push('/password/update'));
   }

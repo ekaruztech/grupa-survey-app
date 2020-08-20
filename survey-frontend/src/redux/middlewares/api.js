@@ -2,7 +2,6 @@ import React from 'react';
 import { isEmpty, get } from 'lodash';
 import { push } from 'connected-react-router';
 import { toast } from 'react-toastify';
-import sentryService from '../../utils/services/sentryService';
 import { createAxiosRequest } from '../../utils/services/request';
 import { formatMessagesFromError } from '../../utils/functions';
 import {
@@ -81,11 +80,6 @@ const apiRequest = ({ dispatch, getState }) => next => action => {
             dispatch(updateUIError(key, error));
             if (!suppressToast) showErrorMessage(toastMessage);
           }
-          sentryService.sendError(error, {
-            method,
-            url,
-            key,
-          });
         }
         dispatch(stopUIFeedback(key));
       });

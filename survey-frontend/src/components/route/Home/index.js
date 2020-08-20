@@ -84,11 +84,8 @@ const HomeSurveyList = ({
           </Align>
         )}
         {(surveys?.length || 0) > 0 &&
-          surveys.map((survey, index) => {
-            console.log('survey>>>>', survey);
-            return (
-              <DisplayCard key={survey._id} surveyQuestion={survey.questions} />
-            );
+          surveys.map(survey => {
+            return <DisplayCard key={survey._id} survey={survey} />;
           })}
       </Row>
       <Padding top={30}>

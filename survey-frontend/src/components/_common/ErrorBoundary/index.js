@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import sentryService from '../../../utils/services/sentryService';
 
 export default class ErrorBoundary extends Component {
   constructor(props) {
@@ -9,7 +8,6 @@ export default class ErrorBoundary extends Component {
 
   componentDidCatch(error, errorInfo) {
     this.setState({ error });
-    sentryService.sendError(error, errorInfo);
   }
 
   render() {
@@ -24,10 +22,7 @@ export default class ErrorBoundary extends Component {
           </p>
           <p>
             Also you can{' '}
-            <button
-              className="btn btn-link px-0 my-0"
-              onClick={() => sentryService.showReportDialog()}
-            >
+            <button className="btn btn-link px-0 my-0" onClick={() => {}}>
               click here
             </button>{' '}
             to fill out a report.

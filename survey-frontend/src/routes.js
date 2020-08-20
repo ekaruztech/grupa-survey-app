@@ -27,5 +27,10 @@ export const layoutRoutes = [
   { exact: true, path: '/', component: Home },
   { exact: true, path: '/surveys', component: SurveyList, isPrivate: true },
   { exact: true, path: `/surveys/:id`, component: Survey, isPrivate: true },
-  { exact: true, path: '/users', component: Users, isPrivate: true },
+  {
+    exact: true,
+    path: `/surveys/:id/takeSurvey`,
+    component: Users,
+    isPrivate: true,
+  },
 ];
