@@ -1,43 +1,43 @@
-import { Router } from "express";
-import Survey from "./survey.model";
-import response from "../../../middleware/response";
-import auth from "../../middleware/auth";
-import attachTakenSurvey from "../../middleware/attach-taken-survey";
-import isCoordinator from "../../middleware/is-coordinator";
-import SurveyController from "./survey.controller";
+import { Router } from 'express';
+import Survey from './survey.model';
+import response from '../../../middleware/response';
+import auth from '../../middleware/auth';
+import attachTakenSurvey from '../../middleware/attach-taken-survey';
+import isCoordinator from '../../middleware/is-coordinator';
+import SurveyController from './survey.controller';
 
 const router = Router();
 
 const surveyCtrl = new SurveyController(Survey);
 
-router.put("/surveys/:id/status/:status", auth, surveyCtrl.status, response);
+router.put('/surveys/:id/status/:status', auth, surveyCtrl.status, response);
 router.put(
-	"/surveys/:id/addOrUpdateQuestion",
+	'/surveys/:id/addOrUpdateQuestion',
 	auth,
 	isCoordinator,
 	surveyCtrl.addOrUpdateQuestion,
 	response
 );
 router.delete(
-	"/surveys/:id/removeQuestion/:questionId",
+	'/surveys/:id/removeQuestion/:questionId',
 	auth,
 	isCoordinator,
 	surveyCtrl.removeQuestion,
 	response
 );
-router.put("/surveys/:id/response", auth, surveyCtrl.response, response);
-router.get("/surveys/:id/results", auth, surveyCtrl.results, response);
+router.put('/surveys/:id/response', auth, surveyCtrl.response, response);
+router.get('/surveys/:id/results', auth, surveyCtrl.results, response);
 
-router.get("/surveys/find", surveyCtrl.find, response);
+router.get('/surveys/find', surveyCtrl.find, response);
 
 router
-	.route("/surveys")
+	.route('/surveys')
 	.get(auth, surveyCtrl.find, attachTakenSurvey, response)
 	.post(auth, isCoordinator, surveyCtrl.create, response);
 
-router.param("id", surveyCtrl.id, response);
+router.param('id', surveyCtrl.id, response);
 router
-	.route("/surveys/:id")
+	.route('/surveys/:id')
 	.get(auth, surveyCtrl.findOne, attachTakenSurvey, response)
 	.put(auth, isCoordinator, surveyCtrl.update, response)
 	.delete(auth, isCoordinator, surveyCtrl.delete, response);

@@ -17,8 +17,5 @@
   "bugs": {
     "url": "https://github.com/ekaruztech/survey-app/issues"
   },
-  "homepage": "https://github.com/ekaruztech/survey-app#readme",
-  "dependencies": {
-    "react-social-login": "^3.4.9"
-  }
+  "homepage": "https://github.com/ekaruztech/survey-app#readme"
 }

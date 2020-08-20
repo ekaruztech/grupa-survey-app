@@ -195,7 +195,6 @@ class SurveyController extends AppController {
 			req.response = {
 				model: this.model,
 				code: OK,
-				message: this.lang.updated,
 				value: results
 			};
 			return next();

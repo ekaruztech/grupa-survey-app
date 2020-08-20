@@ -1,5 +1,5 @@
-import AppProcessor from "../_core/app.processor";
-import _ from "lodash";
+import AppProcessor from '../_core/app.processor';
+import _ from 'lodash';
 
 /**
  * The ModuleProcessor class
@@ -11,10 +11,10 @@ class SurveyProcessor extends AppProcessor {
 	 * @return {Object}
 	 */
 	async buildModelQueryObject(pagination, queryParser = null) {
-		const omitKeys = ["hasQuestion"];
+		const omitKeys = ['hasQuestion'];
 		let obj = queryParser.query;
 		if (obj.hasQuestion) {
-			queryParser.query["questions"] = { $exists: true, $ne: [] };
+			queryParser.query['questions'] = { $exists: true, $ne: [] };
 		}
 		queryParser.query = _.omit(queryParser.query, ...omitKeys);
 		return super.buildModelQueryObject(pagination, queryParser);
