@@ -7,7 +7,13 @@ const Index = ({ survey, history }) => {
     <Col span={6}>
       <Padding style={{ height: '100%' }}>
         <Align
-          style={{ height: 250 }}
+          style={{
+            height: 250,
+            borderTop: '1px solid var(--border-default-color)',
+            borderRight: '1px solid var(--border-default-color)',
+            borderLeft: '1px solid var(--border-default-color)',
+            borderBottom: 0,
+          }}
           alignCenter
           justifyCenter
           type={'column'}
@@ -19,28 +25,35 @@ const Index = ({ survey, history }) => {
           <p className="text2">{survey.questions.length} Questions</p>
         </Align>
         <Align
-          alignCenter
           justifyCenter
+          alignCenter
           style={{
             height: 50,
-            borderTop: '1px solid var(--border-default-color)',
+            borderRight: '1px solid var(--border-default-color)',
+            borderLeft: '1px solid var(--border-default-color)',
+            borderBottom: '1px solid var(--border-default-color)',
           }}
         >
           {survey.active && (
             <Button
               block
-              type={'primary'}
+              // type={'primary'}
+              // ghost
               onClick={() => {
                 history.push(`/surveys/${survey._id}/take-survey`);
               }}
-              style={{ height: 50, borderRadius: 0 }}
+              style={{
+                height: 50,
+                borderTopRightRadius: 0,
+                borderTopLeftRadius: 0,
+              }}
             >
               Take Survey
             </Button>
           )}
           {!survey.active && (
             <Row>
-              <Col>Closed Survey</Col>
+              <Col className="text-gray">Closed Survey</Col>
             </Row>
           )}
         </Align>
