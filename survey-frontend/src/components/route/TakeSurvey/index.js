@@ -21,8 +21,13 @@ import {
 import { motion } from 'framer-motion';
 import { connect } from 'react-redux';
 import { map, find, isEmpty } from 'lodash';
+import { useParams } from 'react-router';
 import { Align, Padding } from '../Authentication/_common/components';
-import { getSurvey, submitSurveyResponse } from '../../../redux/actions';
+import {
+  getSurvey,
+  submitSurveyResponse,
+  resetCurrentSurvey,
+} from '../../../redux/actions';
 import Question from './_commons/Question';
 
 const answeredQuestionsReducer = (state, action) => {
@@ -47,15 +52,17 @@ const TakeSurvey = props => {
     getSurvey,
     submitSurveyResponse,
     isSubmittingResponse,
+    resetCurrentSurvey,
   } = props;
 
+  const params = useParams();
   const [answerState, dispatch] = useReducer(answeredQuestionsReducer, []);
   const questionsRef = useRef();
   const [currentSlide, setCurrentSlide] = useState(1);
   const [currentQuestion, setCurrentQuestion] = useState(
     !isEmpty(survey?.questions) ? survey?.questions?.[0] : null
   );
-  const surveyId = '5f3d73b0045cc2002c03c48b';
+  const surveyId = params?.id || '';
   const onChange = value => console.log(value);
   const onAnswerSelected = value => {
     const alreadyExisting = find(
@@ -79,7 +86,10 @@ const TakeSurvey = props => {
       },
       {},
       'submitSurveyResponse',
-      () => window.history.back()
+      () => {
+        resetCurrentSurvey();
+        window.history.back();
+      }
     );
   };
 
@@ -136,7 +146,17 @@ const TakeSurvey = props => {
                 description={
                   <span>This survey currently has no questions</span>
                 }
-              />
+              >
+                {' '}
+                <Button
+                  type="primary"
+                  onClick={() => {
+                    window.history.back();
+                  }}
+                >
+                  Go back to surveys
+                </Button>
+              </Empty>
             </Align>
           )}
           {(survey?.questions?.length || 0) >= 1 && (
@@ -296,5 +316,6 @@ const stateToProps = state => ({
 const dispatchToProps = {
   getSurvey,
   submitSurveyResponse,
+  resetCurrentSurvey,
 };
 export default connect(stateToProps, dispatchToProps)(TakeSurvey);

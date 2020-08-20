@@ -15,6 +15,8 @@ export const createActionType = (type, entity = 'App') => ({
   ERROR: `@@[${entity}] ${type}_ERROR`,
   END: `@@[${entity}] ${type}_END`,
 });
+export const createActionString = (type, entity = 'App') =>
+  `@@[${entity}] ${type}`;
 
 export const formatMessagesFromError = error => {
   let message = '';

@@ -1,4 +1,4 @@
-import { createActionType } from '../../utils/functions';
+import { createActionType, createActionString } from '../../utils/functions';
 
 const entity = 'SURVEY';
 export const GET_SURVEY = createActionType('GET_SURVEY', entity);
@@ -14,6 +14,14 @@ export const SUBMIT_SURVEY_RESPONSE = createActionType(
   'SUBMIT_SURVEY_RESPONSE',
   entity
 );
+export const RESET_CURRENT_SURVEY = createActionString(
+  'RESET_CURRENT_SURVEY',
+  entity
+);
+
+export const resetCurrentSurvey = () => ({
+  type: RESET_CURRENT_SURVEY,
+});
 
 export const getSurvey = (surveyId, params, key, onSuccess) => ({
   type: GET_SURVEY.START,
