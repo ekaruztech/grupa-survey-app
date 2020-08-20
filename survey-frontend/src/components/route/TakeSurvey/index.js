@@ -1,32 +1,33 @@
-import React, { useState, useRef, useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
 import {
-  Layout,
-  Carousel,
-  PageHeader,
   Button,
-  Row,
+  Carousel,
   Col,
-  Statistic,
-  Popconfirm,
-  Spin,
   Empty,
+  Layout,
+  PageHeader,
+  Popconfirm,
+  Row,
+  Spin,
+  Statistic,
 } from 'antd';
 import './styles.scss';
 import {
   LeftOutlined,
-  RightOutlined,
-  ReadOutlined,
   LoadingOutlined,
+  ReadOutlined,
+  RightOutlined,
 } from '@ant-design/icons';
 import { motion } from 'framer-motion';
 import { connect } from 'react-redux';
-import { map, find, isEmpty } from 'lodash';
+import { find, isEmpty, map } from 'lodash';
 import { useParams } from 'react-router';
 import { Align, Padding } from '../Authentication/_common/components';
 import {
   getSurvey,
-  submitSurveyResponse,
   resetCurrentSurvey,
+  submitSurveyResponse,
 } from '../../../redux/actions';
 import Question from './_commons/Question';
 
@@ -48,6 +49,7 @@ const answeredQuestionsReducer = (state, action) => {
 const TakeSurvey = props => {
   const {
     survey,
+    history,
     isGettingSurvey,
     getSurvey,
     submitSurveyResponse,
@@ -94,6 +96,10 @@ const TakeSurvey = props => {
   };
 
   useEffect(() => {
+    if (survey && survey.hasResponded) {
+      toast.error('You have already taken this survey');
+      history.push('/');
+    }
     setCurrentQuestion(
       !isEmpty(survey?.questions) ? survey?.questions?.[0] : null
     );

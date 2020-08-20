@@ -4,9 +4,7 @@ import { combineReducers } from 'redux';
 import app from './app';
 import ui from './ui';
 import auth from './auth';
-import profile from './profile';
 import surveys from './survey';
-
 
 // main reducers
 export default history =>
@@ -16,6 +14,5 @@ export default history =>
     app,
     auth,
     ui,
-    profile,
     surveys,
   });

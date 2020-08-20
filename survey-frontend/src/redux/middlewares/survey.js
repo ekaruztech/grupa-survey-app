@@ -1,12 +1,12 @@
 import { isFunction } from 'lodash';
 import { push } from 'connected-react-router';
 import {
-  apiRequest,
-  GET_SURVEY,
   ADD_OR_UPDATE_SURVEY_QUESTION,
+  ADD_SURVEY,
+  apiRequest,
   DELETE_SURVEY_QUESTION,
   FETCH_SURVEY,
-  ADD_SURVEY,
+  GET_SURVEY,
   SUBMIT_SURVEY_RESPONSE,
 } from '../actions';
 
@@ -47,13 +47,16 @@ const submitSurveyResponse = ({ dispatch }) => next => action => {
     );
   }
 };
-const fetchSurveys = ({ dispatch }) => next => action => {
+const fetchSurveys = ({ dispatch, getState }) => next => action => {
   next(action);
   if (action.type === FETCH_SURVEY.START) {
+    const state = getState();
+    const auth = state.auth;
+    const url = auth.session ? '/surveys' : '/surveys/find';
     dispatch(
       apiRequest({
+        url,
         method: 'get',
-        url: `/surveys`,
         key: 'fetchSurveys',
         onSuccess: FETCH_SURVEY.SUCCESS,
         ...action.meta,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Row, Col } from 'antd';
+import { Button, Col, Row } from 'antd';
 import { Align, Padding } from '../../../Authentication/_common/components';
 
 const Index = ({ survey, history }) => {
@@ -35,10 +35,12 @@ const Index = ({ survey, history }) => {
           {survey.active && (
             <Button
               block
-              // type={'primary'}
+              type={!survey.hasResponded ? 'primary' : 'light'}
               // ghost
               onClick={() => {
-                history.push(`/surveys/${survey._id}/take-survey`);
+                !survey.hasResponded
+                  ? history.push(`/surveys/${survey._id}/take-survey`)
+                  : {};
               }}
               style={{
                 height: 50,
@@ -46,7 +48,7 @@ const Index = ({ survey, history }) => {
                 borderTopLeftRadius: 0,
               }}
             >
-              Take Survey
+              {!survey.hasResponded ? 'Take Survey' : 'Survey Taken'}
             </Button>
           )}
           {!survey.active && (
