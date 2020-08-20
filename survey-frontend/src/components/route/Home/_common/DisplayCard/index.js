@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col } from 'antd';
+import { Button, Row, Col } from 'antd';
 import { Align, Padding } from '../../../Authentication/_common/components';
 
 const Index = ({ survey, history }) => {
@@ -19,12 +19,12 @@ const Index = ({ survey, history }) => {
           <p className="text2">{survey.questions.length} Questions</p>
         </Align>
         <Align
+          alignCenter
+          justifyCenter
           style={{
             height: 50,
             borderTop: '1px solid var(--border-default-color)',
           }}
-          alignCenter
-          justifyBetween
         >
           {survey.active && (
             <Button
@@ -39,13 +39,9 @@ const Index = ({ survey, history }) => {
             </Button>
           )}
           {!survey.active && (
-            <Button
-              block
-              type={'default'}
-              style={{ height: 50, borderRadius: 0 }}
-            >
-              Closed Survey
-            </Button>
+            <Row>
+              <Col>Closed Survey</Col>
+            </Row>
           )}
         </Align>
       </Padding>
