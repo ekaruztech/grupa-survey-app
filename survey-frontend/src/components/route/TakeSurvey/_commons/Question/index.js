@@ -1,6 +1,7 @@
 import { Col, Radio, Row, Typography } from 'antd';
 import { motion } from 'framer-motion';
 import React, { useState } from 'react';
+import { find } from 'lodash';
 import {
   Align,
   Padding,
@@ -8,18 +9,22 @@ import {
 } from '../../../Authentication/_common/components';
 
 const Question = props => {
-  const { question: data } = props;
-  const [answer, setAnswer] = useState('');
+  const { question: data, onAnswerSelected, answer, questionId } = props;
   const radioStyle = {
     display: 'block',
-    height: '50px',
-    lineHeight: '50px',
+    height: '40px',
+    lineHeight: '40px',
   };
   const onChange = e => {
-    setAnswer(e.target.value);
+    const answer = e.target.value;
+    const answerValues = find(data?.options || [], o => o._id === answer);
+    if (answerValues) {
+      onAnswerSelected({ ...answerValues, questionId });
+    }
+    // console.log({ ...answerValues, questionId });
   };
   return (
-    <Margin top={40}>
+    <Margin top={20}>
       <motion.div layout className={'sv-question-display-wrapper'}>
         <Align alignCenter style={{ height: '100%' }}>
           <Padding left={40} right={40} top={40} bottom={40}>
@@ -42,7 +47,7 @@ const Question = props => {
                     {data.options.map((option, index) => {
                       return (
                         <Padding bottom={20} key={index}>
-                          <Radio style={radioStyle} value={option.value}>
+                          <Radio style={radioStyle} value={option._id}>
                             {option.label}
                           </Radio>
                         </Padding>

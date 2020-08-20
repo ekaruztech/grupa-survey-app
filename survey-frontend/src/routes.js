@@ -1,6 +1,6 @@
 import { Redirect } from 'react-router-dom';
 import React from 'react';
-import Users from './components/route/Users';
+import Users from './components/route/TakeSurvey';
 import Login from './components/route/Authentication/Login';
 import Survey from './components/route/Survey';
 import Home from './components/route/Home';
