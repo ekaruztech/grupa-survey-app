@@ -6,19 +6,24 @@ import { CheckCircleOutlined } from '@ant-design/icons';
 import { Align, Padding } from '../../../../Authentication/_common/components';
 
 const Question = props => {
-  const { question: data } = props;
+  const { question: data, offset, span, className } = props;
   const [answer, setAnswer] = useState('');
   const radioStyle = {
     display: 'block',
-    height: '30px',
-    lineHeight: '30px',
+    height: '50px',
+    lineHeight: '50px',
   };
   const onChange = e => {
     setAnswer(e.target.value);
   };
   return (
-    <Col span={16} offset={4}>
-      <motion.div layout className={'sv-form-builder-question-display-wrapper'}>
+    <Col span={span || 16} offset={offset || 4}>
+      <motion.div
+        layout
+        className={
+          'sv-form-builder-question-display-wrapper ' + className || ''
+        }
+      >
         <Padding
           top={30}
           bottom={10}
