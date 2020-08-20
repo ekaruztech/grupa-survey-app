@@ -1,14 +1,14 @@
-import Auth from "./auth.model";
-import AuthValidation from "./auth.validation";
-import AuthProcessor from "./auth.processor";
-import AuthEmail from "./auth.email";
-import _ from "lodash";
-import lang from "../../lang";
-import mongoose from "mongoose";
-import { addHourToDate, generateOTCode } from "../../../utils/helpers";
-import { BAD_REQUEST, CONFLICT, NOT_FOUND, OK } from "../../../utils/constants";
-import UserProcessor from "../user/user.processor";
-import AppError from "../../../lib/app-error";
+import Auth from './auth.model';
+import AuthValidation from './auth.validation';
+import AuthProcessor from './auth.processor';
+import AuthEmail from './auth.email';
+import _ from 'lodash';
+import lang from '../../lang';
+import mongoose from 'mongoose';
+import { addHourToDate, generateOTCode } from '../../../utils/helpers';
+import { BAD_REQUEST, CONFLICT, NOT_FOUND, OK } from '../../../utils/constants';
+import UserProcessor from '../user/user.processor';
+import AppError from '../../../lib/app-error';
 
 const AuthController = {
 	/**
@@ -26,7 +26,7 @@ const AuthController = {
 			const validator = await AuthValidation.social(obj);
 			if (!validator.passed) {
 				return next(
-					new AppError(lang.get("error").inputs, BAD_REQUEST, validator.errors)
+					new AppError(lang.get('error').inputs, BAD_REQUEST, validator.errors)
 				);
 			}
 			const social = req.params.social;
@@ -46,13 +46,13 @@ const AuthController = {
 				social
 			);
 			auth = await authObject.save(session);
-			const user = await UserProcessor.getUser(auth._id, obj, session);
-			const token = await AuthProcessor.signToken({ auth, user });
+			const { role } = await UserProcessor.getUser(auth._id, obj, session);
+			const token = await AuthProcessor.signToken({ auth, role });
 			let response = await AuthProcessor.getResponse({
 				token,
 				model: Auth,
 				code: OK,
-				value: auth
+				value: { ...auth.toJSON(), role }
 			});
 			await session.commitTransaction();
 			return res.status(OK).json(response);
@@ -76,21 +76,21 @@ const AuthController = {
 			const validator = await AuthValidation.signIn(obj);
 			if (!validator.passed) {
 				return next(
-					new AppError(lang.get("error").inputs, BAD_REQUEST, validator.errors)
+					new AppError(lang.get('error').inputs, BAD_REQUEST, validator.errors)
 				);
 			}
-			const auth = await Auth.findOne({ email: obj.email }).select("+password");
+			const auth = await Auth.findOne({ email: obj.email }).select('+password');
 			const canLogin = await AuthProcessor.canLogin(auth, obj);
 			if (canLogin instanceof AppError) {
 				return next(canLogin);
 			}
-			const user = await UserProcessor.getUser(auth._id, obj, session);
-			const token = await AuthProcessor.signToken({ auth, user });
+			const { role } = await UserProcessor.getUser(auth._id, obj, session);
+			const token = await AuthProcessor.signToken({ auth, role });
 			const response = await AuthProcessor.getResponse({
 				token,
 				model: Auth,
 				code: OK,
-				value: auth
+				value: { ...auth.toJSON(), role }
 			});
 			await session.commitTransaction();
 			return res.status(OK).json(response);
@@ -114,24 +114,24 @@ const AuthController = {
 			const validator = await AuthValidation.signUp(obj);
 			if (!validator.passed) {
 				return next(
-					new AppError(lang.get("error").inputs, BAD_REQUEST, validator.errors)
+					new AppError(lang.get('error').inputs, BAD_REQUEST, validator.errors)
 				);
 			}
 			let auth = await Auth.findOne({ email: obj.email });
 			if (auth) {
-				return next(new AppError(lang.get("auth").email_exist, CONFLICT));
+				return next(new AppError(lang.get('auth').email_exist, CONFLICT));
 			}
 			const authObject = await AuthProcessor.processNewObject(obj);
 			auth = (await Auth.create([{ ...authObject }], { session }))[0];
-			const user = await UserProcessor.getUser(auth._id, obj, session);
-			const token = await AuthProcessor.signToken({ auth, user });
+			const { role } = await UserProcessor.getUser(auth._id, obj, session);
+			const token = await AuthProcessor.signToken({ auth, role });
 			const email = AuthEmail.verifyCode(auth, obj.verifyRedirectUrl);
 			const response = await AuthProcessor.getResponse({
 				token,
 				email,
 				model: Auth,
 				code: OK,
-				value: auth
+				value: { ...auth.toJSON(), role }
 			});
 			await session.commitTransaction();
 			return res.status(OK).json(response);
@@ -147,12 +147,15 @@ const AuthController = {
 	 * @return {Object} res The response object
 	 */
 	async verifyCode(req, res, next) {
+		let session = null;
 		try {
+			session = await mongoose.startSession();
+			await session.startTransaction();
 			const obj = req.body;
 			const validator = await AuthValidation.verifyCode(obj);
 			if (!validator.passed) {
 				return next(
-					new AppError(lang.get("error").inputs, BAD_REQUEST, validator.errors)
+					new AppError(lang.get('error').inputs, BAD_REQUEST, validator.errors)
 				);
 			}
 			let auth = await Auth.findById(req.authId);
@@ -167,15 +170,17 @@ const AuthController = {
 			};
 			_.extend(auth, updateObj);
 			auth = await auth.save();
+			const { role } = await UserProcessor.getUser(auth._id, obj, session);
 			const response = await AuthProcessor.getResponse({
-				message: lang.get("auth").verification_successful,
+				message: lang.get('auth').verification_successful,
 				model: Auth,
 				code: OK,
-				value: auth
+				value: { ...auth.toJSON(), role }
 			});
 			return res.status(OK).json(response);
-		} catch (err) {
-			return next(err);
+		} catch (e) {
+			await session.abortTransaction();
+			return next(e);
 		}
 	},
 	/**
@@ -189,7 +194,7 @@ const AuthController = {
 		const validator = await AuthValidation.verifyLink(obj);
 		if (!validator.passed) {
 			return next(
-				new AppError(lang.get("error").inputs, BAD_REQUEST, validator.errors)
+				new AppError(lang.get('error').inputs, BAD_REQUEST, validator.errors)
 			);
 		}
 		try {
@@ -206,7 +211,7 @@ const AuthController = {
 			_.extend(auth, updateObj);
 			auth = await auth.save();
 			const response = await AuthProcessor.getResponse({
-				message: lang.get("auth").verification_successful,
+				message: lang.get('auth').verification_successful,
 				model: Auth,
 				code: OK,
 				value: auth
@@ -227,17 +232,17 @@ const AuthController = {
 		const validator = await AuthValidation.sendVerification(obj);
 		if (!validator.passed) {
 			return next(
-				new AppError(lang.get("error").inputs, BAD_REQUEST, validator.errors)
+				new AppError(lang.get('error').inputs, BAD_REQUEST, validator.errors)
 			);
 		}
 		try {
 			let auth = await Auth.findById(req.authId);
 			if (!auth) {
 				return next(
-					new AppError(lang.get("auth").account_does_not_exist, NOT_FOUND)
+					new AppError(lang.get('auth').account_does_not_exist, NOT_FOUND)
 				);
 			} else if (auth.accountVerified) {
-				return next(new AppError(lang.get("auth").account_verified, CONFLICT));
+				return next(new AppError(lang.get('auth').account_verified, CONFLICT));
 			}
 			auth.verifyCodeExpiration = addHourToDate(48);
 			auth.verificationCode = generateOTCode(4);
@@ -245,7 +250,7 @@ const AuthController = {
 			const email = AuthEmail.verifyCode(auth, obj.verifyRedirectUrl);
 			const response = await AuthProcessor.getResponse({
 				email,
-				message: lang.get("auth").verify_email_sent,
+				message: lang.get('auth').verify_email_sent,
 				model: Auth,
 				code: OK,
 				value: auth
@@ -266,23 +271,23 @@ const AuthController = {
 		const validator = await AuthValidation.changePassword(obj);
 		if (!validator.passed) {
 			return next(
-				new AppError(lang.get("error").inputs, BAD_REQUEST, validator.errors)
+				new AppError(lang.get('error').inputs, BAD_REQUEST, validator.errors)
 			);
 		}
 		try {
 			let auth = await Auth.findById(req.authId)
-				.select("+password")
+				.select('+password')
 				.exec();
 			if (!auth) {
 				return next(
-					new AppError(lang.get("auth").account_does_not_exist, NOT_FOUND)
+					new AppError(lang.get('auth').account_does_not_exist, NOT_FOUND)
 				);
 			} else if (
 				!auth.socialAuth &&
 				!auth.comparePassword(obj.currentPassword)
 			) {
 				return next(
-					new AppError(lang.get("auth").incorrect_password, NOT_FOUND)
+					new AppError(lang.get('auth').incorrect_password, NOT_FOUND)
 				);
 			}
 			auth.password = obj.password;
@@ -312,15 +317,15 @@ const AuthController = {
 			const validator = await AuthValidation.sendResetPasswordCodeLink(obj);
 			if (!validator.passed) {
 				return next(
-					new AppError(lang.get("error").inputs, BAD_REQUEST, validator.errors)
+					new AppError(lang.get('error').inputs, BAD_REQUEST, validator.errors)
 				);
 			}
 			let auth = await Auth.findOne({ email: obj.email })
-				.select("+password")
+				.select('+password')
 				.exec();
 			if (!auth) {
 				return next(
-					new AppError(lang.get("auth").account_does_not_exist, NOT_FOUND)
+					new AppError(lang.get('auth').account_does_not_exist, NOT_FOUND)
 				);
 			}
 			auth.passwordResetCode = generateOTCode(4);
@@ -350,15 +355,15 @@ const AuthController = {
 			const validator = await AuthValidation.resetPassword(obj);
 			if (!validator.passed) {
 				return next(
-					new AppError(lang.get("error").inputs, BAD_REQUEST, validator.errors)
+					new AppError(lang.get('error').inputs, BAD_REQUEST, validator.errors)
 				);
 			}
 			let auth = await Auth.findOne({ email: obj.email })
-				.select("+password")
+				.select('+password')
 				.exec();
 			if (!auth) {
 				return next(
-					new AppError(lang.get("auth").account_does_not_exist, NOT_FOUND)
+					new AppError(lang.get('auth').account_does_not_exist, NOT_FOUND)
 				);
 			}
 			const resetError = await AuthProcessor.cannotResetPassword(auth, obj);
@@ -376,7 +381,7 @@ const AuthController = {
 			return next(err);
 		}
 	},
-
+	
 	/**
 	 * @param {Object} req
 	 * @param {Object} res
@@ -389,7 +394,7 @@ const AuthController = {
 		});
 		if (!validate.passed) {
 			return next(
-				new AppError(lang.get("error").inputs, BAD_REQUEST, validate.errors)
+				new AppError(lang.get('error').inputs, BAD_REQUEST, validate.errors)
 			);
 		}
 		try {
@@ -406,7 +411,7 @@ const AuthController = {
 				return res.status(OK).json(response);
 			}
 			const appError = new AppError(
-				lang.get("auth").email_does_not_exist,
+				lang.get('auth').email_does_not_exist,
 				NOT_FOUND
 			);
 			return next(appError);

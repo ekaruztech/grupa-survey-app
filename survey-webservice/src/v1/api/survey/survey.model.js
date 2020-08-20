@@ -1,16 +1,16 @@
 /**
  * User Schema
  */
-import mongoose, { Schema } from "mongoose";
-import SurveyProcessor from "./survey.processor";
-import SurveyValidation from "./survey.validation";
-import AppSchema from "../_core/app.model";
+import mongoose, { Schema } from 'mongoose';
+import SurveyProcessor from './survey.processor';
+import SurveyValidation from './survey.validation';
+import AppSchema from '../_core/app.model';
 
 const SurveyModel = new AppSchema(
 	{
 		user: {
 			type: Schema.Types.ObjectId,
-			ref: "User"
+			ref: 'User'
 		},
 		name: {
 			type: String,
@@ -24,9 +24,9 @@ const SurveyModel = new AppSchema(
 			{
 				questionType: {
 					type: String,
-					enum: ["select_radio"],
+					enum: ['select_radio'],
 					required: true,
-					default: "select_radio"
+					default: 'select_radio'
 				},
 				label: {
 					type: String,
@@ -58,9 +58,9 @@ const SurveyModel = new AppSchema(
 	}
 );
 
-SurveyModel.statics.fillables = ["name"];
+SurveyModel.statics.fillables = ['name'];
 
-SurveyModel.statics.updateFillables = ["name"];
+SurveyModel.statics.updateFillables = ['name'];
 
 /**
  * @return {Object} The validator object with the specified rules.
@@ -79,4 +79,4 @@ SurveyModel.statics.getProcessor = model => {
 /**
  * @typedef SurveyModel
  */
-export default mongoose.model("Survey", SurveyModel);
+export default mongoose.model('Survey', SurveyModel);

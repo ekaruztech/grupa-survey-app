@@ -1,5 +1,5 @@
-import AppController from "../_core/app.controller";
-import { OK } from "../../../utils/constants";
+import AppController from '../_core/app.controller';
+import { OK } from '../../../utils/constants';
 
 /**
  *  TaskController
@@ -15,7 +15,7 @@ class UserController extends AppController {
 		this.updateMe = this.updateMe.bind(this);
 		this.currentUser = this.currentUser.bind(this);
 	}
-
+	
 	/**
 	 * @param {Object} req The request object
 	 * @param {Object} res The response object
@@ -26,7 +26,7 @@ class UserController extends AppController {
 		req.object = await this.model.findById(req.authId);
 		super.update(req, res, next);
 	}
-
+	
 	/**
 	 * @param {Object} req The request object
 	 * @param {Object} res The response object

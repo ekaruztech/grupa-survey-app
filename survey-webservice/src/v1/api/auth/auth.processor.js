@@ -1,22 +1,13 @@
-import jwt from "jsonwebtoken";
-import crypto from "crypto";
-import axios from "axios";
-import lang from "../../lang";
-import config from "config";
-import _ from "lodash";
-import {
-	addHourToDate,
-	generateOTCode,
-	sendEmail
-} from "../../../utils/helpers";
-import {
-	CONFLICT,
-	FORBIDDEN,
-	NOT_FOUND,
-	UNAUTHORIZED
-} from "../../../utils/constants";
-import AppResponse from "../../../lib/app-response";
-import AppError from "../../../lib/app-error";
+import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
+import axios from 'axios';
+import lang from '../../lang';
+import config from 'config';
+import _ from 'lodash';
+import { addHourToDate, generateOTCode, sendEmail } from '../../../utils/helpers';
+import { CONFLICT, FORBIDDEN, NOT_FOUND, UNAUTHORIZED } from '../../../utils/constants';
+import AppResponse from '../../../lib/app-response';
+import AppError from '../../../lib/app-error';
 
 const AuthProcessor = {
 	/**
@@ -46,16 +37,16 @@ const AuthProcessor = {
 	 * @return {Promise} The result of the find
 	 */
 	async loginSocial(
-		type = "FACEBOOK",
+		type = 'FACEBOOK',
 		{ accessToken, socialId, social, email }
 	) {
 		/* Todo : the social authentication auth are not verified properly should be done before production */
 		const socialType = social.toUpperCase();
 		let url = `${config.get(
-			"social.facebook.GraphUrl"
+			'social.facebook.GraphUrl'
 		)}&access_token=${accessToken}`;
-		if (social === "google") {
-			url = `${config.get("social.google.url")}?id_token=${accessToken}`;
+		if (social === 'google') {
+			url = `${config.get('social.google.url')}?id_token=${accessToken}`;
 		}
 		return axios.get(url).then(
 			async resp => {
@@ -70,13 +61,13 @@ const AuthProcessor = {
 				) {
 					return response.data;
 				} else {
-					throw new AppError(lang.get("auth").social_error, FORBIDDEN);
+					throw new AppError(lang.get('auth').social_error, FORBIDDEN);
 				}
 			},
 			err => {
 				if (err.response && err.response.data && err.response.data.error) {
 					if (err.response.data.error) {
-						if (err.response.data.error.message.indexOf("username_1")) {
+						if (err.response.data.error.message.indexOf('username_1')) {
 							throw new AppError(err.response.data.error.message, FORBIDDEN);
 						}
 						throw new AppError(err.response.data.error.message, FORBIDDEN);
@@ -84,7 +75,7 @@ const AuthProcessor = {
 						throw new AppError(err.response.data.error_description, FORBIDDEN);
 					}
 				}
-				throw new AppError(lang.get("auth").social_error, FORBIDDEN);
+				throw new AppError(lang.get('auth').social_error, FORBIDDEN);
 			}
 		);
 	},
@@ -130,10 +121,10 @@ const AuthProcessor = {
 	async signToken({ auth, user }) {
 		const obj = {
 			authId: auth._id,
-			..._.pick(auth, ["accountVerified", "email"])
+			..._.pick(auth, ['accountVerified', 'email'])
 		};
-		const sign = jwt.sign(obj, config.get("auth.encryption_key"), {
-			expiresIn: config.get("auth.expiresIn")
+		const sign = jwt.sign(obj, config.get('auth.encryption_key'), {
+			expiresIn: config.get('auth.expiresIn')
 		});
 		return sign;
 	},
@@ -144,12 +135,12 @@ const AuthProcessor = {
 	 */
 	canLogin(user, object) {
 		if (!user) {
-			return new AppError(lang.get("auth").credential_incorrect, NOT_FOUND);
+			return new AppError(lang.get('auth').credential_incorrect, NOT_FOUND);
 		}
 		let authenticated =
 			object.password && user.password && user.comparePassword(object.password);
 		if (!authenticated) {
-			return new AppError(lang.get("auth").authentication_failed, UNAUTHORIZED);
+			return new AppError(lang.get('auth').authentication_failed, UNAUTHORIZED);
 		}
 		return true;
 	},
@@ -160,35 +151,35 @@ const AuthProcessor = {
 	 */
 	async canVerify(auth, object) {
 		if (!auth) {
-			return new AppError(lang.get("auth").account_does_not_exist, NOT_FOUND);
+			return new AppError(lang.get('auth').account_does_not_exist, NOT_FOUND);
 		} else if (auth.accountVerified) {
-			return new AppError(lang.get("auth").account_verified, CONFLICT);
+			return new AppError(lang.get('auth').account_verified, CONFLICT);
 		}
 		if (!object.hash && !object.verificationCode) {
-			return new AppError(lang.get("auth").verify_unauthorized, FORBIDDEN);
+			return new AppError(lang.get('auth').verify_unauthorized, FORBIDDEN);
 		}
 		if (object.hash) {
 			const userHash = crypto
-				.createHash("md5")
+				.createHash('md5')
 				.update(auth.verificationCode)
-				.digest("hex");
+				.digest('hex');
 			if (userHash !== object.hash) {
-				return new AppError(lang.get("auth").verify_unauthorized, FORBIDDEN);
+				return new AppError(lang.get('auth').verify_unauthorized, FORBIDDEN);
 			}
 		} else {
 			if (
 				!auth.accountVerified &&
 				auth.verificationCode !== object.verificationCode
 			) {
-				return new AppError(lang.get("auth").incorrect_verify_code, FORBIDDEN);
+				return new AppError(lang.get('auth').incorrect_verify_code, FORBIDDEN);
 			}
 		}
 		if (new Date() > auth.verifyCodeExpiration) {
-			return new AppError(lang.get("auth").verify_expired, FORBIDDEN);
+			return new AppError(lang.get('auth').verify_expired, FORBIDDEN);
 		}
 		return true;
 	},
-
+	
 	/**
 	 * @param {Object} auth The main property
 	 * @param {Object} object The object properties
@@ -196,31 +187,31 @@ const AuthProcessor = {
 	 */
 	async cannotResetPassword(auth, object) {
 		if (!auth) {
-			return new AppError(lang.get("auth").account_does_not_exist, NOT_FOUND);
+			return new AppError(lang.get('auth').account_does_not_exist, NOT_FOUND);
 		}
 		if (!(auth.resetCodeExpiration && auth.passwordResetCode)) {
 			return new AppError(
-				lang.get("auth").password_reset_unauthorized,
+				lang.get('auth').password_reset_unauthorized,
 				FORBIDDEN
 			);
 		}
 		const userHash = crypto
-			.createHash("md5")
+			.createHash('md5')
 			.update(auth.passwordResetCode)
-			.digest("hex");
+			.digest('hex');
 		if (
 			(object.hash && userHash !== object.hash) ||
 			(object.passwordResetCode &&
 				auth.passwordResetCode !== object.passwordResetCode)
 		) {
 			return new AppError(
-				lang.get("auth").password_reset_unauthorized,
+				lang.get('auth').password_reset_unauthorized,
 				UNAUTHORIZED
 			);
 		}
 		if (new Date() > auth.resetCodeExpiration) {
 			return new AppError(
-				lang.get("auth").password_reset_link_expired,
+				lang.get('auth').password_reset_link_expired,
 				FORBIDDEN
 			);
 		}
@@ -234,8 +225,8 @@ const AuthProcessor = {
 	async resetUserPassword(auth, object) {
 		auth.password = object.password;
 		const updateObj = {
-			resetCodeExpiration: "",
-			passwordResetCode: "",
+			resetCodeExpiration: '',
+			passwordResetCode: '',
 			password: object.password
 		};
 		_.extend(auth, updateObj);

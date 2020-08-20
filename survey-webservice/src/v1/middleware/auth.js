@@ -1,29 +1,29 @@
-import jwt from "jsonwebtoken"; // used to create, sign, and verify tokens
-import config from "config";
-import lang from "../lang";
-import AppError from "../../lib/app-error";
-import { UNAUTHORIZED } from "../../utils/constants";
+import jwt from 'jsonwebtoken'; // used to create, sign, and verify tokens
+import config from 'config';
+import lang from '../lang';
+import AppError from '../../lib/app-error';
+import { UNAUTHORIZED } from '../../utils/constants';
 
 export default (req, res, next) => {
 	const token =
-		req.body.token || req.query.token || req.headers["x-access-token"];
+		req.body.token || req.query.token || req.headers['x-access-token'];
 	// decode token
 	if (token) {
 		// verifies secret and checks exp
 		jwt.verify(
 			token,
-			config.get("auth.encryption_key"),
+			config.get('auth.encryption_key'),
 			async (err, decoded) => {
 				if (err) {
-					let message = "";
+					let message = '';
 					if (err.name) {
 						switch (err.name) {
-							case "TokenExpiredError":
-								message = "You are not logged in!";
-								break;
-							default:
-								message = "Failed to authenticate token";
-								break;
+						case 'TokenExpiredError':
+							message = 'You are not logged in!';
+							break;
+						default:
+							message = 'Failed to authenticate token';
+							break;
 						}
 					}
 					const appError = new AppError(message, UNAUTHORIZED, null);
@@ -35,7 +35,7 @@ export default (req, res, next) => {
 			}
 		);
 	} else {
-		const appError = new AppError(lang.get("auth").AUTH100, UNAUTHORIZED);
+		const appError = new AppError(lang.get('auth').AUTH100, UNAUTHORIZED);
 		return next(appError);
 	}
 };

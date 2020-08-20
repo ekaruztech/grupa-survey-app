@@ -1,15 +1,9 @@
-import QueryParser from "../../../lib/query-parser";
-import AppError from "../../../lib/app-error";
-import {
-	BAD_REQUEST,
-	CONFLICT,
-	CREATED,
-	NOT_FOUND,
-	OK
-} from "../../../utils/constants";
-import lang from "../../lang/index";
-import _ from "lodash";
-import Pagination from "../../../lib/pagination";
+import QueryParser from '../../../lib/query-parser';
+import AppError from '../../../lib/app-error';
+import { BAD_REQUEST, CONFLICT, CREATED, NOT_FOUND, OK } from '../../../utils/constants';
+import lang from '../../lang/index';
+import _ from 'lodash';
+import Pagination from '../../../lib/pagination';
 
 /**
  * The App controller class
@@ -22,7 +16,7 @@ class AppController {
 	 */
 	constructor(model) {
 		if (new.target === AppController) {
-			throw new TypeError("Cannot construct Abstract instances directly");
+			throw new TypeError('Cannot construct Abstract instances directly');
 		}
 		if (model) {
 			this.model = model;
@@ -37,7 +31,7 @@ class AppController {
 		this.update = this.update.bind(this);
 		this.delete = this.delete.bind(this);
 	}
-
+	
 	/**
 	 * @param {Object} req The request object
 	 * @param {Object} res The response object
@@ -62,7 +56,7 @@ class AppController {
 			return next(err);
 		}
 	}
-
+	
 	/**
 	 * @param {Object} req The request object
 	 * @param {Object} res The response object
@@ -71,7 +65,7 @@ class AppController {
 	 */
 	async searchOne(req, res, next) {
 		const queryParser = new QueryParser(Object.assign({}, req.query));
-		const query = _.omit(queryParser.query, ["deleted"]);
+		const query = _.omit(queryParser.query, ['deleted']);
 		let object = null;
 		if (!_.isEmpty(query)) {
 			object = await this.model.findOne({ ...query, deleted: false });
@@ -83,7 +77,7 @@ class AppController {
 		};
 		return next();
 	}
-
+	
 	/**
 	 * @param {Object} req The request object
 	 * @param {Object} res The response object
@@ -99,7 +93,7 @@ class AppController {
 		};
 		return next();
 	}
-
+	
 	/**
 	 * @param {Object} req The request object
 	 * @param {Object} res The response object
@@ -112,7 +106,7 @@ class AppController {
 			const validate = await this.model.getValidator().create(req.body);
 			if (!validate.passed) {
 				return next(
-					new AppError(lang.get("error").inputs, BAD_REQUEST, validate.errors)
+					new AppError(lang.get('error').inputs, BAD_REQUEST, validate.errors)
 				);
 			}
 			const obj = await processor.prepareBodyObject(req);
@@ -132,7 +126,7 @@ class AppController {
 						[m]: `${m} must be unique`
 					}));
 					const appError = new AppError(
-						lang.get("error").resource_already_exist,
+						lang.get('error').resource_already_exist,
 						CONFLICT,
 						messageObj
 					);
@@ -163,7 +157,7 @@ class AppController {
 			return next(err);
 		}
 	}
-
+	
 	/**
 	 * @param {Object} req The request object
 	 * @param {Object} res The response object
@@ -192,7 +186,7 @@ class AppController {
 			return next(err);
 		}
 	}
-
+	
 	/**
 	 * @param {Object} req The request object
 	 * @param {Object} res The response object
@@ -207,7 +201,7 @@ class AppController {
 			const validate = await this.model.getValidator().update(obj);
 			if (!validate.passed) {
 				const error = new AppError(
-					lang.get("error").inputs,
+					lang.get('error').inputs,
 					BAD_REQUEST,
 					validate.errors
 				);
@@ -224,7 +218,7 @@ class AppController {
 						[m]: `${m} must be unique`
 					}));
 					const appError = new AppError(
-						lang.get("error").resource_already_exist,
+						lang.get('error').resource_already_exist,
 						CONFLICT,
 						messageObj
 					);
@@ -254,7 +248,7 @@ class AppController {
 			return next(err);
 		}
 	}
-
+	
 	/**
 	 * @param {Object} req The request object
 	 * @param {Object} res The response object
@@ -263,7 +257,7 @@ class AppController {
 	 */
 	async status(req, res, next) {
 		let object = req.object;
-		object.active = req.params["status"];
+		object.active = req.params['status'];
 		try {
 			req.response = {
 				model: this.model,
@@ -276,7 +270,7 @@ class AppController {
 			return next(err);
 		}
 	}
-
+	
 	/**
 	 * @param {Object} req The request object
 	 * @param {Object} res The response object

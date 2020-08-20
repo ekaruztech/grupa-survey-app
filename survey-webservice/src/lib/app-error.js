@@ -39,20 +39,6 @@ class AppError extends Error {
 	}
 	
 	/**
-	 * @return {Object} The instance of AppError
-	 */
-	format() {
-		const obj = { code: this._code || 500, message: this.message };
-		if (this._messages) {
-			obj.messages = this._messages.errors || this._messages;
-		}
-		if (this._type > 0) {
-			obj.type = this._type;
-		}
-		return obj;
-	}
-	
-	/**
 	 * This will format joi error to api accepted error
 	 *  @param {Object} validate
 	 *  @return {Object} errors
@@ -79,6 +65,20 @@ class AppError extends Error {
 			passed: isEmpty(validate.error),
 			value: validate.value
 		};
+	}
+	
+	/**
+	 * @return {Object} The instance of AppError
+	 */
+	format() {
+		const obj = { code: this._code || 500, message: this.message };
+		if (this._messages) {
+			obj.messages = this._messages.errors || this._messages;
+		}
+		if (this._type > 0) {
+			obj.type = this._type;
+		}
+		return obj;
 	}
 }
 

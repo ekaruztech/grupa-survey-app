@@ -1,19 +1,19 @@
 /**
  * User Schema
  */
-import mongoose from "mongoose";
-import AppSchema from "../_core/app.model";
+import mongoose from 'mongoose';
+import AppSchema from '../_core/app.model';
 
 const ResponseSchema = new AppSchema(
 	{
 		user: {
 			type: mongoose.Schema.Types.ObjectId,
-			ref: "User",
+			ref: 'User',
 			required: true
 		},
 		survey: {
 			type: mongoose.Schema.Types.ObjectId,
-			ref: "Survey",
+			ref: 'Survey',
 			required: true
 		},
 		results: [
@@ -35,8 +35,8 @@ const ResponseSchema = new AppSchema(
 	}
 );
 
-ResponseSchema.statics.fillables = ["value"];
+ResponseSchema.statics.fillables = ['value'];
 /**
  * @typedef ResponseSchema
  */
-export default mongoose.model("Response", ResponseSchema);
+export default mongoose.model('Response', ResponseSchema);

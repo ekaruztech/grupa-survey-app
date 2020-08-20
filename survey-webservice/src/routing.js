@@ -1,14 +1,14 @@
-import config from "config";
-import apiAuth from "./middleware/api";
-import errorHandler from "./middleware/errors";
+import config from 'config';
+import apiAuth from './middleware/api';
+import errorHandler from './middleware/errors';
 
-import Q from "q";
-import { NOT_FOUND } from "./utils/constants";
-import AppError from "./lib/app-error";
-import apiV1 from "./v1";
+import Q from 'q';
+import { NOT_FOUND } from './utils/constants';
+import AppError from './lib/app-error';
+import apiV1 from './v1';
 
-const prefix = config.get("api.prefix");
-const version = `${config.get("api.versions")[0]}`;
+const prefix = config.get('api.prefix');
+const version = `${config.get('api.versions')[0]}`;
 
 /**
  * The routes will add all the application defined routes
@@ -17,15 +17,15 @@ const version = `${config.get("api.versions")[0]}`;
  */
 export default async app => {
 	app.use(prefix, apiAuth);
-	app.use("/api/v1", apiV1);
+	app.use('/api/v1', apiV1);
 	// check url for state codes and api version
 	app.use((req, res, next) => {
-		const err = new Error("Not Found");
+		const err = new Error('Not Found');
 		err.status = 404;
 		next(err);
 	});
-	app.use("*", (req, res, next) => {
-		return next(new AppError("not found", NOT_FOUND));
+	app.use('*', (req, res, next) => {
+		return next(new AppError('not found', NOT_FOUND));
 	});
 	app.use(errorHandler);
 	return Q.resolve(app);
