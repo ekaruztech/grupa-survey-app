@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { LoadingOutlined } from '@ant-design/icons';
-import { Button, Row, Spin, Empty, Pagination } from 'antd';
+import { Button, Row, Spin, Empty, Pagination, Space } from 'antd';
 import { motion } from 'framer-motion';
 import { fetchSurveys } from '../../../redux/actions';
 import { Align, Padding } from '../Authentication/_common/components';
@@ -14,7 +14,7 @@ const HomeSurveyList = ({
   surveys,
   pagination,
 }) => {
-  const [size] = useState('small');
+  const [size] = useState(10);
 
   useEffect(() => {
     fetchSurveys({ per_page: 8 });
@@ -57,16 +57,29 @@ const HomeSurveyList = ({
       className={'home'}
     >
       <Row justify={'center'} align={'middle'} top={30} className="row-header">
-        <Button
-          size={size}
-          type="primary"
-          style={{ height: 50, borderRadius: 0 }}
-        >
-          Primary Button
-        </Button>
-        <Button size={size} style={{ height: 50, borderRadius: 0 }}>
-          Default Button
-        </Button>
+        <Space size={size}>
+          <Button
+            type="primary"
+            style={{
+              height: 40,
+              borderRadius: 0,
+              marginBottom: 20,
+              width: 120,
+            }}
+          >
+            Active Surveys
+          </Button>
+          <Button
+            style={{
+              height: 40,
+              borderRadius: 0,
+              marginBottom: 20,
+              width: 120,
+            }}
+          >
+            Closed
+          </Button>
+        </Space>
       </Row>
 
       <Row gutter={[16, 24]}>
