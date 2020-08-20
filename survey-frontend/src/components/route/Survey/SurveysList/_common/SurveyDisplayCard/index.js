@@ -1,11 +1,11 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Col, Button } from 'antd';
-import { EditOutlined, CompassOutlined } from '@ant-design/icons';
+import { Button, Col } from 'antd';
+import { CompassOutlined, EditOutlined } from '@ant-design/icons';
 import { Align, Padding } from '../../../../Authentication/_common/components';
 
 const Index = props => {
-  const { name, responseCount, id } = props;
+  const { name, responseCount, questions, id } = props;
   const history = useHistory();
   return (
     <Col span={6}>
@@ -18,6 +18,9 @@ const Index = props => {
         >
           <p>{name}</p>
           <p className={'text2'}>{responseCount} Responses</p>
+          {questions && (
+            <p className={'text3'}>{questions?.length} Questions</p>
+          )}
         </Align>
         <Align
           style={{
