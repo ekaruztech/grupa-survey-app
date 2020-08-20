@@ -9,6 +9,7 @@ import {
   GET_SURVEY,
   SUBMIT_SURVEY_RESPONSE,
   GET_SURVEY_RESPONSE,
+  UPDATE_SURVEY_STATUS,
 } from '../actions';
 
 const getSurvey = ({ dispatch }) => next => action => {
@@ -22,6 +23,24 @@ const getSurvey = ({ dispatch }) => next => action => {
         key: key || 'getSurvey',
         onSuccess: data => {
           dispatch({ type: GET_SURVEY.SUCCESS, payload: data });
+          if (isFunction(onSuccess)) onSuccess(data);
+        },
+        ...rest,
+      })
+    );
+  }
+};
+const updateSurveyStatus = ({ dispatch }) => next => action => {
+  next(action);
+  if (action.type === UPDATE_SURVEY_STATUS.START) {
+    const { surveyId, key, onSuccess, payload, ...rest } = action.meta;
+    dispatch(
+      apiRequest({
+        method: 'PUT',
+        url: `/surveys/${surveyId}/status/${payload.status}`,
+        key: key || 'updateSurveyStatus',
+        onSuccess: data => {
+          dispatch({ type: UPDATE_SURVEY_STATUS.SUCCESS, payload: data });
           if (isFunction(onSuccess)) onSuccess(data);
         },
         ...rest,
@@ -150,4 +169,5 @@ export default [
   addSurvey,
   submitSurveyResponse,
   getSurveyResponse,
+  updateSurveyStatus,
 ];

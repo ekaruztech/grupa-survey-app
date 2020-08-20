@@ -48,6 +48,7 @@ const AddQuestionForm = props => {
     resetInitialFormState,
     allQuestions,
     isAddingQuestion,
+    surveyActive,
   } = props;
   const [showDescription, setShowDescription] = useState(false);
   const [optionsState, dispatch] = useReducer(optionsReducer, [
@@ -103,7 +104,7 @@ const AddQuestionForm = props => {
       },
     });
   };
-  return (
+  return surveyActive ? (
     <Col span={16} offset={4}>
       <motion.div className={'sv-form-builder-question-form-wrapper'}>
         <Padding
@@ -253,7 +254,7 @@ const AddQuestionForm = props => {
         </Padding>
       </motion.div>
     </Col>
-  );
+  ) : null;
 };
 
 export default AddQuestionForm;

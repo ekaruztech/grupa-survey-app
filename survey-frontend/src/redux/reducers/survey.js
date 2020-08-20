@@ -6,6 +6,7 @@ import {
   ADD_SURVEY,
   RESET_CURRENT_SURVEY,
   GET_SURVEY_RESPONSE,
+  UPDATE_SURVEY_STATUS,
 } from '../actions';
 
 const initialState = {
@@ -20,6 +21,15 @@ const surveyReducer = (state = initialState, action) => {
     case DELETE_SURVEY_QUESTION.SUCCESS:
     case ADD_OR_UPDATE_SURVEY_QUESTION.SUCCESS:
       return { ...state, current: action.payload };
+    case UPDATE_SURVEY_STATUS.SUCCESS:
+      const byList = state.byList.map(survey => {
+        if (survey._id === action.payload?._id) {
+          return action.payload;
+        } else {
+          return survey;
+        }
+      });
+      return { ...state, byList, current: action.payload };
     case RESET_CURRENT_SURVEY:
       return { ...state, current: null };
     case FETCH_SURVEY.SUCCESS:

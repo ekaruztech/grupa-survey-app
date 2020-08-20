@@ -3,13 +3,21 @@ import { motion } from 'framer-motion';
 import { Button, Empty, Pagination, Row, Spin } from 'antd';
 import { connect } from 'react-redux';
 import { LoadingOutlined } from '@ant-design/icons';
-import { fetchSurveys } from '../../../../redux/actions';
+import { fetchSurveys, updateSurveyStatus } from '../../../../redux/actions';
 import { Align, Padding } from '../../Authentication/_common/components';
 import SurveyDisplayCard from './_common/SurveyDisplayCard';
 import './styles.scss';
 
 const SurveyList = props => {
-  const { auth, fetchSurveys, surveys, isFetchingSurveys, pagination } = props;
+  const {
+    auth,
+    fetchSurveys,
+    surveys,
+    isFetchingSurveys,
+    pagination,
+    isClosingSurvey,
+    updateSurveyStatus,
+  } = props;
 
   useEffect(() => {
     fetchSurveys({ per_page: 8 });
@@ -74,7 +82,10 @@ const SurveyList = props => {
                 questions={survey.questions}
                 responseCount={survey.responseCount}
                 key={survey._id}
-                id={survey.id}
+                surveyId={survey._id}
+                isClosingSurvey={isClosingSurvey}
+                updateSurveyStatus={updateSurveyStatus}
+                surveyActive={survey?.active}
               />
             );
           })}
@@ -113,11 +124,13 @@ const mapStateToProps = state => {
     surveys: state.surveys.byList,
     pagination: state.ui.pagination.fetchSurveys,
     isFetchingSurveys: state.ui.loading.fetchSurveys,
+    isClosingSurvey: state.ui.loading.updateSurveyStatus,
   };
 };
 
 const dispatchToProps = {
   fetchSurveys,
+  updateSurveyStatus,
 };
 
 export default connect(mapStateToProps, dispatchToProps)(SurveyList);

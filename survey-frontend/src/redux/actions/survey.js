@@ -18,19 +18,39 @@ export const RESET_CURRENT_SURVEY = createActionString(
   'RESET_CURRENT_SURVEY',
   entity
 );
+export const resetCurrentSurvey = () => ({
+  type: RESET_CURRENT_SURVEY,
+});
+
 export const GET_SURVEY_RESPONSE = createActionType(
   'GET_SURVEY_RESPONSE',
   entity
 );
-
-export const resetCurrentSurvey = () => ({
-  type: RESET_CURRENT_SURVEY,
-});
+export const UPDATE_SURVEY_STATUS = createActionType(
+  'UPDATE_SURVEY_STATUS',
+  entity
+);
 
 export const getSurvey = (surveyId, params, key, onSuccess) => ({
   type: GET_SURVEY.START,
   meta: {
     surveyId,
+    params,
+    key,
+    onSuccess,
+  },
+});
+export const updateSurveyStatus = (
+  surveyId,
+  payload,
+  params,
+  key,
+  onSuccess
+) => ({
+  type: UPDATE_SURVEY_STATUS.START,
+  meta: {
+    surveyId,
+    payload,
     params,
     key,
     onSuccess,
