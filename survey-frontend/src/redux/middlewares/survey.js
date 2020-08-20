@@ -7,6 +7,7 @@ import {
   DELETE_SURVEY_QUESTION,
   FETCH_SURVEY,
   ADD_SURVEY,
+  SUBMIT_SURVEY_RESPONSE,
 } from '../actions';
 
 const getSurvey = ({ dispatch }) => next => action => {
@@ -28,6 +29,24 @@ const getSurvey = ({ dispatch }) => next => action => {
   }
 };
 
+const submitSurveyResponse = ({ dispatch }) => next => action => {
+  next(action);
+  if (action.type === SUBMIT_SURVEY_RESPONSE.START) {
+    const { surveyId, key, onSuccess, ...rest } = action.meta;
+    dispatch(
+      apiRequest({
+        method: 'PUT',
+        url: `/surveys/${surveyId}/response`,
+        key: key || 'submitSurveyResponse',
+        onSuccess: data => {
+          dispatch({ type: SUBMIT_SURVEY_RESPONSE.SUCCESS, payload: data });
+          if (isFunction(onSuccess)) onSuccess(data);
+        },
+        ...rest,
+      })
+    );
+  }
+};
 const fetchSurveys = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === FETCH_SURVEY.START) {
@@ -106,4 +125,5 @@ export default [
   deleteSurveyQuestion,
   fetchSurveys,
   addSurvey,
+  submitSurveyResponse,
 ];

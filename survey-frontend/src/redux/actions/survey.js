@@ -10,6 +10,10 @@ export const DELETE_SURVEY_QUESTION = createActionType(
   'DELETE_SURVEY_QUESTION',
   entity
 );
+export const SUBMIT_SURVEY_RESPONSE = createActionType(
+  'SUBMIT_SURVEY_RESPONSE',
+  entity
+);
 
 export const getSurvey = (surveyId, params, key, onSuccess) => ({
   type: GET_SURVEY.START,
@@ -64,4 +68,21 @@ export const fetchSurveys = (params = {}) => ({
 export const addSurvey = payload => ({
   type: ADD_SURVEY.START,
   meta: { payload },
+});
+
+export const submitSurveyResponse = (
+  surveyId,
+  payload,
+  params,
+  key,
+  onSuccess
+) => ({
+  type: SUBMIT_SURVEY_RESPONSE.START,
+  meta: {
+    surveyId,
+    payload,
+    params,
+    key,
+    onSuccess,
+  },
 });
