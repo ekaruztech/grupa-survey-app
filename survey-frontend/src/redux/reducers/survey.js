@@ -29,7 +29,7 @@ const surveyReducer = (state = initialState, action) => {
           return survey;
         }
       });
-      return { ...state, byList };
+      return { ...state, byList, current: action.payload };
     case RESET_CURRENT_SURVEY:
       return { ...state, current: null };
     case FETCH_SURVEY.SUCCESS:

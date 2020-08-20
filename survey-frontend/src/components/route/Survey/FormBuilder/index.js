@@ -1,9 +1,13 @@
-import { Button, Row } from 'antd';
+import { Button, Empty, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { Align, Padding } from '../../Authentication/_common/components';
-import { addOrUpdateSurveyQuestion, deleteSurveyQuestion, getSurvey } from '../../../../redux/actions';
+import {
+  addOrUpdateSurveyQuestion,
+  deleteSurveyQuestion,
+  getSurvey,
+} from '../../../../redux/actions';
 import QuestionDisplay from './_common/QuestionDisplay';
 import AddQuestionForm from './_common/AddQuestionForm';
 import './styles.scss';
@@ -49,6 +53,17 @@ const FormBuilder = props => {
 
   return (
     <>
+      {survey?.questions?.length < 1 && !survey?.active && (
+        <Align
+          alignCenter
+          justifyCenter
+          style={{ width: '100%', minHeight: 500 }}
+        >
+          <Empty
+            description={<span>Your form currently has no questions</span>}
+          />
+        </Align>
+      )}
       <Row gutter={[20, 20]}>
         {(survey?.questions || []).map(question => {
           return (
@@ -71,22 +86,26 @@ const FormBuilder = props => {
             resetInitialFormState={resetInitialFormState}
             allQuestions={survey?.question || []}
             isAddingQuestion={isUpdatingSurveyQuestion}
+            survey={survey}
+            surveyActive={survey?.active}
           />
         )}
       </Row>
 
-      <Align alignCenter justifyCenter>
-        <Padding top={30}>
-          <Button
-            type="primary"
-            onClick={() => setHideQuestionCreator(false)}
-            style={{ height: 45 }}
-            icon={<PlusOutlined style={{ fontSize: 20 }} />}
-          >
-            Add Question
-          </Button>
-        </Padding>
-      </Align>
+      {survey?.active && (
+        <Align alignCenter justifyCenter>
+          <Padding top={30}>
+            <Button
+              type="primary"
+              onClick={() => setHideQuestionCreator(false)}
+              style={{ height: 45 }}
+              icon={<PlusOutlined style={{ fontSize: 20 }} />}
+            >
+              Add Question
+            </Button>
+          </Padding>
+        </Align>
+      )}
     </>
   );
 };

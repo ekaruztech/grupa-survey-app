@@ -74,41 +74,48 @@ const Survey = props => {
             ghost={false}
             onBack={() => window.history.back()}
             title={survey?.name || ''}
+            subTitle={
+              <span style={{ color: 'red', opacity: 0.5 }}>
+                {!survey?.active ? 'Closed' : ''}
+              </span>
+            }
             extra={[
-              <Popconfirm
-                placement="bottomLeft"
-                title={'Are you sure you want to close this survey?'}
-                onConfirm={() => {
-                  updateSurveyStatus(
-                    surveyId,
-                    {
-                      status: false,
-                    },
-                    {},
-                    'updateSurveyStatus',
-                    () => window.history.back()
-                  );
-                }}
-                okText="Yes"
-                cancelText="No"
-                key={'page-header-close'}
-              >
-                <Tooltip title={'Close survey'}>
-                  <Button type={'danger'} ghost>
-                    {isClosingSurvey ? (
-                      <Spin
-                        indicator={
-                          <Padding right={5}>
-                            <LoadingOutlined spin />
-                          </Padding>
-                        }
-                      />
-                    ) : (
-                      'Close'
-                    )}
-                  </Button>
-                </Tooltip>
-              </Popconfirm>,
+              survey?.active ? (
+                <Popconfirm
+                  placement="bottomLeft"
+                  title={'Are you sure you want to close this survey?'}
+                  onConfirm={() => {
+                    updateSurveyStatus(
+                      surveyId,
+                      {
+                        status: false,
+                      },
+                      {},
+                      'updateSurveyStatus',
+                      () => window.history.back()
+                    );
+                  }}
+                  okText="Yes"
+                  cancelText="No"
+                  key={'page-header-close'}
+                >
+                  <Tooltip title={'Close survey'}>
+                    <Button type={'danger'} ghost>
+                      {isClosingSurvey ? (
+                        <Spin
+                          indicator={
+                            <Padding right={5}>
+                              <LoadingOutlined spin />
+                            </Padding>
+                          }
+                        />
+                      ) : (
+                        'Close'
+                      )}
+                    </Button>
+                  </Tooltip>
+                </Popconfirm>
+              ) : null,
             ]}
           />
           <Divider />
