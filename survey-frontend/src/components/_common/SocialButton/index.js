@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SocialLogin from 'react-social-login';
+import { Button } from 'antd';
 import './SocialButton.scss';
 
 class SocialButton extends Component {
@@ -8,15 +9,21 @@ class SocialButton extends Component {
   }
 
   render() {
-    const { provider, triggerLogin, ...rest } = this.props;
+    const { provider, triggerLogin, loading, ...rest } = this.props;
     return (
       <div
         key={provider}
         className="social-button"
         onClick={() => triggerLogin()}
-        {...rest}
       >
-        {this.props.children}
+        <Button
+          {...rest}
+          block
+          loading={loading}
+          className={'login-btn social-btn'}
+        >
+          {!loading ? this.props.children : null}
+        </Button>
       </div>
     );
   }
