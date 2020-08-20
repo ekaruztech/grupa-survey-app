@@ -10,6 +10,7 @@ const router = Router();
 
 const surveyCtrl = new SurveyController(Survey);
 
+router.put("/surveys/:id/status/:status", auth, surveyCtrl.status, response);
 router.put(
 	"/surveys/:id/addOrUpdateQuestion",
 	auth,

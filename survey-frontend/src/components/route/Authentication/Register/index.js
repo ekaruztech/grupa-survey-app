@@ -182,7 +182,7 @@ const Register = props => {
                       block
                       className={'login-btn btn-shadow'}
                     >
-                      Sign In
+                      Sign Up
                     </Button>
                   </Form.Item>
                 </Form>
