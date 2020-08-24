@@ -41,7 +41,7 @@ const login = ({ dispatch, getState }) => next => action => {
         method: 'POST',
         url: '/signIn',
         key,
-        payload: { ...payload, profile_type: 'Customer' },
+        payload: { ...payload },
         ...rest,
         onSuccess: (data, response) => {
           saveCustomerSession(response, dispatch);
